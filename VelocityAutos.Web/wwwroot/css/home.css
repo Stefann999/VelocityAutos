@@ -1,0 +1,17 @@
+body {
+    background-image: url("../background-img.jpg");
+}
+
+.navbar {
+    background-color: black;
+}
+.navbar-nav .nav-link {
+    padding-right: 0;
+    padding-left: 0;
+    color: white !important;
+}
+.navbar-brand{
+    color: red !important;
+    font-weight: bold;
+    font-style: italic;
+}
