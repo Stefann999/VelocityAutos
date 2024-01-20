@@ -12,8 +12,8 @@ using VelocityAutos.Data;
 namespace VelocityAutos.Data.Migrations
 {
     [DbContext(typeof(VelocityAutosDbContext))]
-    [Migration("20240120152509_InitializeDb")]
-    partial class InitializeDb
+    [Migration("20240120174725_SeedUsersAndCars")]
+    partial class SeedUsersAndCars
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -238,6 +238,42 @@ namespace VelocityAutos.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("66543f29-bafc-4680-8028-5c4b7e444ccb"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "668e7d82-3497-47eb-9098-6132d4888d53",
+                            Email = "ivancars1@cars.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "IVANCARS1@CARS.COM",
+                            NormalizedUserName = "IVANCARS",
+                            PasswordHash = "96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e",
+                            PhoneNumber = "0888888888",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "f49c695d-b65c-4245-a204-70ac1ef3167c",
+                            TwoFactorEnabled = false,
+                            UserName = "IvanCars"
+                        },
+                        new
+                        {
+                            Id = new Guid("ed670787-a2d5-45e9-a069-83dcd8e84e30"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3f509880-8a4c-4e64-ba38-353c1611c646",
+                            Email = "dimitur122@cars.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DIMITUR122@CARS.COM",
+                            NormalizedUserName = "DIMITYUR12",
+                            PasswordHash = "96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e",
+                            PhoneNumber = "0999999999",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "e5507714-6b85-407b-a9e4-85b8856de4bd",
+                            TwoFactorEnabled = false,
+                            UserName = "dimitur12"
+                        });
                 });
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Car", b =>
@@ -246,8 +282,8 @@ namespace VelocityAutos.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Color")
                         .IsRequired()
@@ -259,8 +295,8 @@ namespace VelocityAutos.Data.Migrations
                     b.Property<double>("FuelConsumption")
                         .HasColumnType("float");
 
-                    b.Property<Guid>("FuelTypeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("FuelTypeId")
+                        .HasColumnType("int");
 
                     b.Property<int>("HorsePower")
                         .HasColumnType("int");
@@ -297,8 +333,8 @@ namespace VelocityAutos.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("TransmissionTypeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("TransmissionTypeId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -317,6 +353,50 @@ namespace VelocityAutos.Data.Migrations
                     b.HasIndex("TransmissionTypeId");
 
                     b.ToTable("Cars");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("74576f3e-a409-46e4-a8ff-9c93eb409cba"),
+                            CategoryId = 1,
+                            Color = "Black",
+                            Description = "The 2019 Audi A4 is a luxury compact sedan that combines sophisticated design, advanced technology, and impressive performance. Here are some key features and characteristics of the Audi A4 2019:",
+                            FuelConsumption = 6.5,
+                            FuelTypeId = 1,
+                            HorsePower = 150,
+                            LocationCity = "Sofia",
+                            LocationCountry = "Bulgaria",
+                            Make = "Audi",
+                            Mileage = 10000,
+                            Model = "A4",
+                            Month = 3,
+                            OwnerId = new Guid("66543f29-bafc-4680-8028-5c4b7e444ccb"),
+                            Price = 50000m,
+                            TransmissionTypeId = 1,
+                            Year = 2019,
+                            isSold = false
+                        },
+                        new
+                        {
+                            Id = new Guid("9219e817-e86a-4ea0-807f-976d8195d93a"),
+                            CategoryId = 2,
+                            Color = "White",
+                            Description = "The Mercedes-AMG GT 63 S is a high-performance luxury four-door coupe that offers a combination of striking design, advanced technology, and powerful performance.",
+                            FuelConsumption = 15.0,
+                            FuelTypeId = 1,
+                            HorsePower = 639,
+                            LocationCity = "Sofia",
+                            LocationCountry = "Bulgaria",
+                            Make = "Mercedes",
+                            Mileage = 5000,
+                            Model = "GT63 S 4-door",
+                            Month = 1,
+                            OwnerId = new Guid("ed670787-a2d5-45e9-a069-83dcd8e84e30"),
+                            Price = 200000m,
+                            TransmissionTypeId = 2,
+                            Year = 2023,
+                            isSold = false
+                        });
                 });
 
             modelBuilder.Entity("VelocityAutos.Data.Models.CarExtra", b =>
@@ -324,8 +404,8 @@ namespace VelocityAutos.Data.Migrations
                     b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ExtraId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ExtraId")
+                        .HasColumnType("int");
 
                     b.HasKey("CarId", "ExtraId");
 
@@ -336,9 +416,11 @@ namespace VelocityAutos.Data.Migrations
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Category", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
@@ -348,20 +430,94 @@ namespace VelocityAutos.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryName = "Sedan"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryName = "Coupe"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryName = "Hatchback"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryName = "SUV"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryName = "Crossover"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryName = "Convertible"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryName = "Van"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryName = "Pickup"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryName = "Minivan"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryName = "Wagon"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CategoryName = "Limousine"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CategoryName = "Truck"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CategoryName = "Bus"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CategoryName = "Other"
+                        });
                 });
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Extra", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("TypeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("TypeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -372,9 +528,11 @@ namespace VelocityAutos.Data.Migrations
 
             modelBuilder.Entity("VelocityAutos.Data.Models.ExtraType", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ExtraTypeName")
                         .IsRequired()
@@ -384,13 +542,42 @@ namespace VelocityAutos.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ExtraTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ExtraTypeName = "Safety"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ExtraTypeName = "Exterior"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ExtraTypeName = "Secutiry"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ExtraTypeName = "Confort"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ExtraTypeName = "Others"
+                        });
                 });
 
             modelBuilder.Entity("VelocityAutos.Data.Models.FuelType", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("FuelTypeName")
                         .IsRequired()
@@ -399,13 +586,87 @@ namespace VelocityAutos.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FuelTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FuelTypeName = "Petrol"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FuelTypeName = "Diesel"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FuelTypeName = "Electric"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FuelTypeName = "Hybrid"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FuelTypeName = "LPG"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FuelTypeName = "CNG"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FuelTypeName = "Ethanol"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            FuelTypeName = "Biodiesel"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            FuelTypeName = "Bioethanol"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            FuelTypeName = "Methanol"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            FuelTypeName = "Biogas"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            FuelTypeName = "Synthetic"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            FuelTypeName = "Hydrogen"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            FuelTypeName = "Other"
+                        });
                 });
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Image", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
@@ -423,9 +684,11 @@ namespace VelocityAutos.Data.Migrations
 
             modelBuilder.Entity("VelocityAutos.Data.Models.TransmissionType", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("TransmissionTypeName")
                         .IsRequired()
@@ -435,6 +698,43 @@ namespace VelocityAutos.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TransmissionTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            TransmissionTypeName = "Manual"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            TransmissionTypeName = "Automatic"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            TransmissionTypeName = "Semi-automatic"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            TransmissionTypeName = "CVT"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            TransmissionTypeName = "DSG"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            TransmissionTypeName = "Tiptronic"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            TransmissionTypeName = "Other"
+                        });
                 });
 
             modelBuilder.Entity("ApplicationUserCar", b =>

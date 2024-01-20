@@ -3,14 +3,18 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using VelocityAutos.Data.Models;
+using VelocityAutos.Data.Seeding;
 
 namespace VelocityAutos.Data
 {
     public class VelocityAutosDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
-        public VelocityAutosDbContext(DbContextOptions<VelocityAutosDbContext> options)
+        private readonly bool seedDb;
+
+        public VelocityAutosDbContext(DbContextOptions<VelocityAutosDbContext> options, bool seedDb = true)
             : base(options)
         {
+            this.seedDb = seedDb;
         }
 
         public DbSet<Car> Cars { get; set; }
@@ -90,9 +94,13 @@ namespace VelocityAutos.Data
                 .HasForeignKey(ce => ce.CarId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            if (this.seedDb)
+            {
+                builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            }
 
             base.OnModelCreating(builder);
         }
     }
-
 }

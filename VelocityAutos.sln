@@ -5,17 +5,17 @@ VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelocityAutos.Web", "VelocityAutos.Web\VelocityAutos.Web.csproj", "{729FC7CB-277A-4E9B-8A00-F1E643321AD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelocityAutos.Common", "VelocityAutos.Common\VelocityAutos.Common.csproj", "{35042F69-00B1-4B06-BC8A-B208E5661326}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelocityAutos.Common", "VelocityAutos.Common\VelocityAutos.Common.csproj", "{35042F69-00B1-4B06-BC8A-B208E5661326}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelocityAutos.Data", "VelocityAutos.Data\VelocityAutos.Data.csproj", "{3796942D-8B23-4D48-870B-3D79E72ED732}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelocityAutos.Data", "VelocityAutos.Data\VelocityAutos.Data.csproj", "{3796942D-8B23-4D48-870B-3D79E72ED732}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{C4F934CE-6D81-48D6-A6BD-63B37541C5EB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{3F403517-6678-4C7C-A9BB-84C8E79F7A57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelocityAutos.Data.Models", "VelocityAutos.Data.Models\VelocityAutos.Data.Models.csproj", "{039CF067-5477-49F4-B72C-66971E735BE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelocityAutos.Data.Models", "VelocityAutos.Data.Models\VelocityAutos.Data.Models.csproj", "{039CF067-5477-49F4-B72C-66971E735BE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelocityAutos.Web.ViewModels", "VelocityAutos.Web.ViewModels\VelocityAutos.Web.ViewModels.csproj", "{BCD80A1F-926B-4677-ADFC-9F69BD1CDE5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelocityAutos.Web.ViewModels", "VelocityAutos.Web.ViewModels\VelocityAutos.Web.ViewModels.csproj", "{BCD80A1F-926B-4677-ADFC-9F69BD1CDE5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

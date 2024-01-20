@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VelocityAutos.Data;
 
@@ -11,9 +12,10 @@ using VelocityAutos.Data;
 namespace VelocityAutos.Data.Migrations
 {
     [DbContext(typeof(VelocityAutosDbContext))]
-    partial class VelocityAutosDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240120170142_InitializeDb")]
+    partial class InitializeDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,42 +238,6 @@ namespace VelocityAutos.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("66543f29-bafc-4680-8028-5c4b7e444ccb"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "668e7d82-3497-47eb-9098-6132d4888d53",
-                            Email = "ivancars1@cars.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "IVANCARS1@CARS.COM",
-                            NormalizedUserName = "IVANCARS",
-                            PasswordHash = "96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e",
-                            PhoneNumber = "0888888888",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "f49c695d-b65c-4245-a204-70ac1ef3167c",
-                            TwoFactorEnabled = false,
-                            UserName = "IvanCars"
-                        },
-                        new
-                        {
-                            Id = new Guid("ed670787-a2d5-45e9-a069-83dcd8e84e30"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "3f509880-8a4c-4e64-ba38-353c1611c646",
-                            Email = "dimitur122@cars.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "DIMITUR122@CARS.COM",
-                            NormalizedUserName = "DIMITYUR12",
-                            PasswordHash = "96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e",
-                            PhoneNumber = "0999999999",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "e5507714-6b85-407b-a9e4-85b8856de4bd",
-                            TwoFactorEnabled = false,
-                            UserName = "dimitur12"
-                        });
                 });
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Car", b =>
@@ -351,50 +317,6 @@ namespace VelocityAutos.Data.Migrations
                     b.HasIndex("TransmissionTypeId");
 
                     b.ToTable("Cars");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("74576f3e-a409-46e4-a8ff-9c93eb409cba"),
-                            CategoryId = 1,
-                            Color = "Black",
-                            Description = "The 2019 Audi A4 is a luxury compact sedan that combines sophisticated design, advanced technology, and impressive performance. Here are some key features and characteristics of the Audi A4 2019:",
-                            FuelConsumption = 6.5,
-                            FuelTypeId = 1,
-                            HorsePower = 150,
-                            LocationCity = "Sofia",
-                            LocationCountry = "Bulgaria",
-                            Make = "Audi",
-                            Mileage = 10000,
-                            Model = "A4",
-                            Month = 3,
-                            OwnerId = new Guid("66543f29-bafc-4680-8028-5c4b7e444ccb"),
-                            Price = 50000m,
-                            TransmissionTypeId = 1,
-                            Year = 2019,
-                            isSold = false
-                        },
-                        new
-                        {
-                            Id = new Guid("9219e817-e86a-4ea0-807f-976d8195d93a"),
-                            CategoryId = 2,
-                            Color = "White",
-                            Description = "The Mercedes-AMG GT 63 S is a high-performance luxury four-door coupe that offers a combination of striking design, advanced technology, and powerful performance.",
-                            FuelConsumption = 15.0,
-                            FuelTypeId = 1,
-                            HorsePower = 639,
-                            LocationCity = "Sofia",
-                            LocationCountry = "Bulgaria",
-                            Make = "Mercedes",
-                            Mileage = 5000,
-                            Model = "GT63 S 4-door",
-                            Month = 1,
-                            OwnerId = new Guid("ed670787-a2d5-45e9-a069-83dcd8e84e30"),
-                            Price = 200000m,
-                            TransmissionTypeId = 2,
-                            Year = 2023,
-                            isSold = false
-                        });
                 });
 
             modelBuilder.Entity("VelocityAutos.Data.Models.CarExtra", b =>

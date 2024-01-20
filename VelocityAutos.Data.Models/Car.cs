@@ -8,6 +8,7 @@ namespace VelocityAutos.Data.Models
     {
         public Car()
         {
+            this.Id = new Guid();
             this.Images = new HashSet<Image>();
             this.UsersFavourite = new HashSet<ApplicationUser>();
         }
@@ -46,7 +47,7 @@ namespace VelocityAutos.Data.Models
         [Range(CarHorsePowerMinValue, CarHorsePowerMaxValue)]
         public int HorsePower { get; set; }
 
-        public Guid FuelTypeId { get; set; }
+        public int FuelTypeId { get; set; }
 
         [Required]
         public FuelType FuelType { get; set; }
@@ -55,7 +56,7 @@ namespace VelocityAutos.Data.Models
         [Range(CarFuelConsumptionMinValue, CarFuelConsumptionMaxValue)]
         public double FuelConsumption { get; set; }
 
-        public Guid TransmissionTypeId { get; set; }
+        public int TransmissionTypeId { get; set; }
 
         [Required]
         public TransmissionType TransmissionType { get; set; }
@@ -75,7 +76,7 @@ namespace VelocityAutos.Data.Models
         [MaxLength(CarLocationCountryMaxLength)]
         public string LocationCountry { get; set; }
 
-        public Guid CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         public Category Category { get; set; }
 

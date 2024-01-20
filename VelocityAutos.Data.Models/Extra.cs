@@ -10,12 +10,12 @@ namespace VelocityAutos.Data.Models
         }
 
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string Name { get; set; } = null!;
 
-        public Guid TypeId { get; set; }
+        public int TypeId { get; set; }
 
         public ExtraType ExtraType { get; set; } = null!;
 

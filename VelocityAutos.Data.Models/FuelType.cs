@@ -9,12 +9,16 @@ namespace VelocityAutos.Data.Models
 {
     public class FuelType
     {
+        public FuelType()
+        {
+            this.Cars = new HashSet<Car>();
+        }
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string FuelTypeName { get; set; } = null!;
 
-        public virtual ICollection<Car> Cars { get; set; } = new HashSet<Car>();
+        public virtual ICollection<Car> Cars { get; set; }
     }
 }

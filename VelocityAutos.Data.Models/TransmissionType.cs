@@ -11,7 +11,7 @@ namespace VelocityAutos.Data.Models
         }
 
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MinLength(TransmissionTypeMinLength)]

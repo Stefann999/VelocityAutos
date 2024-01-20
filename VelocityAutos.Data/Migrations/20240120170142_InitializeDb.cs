@@ -52,7 +52,8 @@ namespace VelocityAutos.Data.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
@@ -64,7 +65,8 @@ namespace VelocityAutos.Data.Migrations
                 name: "ExtraTypes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ExtraTypeName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
@@ -76,7 +78,8 @@ namespace VelocityAutos.Data.Migrations
                 name: "FuelTypes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FuelTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -88,7 +91,8 @@ namespace VelocityAutos.Data.Migrations
                 name: "TransmissionTypes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TransmissionTypeName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
@@ -206,9 +210,10 @@ namespace VelocityAutos.Data.Migrations
                 name: "Extras",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    TypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -233,14 +238,14 @@ namespace VelocityAutos.Data.Migrations
                     Year = table.Column<int>(type: "int", nullable: false),
                     Mileage = table.Column<int>(type: "int", nullable: false),
                     HorsePower = table.Column<int>(type: "int", nullable: false),
-                    FuelTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FuelTypeId = table.Column<int>(type: "int", nullable: false),
                     FuelConsumption = table.Column<double>(type: "float", nullable: false),
-                    TransmissionTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TransmissionTypeId = table.Column<int>(type: "int", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocationCity = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     LocationCountry = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     isSold = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -302,7 +307,7 @@ namespace VelocityAutos.Data.Migrations
                 columns: table => new
                 {
                     CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ExtraId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ExtraId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -325,7 +330,8 @@ namespace VelocityAutos.Data.Migrations
                 name: "Images",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -338,6 +344,74 @@ namespace VelocityAutos.Data.Migrations
                         principalTable: "Cars",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "CategoryName" },
+                values: new object[,]
+                {
+                    { 1, "Sedan" },
+                    { 2, "Coupe" },
+                    { 3, "Hatchback" },
+                    { 4, "SUV" },
+                    { 5, "Crossover" },
+                    { 6, "Convertible" },
+                    { 7, "Van" },
+                    { 8, "Pickup" },
+                    { 9, "Minivan" },
+                    { 10, "Wagon" },
+                    { 11, "Limousine" },
+                    { 12, "Truck" },
+                    { 13, "Bus" },
+                    { 14, "Other" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ExtraTypes",
+                columns: new[] { "Id", "ExtraTypeName" },
+                values: new object[,]
+                {
+                    { 1, "Safety" },
+                    { 2, "Exterior" },
+                    { 3, "Secutiry" },
+                    { 4, "Confort" },
+                    { 5, "Others" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "FuelTypes",
+                columns: new[] { "Id", "FuelTypeName" },
+                values: new object[,]
+                {
+                    { 1, "Petrol" },
+                    { 2, "Diesel" },
+                    { 3, "Electric" },
+                    { 4, "Hybrid" },
+                    { 5, "LPG" },
+                    { 6, "CNG" },
+                    { 7, "Ethanol" },
+                    { 8, "Biodiesel" },
+                    { 9, "Bioethanol" },
+                    { 10, "Methanol" },
+                    { 11, "Biogas" },
+                    { 12, "Synthetic" },
+                    { 13, "Hydrogen" },
+                    { 14, "Other" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TransmissionTypes",
+                columns: new[] { "Id", "TransmissionTypeName" },
+                values: new object[,]
+                {
+                    { 1, "Manual" },
+                    { 2, "Automatic" },
+                    { 3, "Semi-automatic" },
+                    { 4, "CVT" },
+                    { 5, "DSG" },
+                    { 6, "Tiptronic" },
+                    { 7, "Other" }
                 });
 
             migrationBuilder.CreateIndex(

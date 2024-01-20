@@ -10,7 +10,7 @@ namespace VelocityAutos.Data.Models
         public Car Car { get; set; } = null!;
 
         [ForeignKey(nameof(Extra))]
-        public Guid ExtraId { get; set; }
+        public int ExtraId { get; set; }
 
         public Extra Extra { get; set; } = null!;
     }

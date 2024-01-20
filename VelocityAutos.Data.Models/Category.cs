@@ -10,7 +10,7 @@ namespace VelocityAutos.Data.Models
             this.Cars = new HashSet<Car>();
         }
 
-        public Guid Id { get; init; }
+        public int Id { get; set; }
 
         [Required]
         [MinLength(CategoryNameMinLength)]
