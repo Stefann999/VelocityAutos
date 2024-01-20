@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using VelocityAutos.Web.Models;
+using VelocityAutos.Web.ViewModels.Home;
 
 namespace VelocityAutos.Web.Controllers
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace VelocityAutos.Web.Data
+namespace VelocityAutos.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

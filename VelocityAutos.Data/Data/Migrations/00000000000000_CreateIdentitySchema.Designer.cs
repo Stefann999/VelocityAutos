@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
-using VelocityAutos.Web.Data;
+using VelocityAutos.Data;
 
 namespace VelocityAutos.Web.Data.Migrations
 {

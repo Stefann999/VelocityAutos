@@ -1,4 +1,4 @@
-namespace VelocityAutos.Web.Models
+namespace VelocityAutos.Web.ViewModels.Home
 {
     public class ErrorViewModel
     {
