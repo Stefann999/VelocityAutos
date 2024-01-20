@@ -244,6 +244,9 @@ namespace VelocityAutos.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -254,11 +257,21 @@ namespace VelocityAutos.Data.Migrations
                     b.Property<double>("FuelConsumption")
                         .HasColumnType("float");
 
-                    b.Property<int>("FuelType")
-                        .HasColumnType("int");
+                    b.Property<Guid>("FuelTypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("HorsePower")
                         .HasColumnType("int");
+
+                    b.Property<string>("LocationCity")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("LocationCountry")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Make")
                         .IsRequired()
@@ -282,8 +295,8 @@ namespace VelocityAutos.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("TransmissionType")
-                        .HasColumnType("int");
+                    b.Property<Guid>("TransmissionTypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -293,9 +306,97 @@ namespace VelocityAutos.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("FuelTypeId");
+
                     b.HasIndex("OwnerId");
 
+                    b.HasIndex("TransmissionTypeId");
+
                     b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.CarExtra", b =>
+                {
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ExtraId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CarId", "ExtraId");
+
+                    b.HasIndex("ExtraId");
+
+                    b.ToTable("CarExtras");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.Extra", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("Extras");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.ExtraType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ExtraTypeName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExtraTypes");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.FuelType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FuelTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FuelTypes");
                 });
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Image", b =>
@@ -316,6 +417,22 @@ namespace VelocityAutos.Data.Migrations
                     b.HasIndex("CarId");
 
                     b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.TransmissionType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TransmissionTypeName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TransmissionTypes");
                 });
 
             modelBuilder.Entity("ApplicationUserCar", b =>
@@ -386,13 +503,67 @@ namespace VelocityAutos.Data.Migrations
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Car", b =>
                 {
-                    b.HasOne("VelocityAutos.Data.Models.ApplicationUser", "Owner")
-                        .WithMany("OwnerdCars")
-                        .HasForeignKey("OwnerId")
+                    b.HasOne("VelocityAutos.Data.Models.Category", "Category")
+                        .WithMany("Cars")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("VelocityAutos.Data.Models.FuelType", "FuelType")
+                        .WithMany("Cars")
+                        .HasForeignKey("FuelTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("VelocityAutos.Data.Models.ApplicationUser", "Owner")
+                        .WithMany("OwnerdCars")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VelocityAutos.Data.Models.TransmissionType", "TransmissionType")
+                        .WithMany("Cars")
+                        .HasForeignKey("TransmissionTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("FuelType");
+
                     b.Navigation("Owner");
+
+                    b.Navigation("TransmissionType");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.CarExtra", b =>
+                {
+                    b.HasOne("VelocityAutos.Data.Models.Car", "Car")
+                        .WithMany("CarExtras")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("VelocityAutos.Data.Models.Extra", "Extra")
+                        .WithMany("CarExtras")
+                        .HasForeignKey("ExtraId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+
+                    b.Navigation("Extra");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.Extra", b =>
+                {
+                    b.HasOne("VelocityAutos.Data.Models.ExtraType", "ExtraType")
+                        .WithMany("Extras")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ExtraType");
                 });
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Image", b =>
@@ -400,7 +571,7 @@ namespace VelocityAutos.Data.Migrations
                     b.HasOne("VelocityAutos.Data.Models.Car", "Car")
                         .WithMany("Images")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Car");
@@ -413,7 +584,34 @@ namespace VelocityAutos.Data.Migrations
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Car", b =>
                 {
+                    b.Navigation("CarExtras");
+
                     b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.Category", b =>
+                {
+                    b.Navigation("Cars");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.Extra", b =>
+                {
+                    b.Navigation("CarExtras");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.ExtraType", b =>
+                {
+                    b.Navigation("Extras");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.FuelType", b =>
+                {
+                    b.Navigation("Cars");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.TransmissionType", b =>
+                {
+                    b.Navigation("Cars");
                 });
 #pragma warning restore 612, 618
         }

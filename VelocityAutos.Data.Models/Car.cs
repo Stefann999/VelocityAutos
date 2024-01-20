@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using VelocityAutos.Data.Models.Enums;
-using static VelocityAutos.Common.EntityValidationConstants;
+using static VelocityAutos.Common.EntityValidationConstants.Car;
 
 namespace VelocityAutos.Data.Models
 {
@@ -9,8 +8,8 @@ namespace VelocityAutos.Data.Models
     {
         public Car()
         {
-            this.Images = new List<Image>();
-            this.UsersFavourite = new List<ApplicationUser>();
+            this.Images = new HashSet<Image>();
+            this.UsersFavourite = new HashSet<ApplicationUser>();
         }
 
         [Key]
@@ -47,12 +46,16 @@ namespace VelocityAutos.Data.Models
         [Range(CarHorsePowerMinValue, CarHorsePowerMaxValue)]
         public int HorsePower { get; set; }
 
+        public Guid FuelTypeId { get; set; }
+
         [Required]
         public FuelType FuelType { get; set; }
 
         [Required]
         [Range(CarFuelConsumptionMinValue, CarFuelConsumptionMaxValue)]
         public double FuelConsumption { get; set; }
+
+        public Guid TransmissionTypeId { get; set; }
 
         [Required]
         public TransmissionType TransmissionType { get; set; }
@@ -62,11 +65,27 @@ namespace VelocityAutos.Data.Models
 
         public string? Description { get; set; }
 
+        [Required]
+        [MinLength(CarLocationCityMinLength)]
+        [MaxLength(CarLocationCityMaxLength)]
+        public string LocationCity { get; set; }
+
+        [Required]
+        [MinLength(CarLocationCountryMinLength)]
+        [MaxLength(CarLocationCountryMaxLength)]
+        public string LocationCountry { get; set; }
+
+        public Guid CategoryId { get; set; }
+
+        public Category Category { get; set; }
+
         public Guid OwnerId { get; set; }
 
         public ApplicationUser Owner { get; set; } = null!;
 
         public bool isSold { get; set; }
+
+        public ICollection<CarExtra> CarExtras { get; set; } = new HashSet<CarExtra>();
 
         public virtual ICollection<Image> Images { get; set; } = null!;
 

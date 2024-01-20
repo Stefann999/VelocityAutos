@@ -6,8 +6,8 @@ namespace VelocityAutos.Data.Models
     {
         public ApplicationUser()
         {
-            OwnerdCars = new List<Car>();
-            FavouriteCars = new List<Car>();
+            this.OwnerdCars = new HashSet<Car>();
+            this.FavouriteCars = new HashSet<Car>();
         }
 
         public virtual ICollection<Car> OwnerdCars { get; set; } = null!;
