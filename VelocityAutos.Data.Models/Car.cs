@@ -9,6 +9,7 @@ namespace VelocityAutos.Data.Models
         public Car()
         {
             this.Id = new Guid();
+            this.CarExtras = new HashSet<CarExtra>();
             this.Images = new HashSet<Image>();
             this.UsersFavourite = new HashSet<ApplicationUser>();
         }
@@ -86,7 +87,7 @@ namespace VelocityAutos.Data.Models
 
         public bool isSold { get; set; }
 
-        public ICollection<CarExtra> CarExtras { get; set; } = new HashSet<CarExtra>();
+        public ICollection<CarExtra> CarExtras { get; set; } = null!;
 
         public virtual ICollection<Image> Images { get; set; } = null!;
 
