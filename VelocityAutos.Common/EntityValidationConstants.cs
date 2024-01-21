@@ -59,6 +59,11 @@ namespace VelocityAutos.Common
             public const int ExtraNameMinLength = 3;
             public const int ExtraNameMaxLength = 30;
         }
+
+        public static class ExtraType
+        {
+            public const int ExtraTypeDescriptionMinLength = 3;
+        }
        
     }
 }
