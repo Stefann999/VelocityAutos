@@ -247,13 +247,13 @@ namespace VelocityAutos.Data.Migrations
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "IVANCARS1@CARS.COM",
-                            NormalizedUserName = "IVANCARS",
-                            PasswordHash = "96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e",
+                            NormalizedUserName = "IVANCARS1@CARS.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEslbS1ssyu9KGqaJjrV7cxoa0X3t3wUZlLMpPVBf/I6AUwuvtzUx+fuoJihKXrkAw==",
                             PhoneNumber = "0888888888",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "f49c695d-b65c-4245-a204-70ac1ef3167c",
                             TwoFactorEnabled = false,
-                            UserName = "IvanCars"
+                            UserName = "ivancars1@cars.com"
                         },
                         new
                         {
@@ -264,13 +264,13 @@ namespace VelocityAutos.Data.Migrations
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "DIMITUR122@CARS.COM",
-                            NormalizedUserName = "DIMITYUR12",
-                            PasswordHash = "96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e",
+                            NormalizedUserName = "DIMITUR122@CARS.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAENCLjbLySmw+HGu7oLpvB2g5L+TTjAauK1VhQdIN65awCRiPvbE75b7hVTdrL8mKXg==",
                             PhoneNumber = "0999999999",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "e5507714-6b85-407b-a9e4-85b8856de4bd",
                             TwoFactorEnabled = false,
-                            UserName = "dimitur12"
+                            UserName = "dimitur122@cars.com"
                         });
                 });
 
@@ -358,7 +358,7 @@ namespace VelocityAutos.Data.Migrations
                             Id = new Guid("74576f3e-a409-46e4-a8ff-9c93eb409cba"),
                             CategoryId = 1,
                             Color = "Black",
-                            Description = "The 2019 Audi A4 is a luxury compact sedan that combines sophisticated design, advanced technology, and impressive performance. Here are some key features and characteristics of the Audi A4 2019:",
+                            Description = "The 2019 Audi A4 is a luxury compact sedan that combines sophisticated design, advanced technology, and impressive performance.",
                             FuelConsumption = 6.5,
                             FuelTypeId = 1,
                             HorsePower = 150,

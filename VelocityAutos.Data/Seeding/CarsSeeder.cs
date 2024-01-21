@@ -30,7 +30,7 @@ namespace VelocityAutos.Data.Seeding
                 FuelConsumption = 6.5,
                 TransmissionTypeId = 1,
                 Color = "Black",
-                Description = "The 2019 Audi A4 is a luxury compact sedan that combines sophisticated design, advanced technology, and impressive performance. Here are some key features and characteristics of the Audi A4 2019:",
+                Description = "The 2019 Audi A4 is a luxury compact sedan that combines sophisticated design, advanced technology, and impressive performance.",
                 LocationCity = "Sofia",
                 LocationCountry = "Bulgaria",
                 CategoryId = 1,
