@@ -1,24 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace VelocityAutos.Web.Infrastructure.ModelBinders
+
+public class DecimalModelBinderProvider : IModelBinderProvider
 {
-
-    public class DecimalModelBinderProvider : IModelBinderProvider
+    public IModelBinder GetBinder(ModelBinderProviderContext context)
     {
-        public IModelBinder GetBinder(ModelBinderProviderContext context)
+        if (context == null)
         {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            if (context.Metadata.ModelType == typeof(decimal) || 
-                context.Metadata.ModelType == typeof(decimal?))
-            {
-                return new DecimalModelBinder();
-            }
-
-            return null!;
+            throw new ArgumentNullException(nameof(context));
         }
+
+        if (context.Metadata.ModelType == typeof(decimal) ||
+            context.Metadata.ModelType == typeof(decimal?))
+        {
+            return new DecimalModelBinder();
+        }
+
+        return null!;
     }
 }

@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VelocityAutos.Data;
 using VelocityAutos.Data.Models;
+using VelocityAutos.Services.Data;
+using VelocityAutos.Services.Data.Interfaces;
+using VelocityAutos.Web.Infrastructure.Extensions;
+using static Dropbox.Api.TeamLog.EventCategory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +25,12 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequiredLength = 6;
 })
     .AddEntityFrameworkStores<VelocityAutosDbContext>();
+
+builder.Services.AddScoped<IDropboxService>(provider => new DropboxService("sl.BuItAS_rgfx35HYwkd0zJLo71CaB9XdbITVVL9oUThA-Y7P3-_LnwFWEelT4BsEJQpusP9tQVLlfSB9zlF1SELFYcd8Ndw5Dr6ZlKRSM0CfwBKei5rLee3zDhJaA828OMmIeaoU-mmCf"));
+
+
+builder.Services.AddApplicationServices(typeof(ICarService));
+
 
 builder.Services.AddControllersWithViews();
 

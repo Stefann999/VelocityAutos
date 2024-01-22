@@ -1,43 +1,47 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-using Dropbox.Api;
 using Dropbox.Api.Files;
+using Dropbox.Api;
 
-public class DropboxService
+using VelocityAutos.Services.Data.Interfaces;
+
+namespace VelocityAutos.Services.Data
 {
-    private readonly string _accessToken; // Replace with your actual access token
-
-    public DropboxService(string accessToken)
+    public class DropboxService : IDropboxService
     {
-        _accessToken = accessToken;
-    }
+        private readonly string accessToken;
 
-    public async Task<List<string>> UploadImagesAsync(List<IFormFile> images, int carId)
-    {
-        var uploadedUrls = new List<string>();
-
-        using (var dbx = new DropboxClient(_accessToken))
+        public DropboxService(string accessToken)
         {
-            var folderName = $"Car_{carId}";
-            var folderPath = $"/{folderName}";
-
-            // Create a folder with the carId in Dropbox
-            await dbx.Files.CreateFolderV2Async(folderPath);
-
-            foreach (var image in images)
-            {
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
-                var dropboxPath = $"{folderPath}/{fileName}";
-
-                using (var stream = image.OpenReadStream())
-                {
-                    var response = await dbx.Files.UploadAsync(dropboxPath, WriteMode.Overwrite.Instance, body: stream);
-                    uploadedUrls.Add(response.PathDisplay);
-                }
-            }
+            this.accessToken = accessToken;
         }
 
-        return uploadedUrls;
+        public async Task<List<string>> UploadImagesAsync(List<IFormFile> images, Guid carId)
+        {
+            var uploadedUrls = new List<string>();
+
+            using (var dbx = new DropboxClient(accessToken))
+            {
+                var folderName = $"Car_{carId}";
+                var folderPath = $"/VelocityAutos/CarImages/{folderName}";
+
+                // Create a folder with the carId in Dropbox
+                await dbx.Files.CreateFolderV2Async(folderPath);
+
+                foreach (var image in images)
+                {
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+                    var dropboxPath = $"{folderPath}/{fileName}";
+
+                    using (var stream = image.OpenReadStream())
+                    {
+                        var response = await dbx.Files.UploadAsync(dropboxPath, WriteMode.Overwrite.Instance, body: stream);
+                        uploadedUrls.Add(response.PathDisplay);
+                    }
+                }
+            }
+
+            return uploadedUrls;
+        }
     }
 }
-

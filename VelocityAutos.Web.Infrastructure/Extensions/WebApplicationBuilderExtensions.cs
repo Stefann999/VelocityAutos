@@ -23,7 +23,7 @@ namespace VelocityAutos.Web.Infrastructure.Extensions
 
             Type[] implementationTypes = serviceAssembly
                 .GetTypes()
-                .Where(t => t.Name.EndsWith("Service") && !t.IsInterface)
+                .Where(t => t.Name.EndsWith("Service") && !t.IsInterface && t.Name != "DropboxService")
                 .ToArray();
             foreach (Type implementationType in implementationTypes)
             {
