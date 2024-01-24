@@ -20,8 +20,8 @@ namespace VelocityAutos.Common
             public const int CarDescriptionMinLength = 10;
             public const int CarDescriptionMaxLength = 2000;
 
-            public const int CarPriceMinValue = 0;
-            public const int CarPriceMaxValue = 1_500_000;
+            public const string CarPriceMinValue = "0";
+            public const string CarPriceMaxValue = "1_500_000";
 
             public const int CarMonthMinValue = 1;
             public const int CarMonthMaxValue = 12;

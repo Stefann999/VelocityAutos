@@ -27,7 +27,7 @@ namespace VelocityAutos.Data.Models
         public string Model { get; set; } = null!;
 
         [Required]
-        [Range(CarPriceMinValue, CarPriceMaxValue)]
+        [Range(typeof(decimal), CarPriceMinValue, CarPriceMaxValue)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
