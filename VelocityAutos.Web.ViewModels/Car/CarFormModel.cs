@@ -7,9 +7,9 @@ using static VelocityAutos.Common.EntityValidationConstants.Car;
 
 namespace VelocityAutos.Web.ViewModels.Car
 {
-    public class AddCarFormModel
+    public class CarFormModel
     {
-        public AddCarFormModel()
+        public CarFormModel()
         {
             this.FuelTypes = new HashSet<CarSelectFuelTypeFormModel>();
             this.TransmissionTypes = new HashSet<CarSelectTransmissionFormModel>();

@@ -1,0 +1,130 @@
+﻿@model CarFormModel
+
+@{
+    ViewBag.Title = "Add Car";
+}
+<style>
+    body {
+        background-image: none;
+    }
+    .home-text {
+        font-size: 0px;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Add Car</h2>
+        </div>
+        <div class="card-body">
+            <form asp-action="AddCar" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Make -->
+                        <div class="form-group">
+                            <label for="Make">Make:</label>
+                            <input type="text" class="form-control" id="Make" name="Make" required>
+                        </div>
+
+                        <!-- Model -->
+                        <div class="form-group">
+                            <label for="Model">Model:</label>
+                            <input type="text" class="form-control" id="Model" name="Model" required>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="form-group">
+                            <label for="Price">Price:</label>
+                            <input type="number" class="form-control" id="Price" name="Price" required>
+                        </div>
+
+                        <!-- Month and Year -->
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="Month">Month:</label>
+                                <input type="text" class="form-control" id="Month" name="Month" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="Year">Year:</label>
+                                <input type="number" class="form-control" id="Year" name="Year" required>
+                            </div>
+                        </div>
+
+                        <!-- Mileage -->
+                        <div class="form-group">
+                            <label for="Mileage">Mileage:</label>
+                            <input type="number" class="form-control" id="Mileage" name="Mileage" required>
+                        </div>
+
+                        <!-- Horsepower -->
+                        <div class="form-group">
+                            <label for="Horsepower">Horsepower:</label>
+                            <input type="number" class="form-control" id="Horsepower" name="Horsepower" required>
+                        </div>
+
+                        <!-- Fuel Consumption -->
+                        <div class="form-group">
+                            <label for="FuelConsumption">Fuel Consumption:</label>
+                            <input type="text" class="form-control" id="FuelConsumption" name="FuelConsumption" required>
+                        </div>
+
+                        <!-- Color -->
+                        <div class="form-group">
+                            <label for="Color">Color:</label>
+                            <input type="text" class="form-control" id="Color" name="Color" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="Description">Description:</label>
+                            <textarea class="form-control" id="Description" name="Description" required></textarea>
+                        </div>
+
+                        <!-- Location City and Country -->
+                        <div class="form-group">
+                            <label for="LocationCity">Location City:</label>
+                            <input type="text" class="form-control" id="LocationCity" name="LocationCity" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="LocationCountry">Location Country:</label>
+                            <input type="text" class="form-control" id="LocationCountry" name="LocationCountry" required>
+                        </div>
+
+                        <!-- Fuel Type -->
+                        <div class="form-group">
+                            <label for="FuelType">Fuel Type:</label>
+                            <select class="form-control" id="FuelType" name="FuelType" required>
+                                <option value="Petrol">Petrol</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Electric">Electric</option>
+                            </select>
+                        </div>
+
+                        <!-- Category Type -->
+                        <div class="form-group">
+                            <label for="CategoryType">Category Type:</label>
+                            <select class="form-control" id="CategoryType" name="CategoryType" required>
+                                <option value="Sedan">Sedan</option>
+                                <option value="SUV">SUV</option>
+                                <option value="Hatchback">Hatchback</option>
+                            </select>
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div class="form-group">
+                            <label for="Images">Upload Images:</label>
+                            <input type="file" class="form-control-file" id="Images" name="Images" multiple required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Add Car</button>
+            </form>
+        </div>
+    </div>
+</div>

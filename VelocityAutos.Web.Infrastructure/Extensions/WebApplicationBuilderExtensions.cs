@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace VelocityAutos.Web.Infrastructure.Extensions
 {
-
     public static class WebApplicationBuilderExtensions
     {
         /// <summary>
@@ -23,9 +22,9 @@ namespace VelocityAutos.Web.Infrastructure.Extensions
 
             Type[] implementationTypes = serviceAssembly
                 .GetTypes()
-                .Where(t => t.Name.EndsWith("Service") && !t.IsInterface && t.Name != "DropboxService")
+                .Where(t => t.Name.EndsWith("Service") && !t.IsInterface)
                 .ToArray();
-            foreach (Type implementationType in implementationTypes)
+            foreach (Type implementationType in implementationTypes.Where(i => i.Name != "DropboxService"))
             {
                 Type? interfaceType = implementationType
                     .GetInterface($"I{implementationType.Name}");
