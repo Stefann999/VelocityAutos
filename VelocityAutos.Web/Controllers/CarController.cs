@@ -30,13 +30,13 @@ namespace VelocityAutos.Web.Controllers
         {
 
 
-            CarFormModel model = new CarFormModel()
+            CarFormModel formModel = new CarFormModel()
             {
                 Categories = await this.categoryService.AllCategoriesAsync(),
                 FuelTypes = await this.fuelTypeService.AllFuelTypesAsync(),
                 TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync()
             };
-            return View();
+            return View(formModel);
         }
     }
 }
