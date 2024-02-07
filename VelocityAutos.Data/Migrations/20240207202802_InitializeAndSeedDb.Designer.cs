@@ -13,7 +13,7 @@ namespace VelocityAutos.Data.Migrations
 {
     [DbContext(typeof(VelocityAutosDbContext))]
     [Migration("20240207202802_InitializeDb")]
-    partial class InitializeDb
+    partial class InitializeAndSeedDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
