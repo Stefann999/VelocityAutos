@@ -248,7 +248,7 @@ namespace VelocityAutos.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "IVANCARS1@CARS.COM",
                             NormalizedUserName = "IVANCARS1@CARS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKVcYxror+hRee5TXgjCW20F3EuC3dAHzwfWh8fRdCCJOn+xaD643bQsArC81KPgHg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAPI3Oe1JwUxBs534KRhrWnDfali+dCkzmXiVYgzt8rjeizmoz4YcLPsLwR0Hs28IA==",
                             PhoneNumber = "0888888888",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "f49c695d-b65c-4245-a204-70ac1ef3167c",
@@ -265,7 +265,7 @@ namespace VelocityAutos.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DIMITUR122@CARS.COM",
                             NormalizedUserName = "DIMITUR122@CARS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHNzsj5Hcd4rM1HZUbhPUBu5regOekrb6Hm+bOuZ8gA6q23tZ4bOgQQ5jJrj0xnG3g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBl9YgTOKqvLjPiMBd8lVokw6IIa4zqUm+GEdOyNCfa4k6nnkBexWm2NPjFbhV++Vg==",
                             PhoneNumber = "0999999999",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "e5507714-6b85-407b-a9e4-85b8856de4bd",
@@ -578,11 +578,9 @@ namespace VelocityAutos.Data.Migrations
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Image", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");

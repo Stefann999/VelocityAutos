@@ -6,7 +6,7 @@ namespace VelocityAutos.Data.Models
     public class Image
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string ImagePath { get; set; } = null!;
 

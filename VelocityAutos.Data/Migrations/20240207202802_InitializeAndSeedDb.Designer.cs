@@ -12,8 +12,8 @@ using VelocityAutos.Data;
 namespace VelocityAutos.Data.Migrations
 {
     [DbContext(typeof(VelocityAutosDbContext))]
-    [Migration("20240121171942_SeedUsersAndCars")]
-    partial class SeedUsersAndCars
+    [Migration("20240207202802_InitializeDb")]
+    partial class InitializeDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -250,7 +250,7 @@ namespace VelocityAutos.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "IVANCARS1@CARS.COM",
                             NormalizedUserName = "IVANCARS1@CARS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEslbS1ssyu9KGqaJjrV7cxoa0X3t3wUZlLMpPVBf/I6AUwuvtzUx+fuoJihKXrkAw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAPI3Oe1JwUxBs534KRhrWnDfali+dCkzmXiVYgzt8rjeizmoz4YcLPsLwR0Hs28IA==",
                             PhoneNumber = "0888888888",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "f49c695d-b65c-4245-a204-70ac1ef3167c",
@@ -267,7 +267,7 @@ namespace VelocityAutos.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DIMITUR122@CARS.COM",
                             NormalizedUserName = "DIMITUR122@CARS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENCLjbLySmw+HGu7oLpvB2g5L+TTjAauK1VhQdIN65awCRiPvbE75b7hVTdrL8mKXg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBl9YgTOKqvLjPiMBd8lVokw6IIa4zqUm+GEdOyNCfa4k6nnkBexWm2NPjFbhV++Vg==",
                             PhoneNumber = "0999999999",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "e5507714-6b85-407b-a9e4-85b8856de4bd",
@@ -399,21 +399,6 @@ namespace VelocityAutos.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("VelocityAutos.Data.Models.CarExtra", b =>
-                {
-                    b.Property<Guid>("CarId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ExtraId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CarId", "ExtraId");
-
-                    b.HasIndex("ExtraId");
-
-                    b.ToTable("CarExtras");
-                });
-
             modelBuilder.Entity("VelocityAutos.Data.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -501,73 +486,6 @@ namespace VelocityAutos.Data.Migrations
                         {
                             Id = 14,
                             CategoryName = "Other"
-                        });
-                });
-
-            modelBuilder.Entity("VelocityAutos.Data.Models.Extra", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TypeId");
-
-                    b.ToTable("Extras");
-                });
-
-            modelBuilder.Entity("VelocityAutos.Data.Models.ExtraType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ExtraTypeName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ExtraTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ExtraTypeName = "Safety"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ExtraTypeName = "Exterior"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ExtraTypeName = "Secutiry"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ExtraTypeName = "Confort"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ExtraTypeName = "Others"
                         });
                 });
 
@@ -662,11 +580,9 @@ namespace VelocityAutos.Data.Migrations
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Image", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
@@ -838,36 +754,6 @@ namespace VelocityAutos.Data.Migrations
                     b.Navigation("TransmissionType");
                 });
 
-            modelBuilder.Entity("VelocityAutos.Data.Models.CarExtra", b =>
-                {
-                    b.HasOne("VelocityAutos.Data.Models.Car", "Car")
-                        .WithMany("CarExtras")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("VelocityAutos.Data.Models.Extra", "Extra")
-                        .WithMany("CarExtras")
-                        .HasForeignKey("ExtraId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-
-                    b.Navigation("Extra");
-                });
-
-            modelBuilder.Entity("VelocityAutos.Data.Models.Extra", b =>
-                {
-                    b.HasOne("VelocityAutos.Data.Models.ExtraType", "ExtraType")
-                        .WithMany("Extras")
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ExtraType");
-                });
-
             modelBuilder.Entity("VelocityAutos.Data.Models.Image", b =>
                 {
                     b.HasOne("VelocityAutos.Data.Models.Car", "Car")
@@ -886,24 +772,12 @@ namespace VelocityAutos.Data.Migrations
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Car", b =>
                 {
-                    b.Navigation("CarExtras");
-
                     b.Navigation("Images");
                 });
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Category", b =>
                 {
                     b.Navigation("Cars");
-                });
-
-            modelBuilder.Entity("VelocityAutos.Data.Models.Extra", b =>
-                {
-                    b.Navigation("CarExtras");
-                });
-
-            modelBuilder.Entity("VelocityAutos.Data.Models.ExtraType", b =>
-                {
-                    b.Navigation("Extras");
                 });
 
             modelBuilder.Entity("VelocityAutos.Data.Models.FuelType", b =>

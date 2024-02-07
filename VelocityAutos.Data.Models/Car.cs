@@ -8,7 +8,7 @@ namespace VelocityAutos.Data.Models
     {
         public Car()
         {
-            this.Id = new Guid();
+            this.Id = Guid.NewGuid();
             this.Images = new HashSet<Image>();
             this.UsersFavourite = new HashSet<ApplicationUser>();
         }

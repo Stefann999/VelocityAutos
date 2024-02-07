@@ -13,10 +13,9 @@ namespace VelocityAutos.Data.Seeding
 
         private Car[] SeedCars()
         {
-
             ICollection<Car> cars = new HashSet<Car>();
 
-            Car fisrtCar = new Car
+            Car firstCar = new Car
             {
                 Id = Guid.Parse("74576f3e-a409-46e4-a8ff-9c93eb409cba"),
                 Make = "Audi",
@@ -37,7 +36,7 @@ namespace VelocityAutos.Data.Seeding
                 OwnerId = Guid.Parse("66543f29-bafc-4680-8028-5c4b7e444ccb"),
                 isSold = false
             };
-            cars.Add(fisrtCar);
+            cars.Add(firstCar);
 
             Car secondCar = new Car
             {

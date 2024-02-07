@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VelocityAutos.Data.Migrations
 {
-    public partial class InitializeDb : Migration
+    public partial class InitializeAndSeedDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,19 +59,6 @@ namespace VelocityAutos.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ExtraTypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ExtraTypeName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExtraTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -207,26 +194,6 @@ namespace VelocityAutos.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Extras",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Extras", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Extras_ExtraTypes_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "ExtraTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Cars",
                 columns: table => new
                 {
@@ -303,35 +270,10 @@ namespace VelocityAutos.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CarExtras",
-                columns: table => new
-                {
-                    CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ExtraId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarExtras", x => new { x.CarId, x.ExtraId });
-                    table.ForeignKey(
-                        name: "FK_CarExtras_Cars_CarId",
-                        column: x => x.CarId,
-                        principalTable: "Cars",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CarExtras_Extras_ExtraId",
-                        column: x => x.ExtraId,
-                        principalTable: "Extras",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Images",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -344,6 +286,15 @@ namespace VelocityAutos.Data.Migrations
                         principalTable: "Cars",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { new Guid("66543f29-bafc-4680-8028-5c4b7e444ccb"), 0, "668e7d82-3497-47eb-9098-6132d4888d53", "ivancars1@cars.com", true, false, null, "IVANCARS1@CARS.COM", "IVANCARS1@CARS.COM", "AQAAAAEAACcQAAAAEAPI3Oe1JwUxBs534KRhrWnDfali+dCkzmXiVYgzt8rjeizmoz4YcLPsLwR0Hs28IA==", "0888888888", true, "f49c695d-b65c-4245-a204-70ac1ef3167c", false, "ivancars1@cars.com" },
+                    { new Guid("ed670787-a2d5-45e9-a069-83dcd8e84e30"), 0, "3f509880-8a4c-4e64-ba38-353c1611c646", "dimitur122@cars.com", true, false, null, "DIMITUR122@CARS.COM", "DIMITUR122@CARS.COM", "AQAAAAEAACcQAAAAEBl9YgTOKqvLjPiMBd8lVokw6IIa4zqUm+GEdOyNCfa4k6nnkBexWm2NPjFbhV++Vg==", "0999999999", true, "e5507714-6b85-407b-a9e4-85b8856de4bd", false, "dimitur122@cars.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -365,18 +316,6 @@ namespace VelocityAutos.Data.Migrations
                     { 12, "Truck" },
                     { 13, "Bus" },
                     { 14, "Other" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ExtraTypes",
-                columns: new[] { "Id", "ExtraTypeName" },
-                values: new object[,]
-                {
-                    { 1, "Safety" },
-                    { 2, "Exterior" },
-                    { 3, "Secutiry" },
-                    { 4, "Confort" },
-                    { 5, "Others" }
                 });
 
             migrationBuilder.InsertData(
@@ -413,6 +352,16 @@ namespace VelocityAutos.Data.Migrations
                     { 6, "Tiptronic" },
                     { 7, "Other" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Cars",
+                columns: new[] { "Id", "CategoryId", "Color", "Description", "FuelConsumption", "FuelTypeId", "HorsePower", "LocationCity", "LocationCountry", "Make", "Mileage", "Model", "Month", "OwnerId", "Price", "TransmissionTypeId", "Year", "isSold" },
+                values: new object[] { new Guid("74576f3e-a409-46e4-a8ff-9c93eb409cba"), 1, "Black", "The 2019 Audi A4 is a luxury compact sedan that combines sophisticated design, advanced technology, and impressive performance.", 6.5, 1, 150, "Sofia", "Bulgaria", "Audi", 10000, "A4", 3, new Guid("66543f29-bafc-4680-8028-5c4b7e444ccb"), 50000m, 1, 2019, false });
+
+            migrationBuilder.InsertData(
+                table: "Cars",
+                columns: new[] { "Id", "CategoryId", "Color", "Description", "FuelConsumption", "FuelTypeId", "HorsePower", "LocationCity", "LocationCountry", "Make", "Mileage", "Model", "Month", "OwnerId", "Price", "TransmissionTypeId", "Year", "isSold" },
+                values: new object[] { new Guid("9219e817-e86a-4ea0-807f-976d8195d93a"), 2, "White", "The Mercedes-AMG GT 63 S is a high-performance luxury four-door coupe that offers a combination of striking design, advanced technology, and powerful performance.", 15.0, 1, 639, "Sofia", "Bulgaria", "Mercedes", 5000, "GT63 S 4-door", 1, new Guid("ed670787-a2d5-45e9-a069-83dcd8e84e30"), 200000m, 2, 2023, false });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ApplicationUserCar_UsersFavouriteId",
@@ -459,11 +408,6 @@ namespace VelocityAutos.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CarExtras_ExtraId",
-                table: "CarExtras",
-                column: "ExtraId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Cars_CategoryId",
                 table: "Cars",
                 column: "CategoryId");
@@ -482,11 +426,6 @@ namespace VelocityAutos.Data.Migrations
                 name: "IX_Cars_TransmissionTypeId",
                 table: "Cars",
                 column: "TransmissionTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Extras_TypeId",
-                table: "Extras",
-                column: "TypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Images_CarId",
@@ -515,22 +454,13 @@ namespace VelocityAutos.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CarExtras");
-
-            migrationBuilder.DropTable(
                 name: "Images");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Extras");
-
-            migrationBuilder.DropTable(
                 name: "Cars");
-
-            migrationBuilder.DropTable(
-                name: "ExtraTypes");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
