@@ -28,5 +28,14 @@ namespace VelocityAutos.Services.Data
 
             return categories;
         }
+
+        public async Task<bool> ExistsByIdAsync(int id)
+        {
+            bool result = await this.dbContext
+                .Categories
+                .AnyAsync(c => c.Id == id);
+
+            return result;
+        }
     }
 }

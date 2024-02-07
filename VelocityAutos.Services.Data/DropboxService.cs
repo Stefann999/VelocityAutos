@@ -16,7 +16,7 @@ namespace VelocityAutos.Services.Data
             this.accessToken = accessToken;
         }
 
-        public async Task<List<string>> UploadImagesAsync(List<IFormFile> images, Guid carId)
+        public async Task<List<string>> UploadImagesAsync(IEnumerable<IFormFile> images, Guid carId)
         {
             var uploadedUrls = new List<string>();
 

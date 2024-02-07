@@ -4,6 +4,6 @@ namespace VelocityAutos.Services.Data.Interfaces
 {
     public interface IDropboxService
     {
-        Task<List<string>> UploadImagesAsync(List<IFormFile> images, Guid carId);
+        Task<List<string>> UploadImagesAsync(IEnumerable<IFormFile> images, Guid carId);
     }
 }

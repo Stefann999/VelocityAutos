@@ -28,5 +28,14 @@ namespace VelocityAutos.Services.Data
 
             return fuelTypes;
         }
+
+        public async Task<bool> ExistsByIdAsync(int id)
+        {
+            bool result = await this.dbContext
+                .FuelTypes
+                .AnyAsync(c => c.Id == id);
+
+            return result;
+        }
     }
 }

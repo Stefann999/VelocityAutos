@@ -27,5 +27,14 @@ namespace VelocityAutos.Services.Data
 
             return transmissionTypes;
         }
+
+        public async Task<bool> ExistsByIdAsync(int id)
+        {
+            bool result = await this.dbContext
+                .TransmissionTypes
+                .AnyAsync(c => c.Id == id);
+
+            return result;
+        }
     }
 }
