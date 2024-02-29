@@ -3,6 +3,8 @@ using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Data;
 using VelocityAutos.Web.ViewModels.Car;
 using VelocityAutos.Data.Models;
+using VelocityAutos.Services.Data.Models.Car;
+using VelocityAutos.Web.ViewModels.Car.Enums;
 
 namespace VelocityAutos.Services.Data
 {
@@ -26,6 +28,7 @@ namespace VelocityAutos.Services.Data
 
             return result;
         }
+
         public async Task CreateAsync(CarFormModel carFormModel, string currUserId)
         {
             Car newCar = new Car
@@ -77,6 +80,40 @@ namespace VelocityAutos.Services.Data
 
             await this.dbContext.Cars.AddAsync(newCar);
             await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<CarAllViewModel>> GetAllCarsAsync()
+        {
+            var cars = await this.dbContext
+                .Cars
+                .Include(c => c.Images)
+                .AsNoTracking()
+                .Where(c => c.isSold == false)
+                .Select(c => new CarAllViewModel
+                {
+                    Id = c.Id.ToString(),
+                    Make = c.Make,
+                    Model = c.Model,
+                    Price = c.Price,
+                    Month = c.Month,
+                    Year = c.Year,
+                    Mileage = c.Mileage,
+                    HorsePower = c.HorsePower,
+                    FuelConsumption = c.FuelConsumption,
+                    Color = c.Color,
+                    Description = c.Description,
+                    LocationCity = c.LocationCity,
+                    LocationCountry = c.LocationCountry,
+                    OwnerId = c.OwnerId.ToString(),
+                })
+                .ToListAsync();
+
+            return cars;
+        }
+
+        public async Task IsUserCarOwnerById(string carId, string userId)
+        {
+            
         }
     }
 }

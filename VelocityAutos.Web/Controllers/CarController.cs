@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VelocityAutos.Services.Data;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Extensions;
 using VelocityAutos.Web.ViewModels.Car;
+using static VelocityAutos.Common.GeneralApplicationConstants;
+using static VelocityAutos.Common.NotificationMessagesConstants;
 
 namespace VelocityAutos.Web.Controllers
 {
@@ -13,19 +16,38 @@ namespace VelocityAutos.Web.Controllers
         private readonly IFuelTypeService fuelTypeService;
         private readonly ITransmissionTypeService transmissionTypeService;
         private readonly ICarService carService;
+        private readonly IDropboxService dropboxService;
 
-        public CarController(ICategoryService categoryService, IFuelTypeService fuelTypeService, ITransmissionTypeService transmissionTypeService, ICarService carService)
+        public CarController(ICategoryService categoryService, IFuelTypeService fuelTypeService, ITransmissionTypeService transmissionTypeService, ICarService carService, IDropboxService dropboxService)
         {
             this.categoryService = categoryService;
             this.fuelTypeService = fuelTypeService;
             this.transmissionTypeService = transmissionTypeService;
             this.carService = carService;
+            this.dropboxService = dropboxService;
          }
 
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-            return this.Ok();
+            var allCars = await this.carService.GetAllCarsAsync();
+
+            try
+
+            {
+                foreach (var car in allCars)
+                {
+                    string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
+                    var currCarImagesUrls = await dropboxService.GetCarImages(folderPath);
+                    car.ImagesPaths = currCarImagesUrls;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData[ErrorMessage] = "An unexpected error occured while trying to visualize all cars! Please try again! If the issue continues, contact an administrator!";
+            }
+
+            return View(allCars);
         }
 
         [HttpGet]
@@ -86,7 +108,7 @@ namespace VelocityAutos.Web.Controllers
                 string? currUserId = this.User.GetId();
                 await this.carService.CreateAsync(carFormModel, currUserId);
             }
-            catch (Exception _)
+            catch (Exception ex)
             {
                 this.ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to add new car! Please try again later or contact administrator!");
 
@@ -97,7 +119,7 @@ namespace VelocityAutos.Web.Controllers
                 return this.View(carFormModel);
             }  
             
-            return this.RedirectToAction("All", "Car");
+            return this.RedirectToAction(nameof(All));
         }
     }
 }

@@ -11,6 +11,7 @@ namespace VelocityAutos.Data.Models
             this.Id = Guid.NewGuid();
             this.Images = new HashSet<Image>();
             this.UsersFavourite = new HashSet<ApplicationUser>();
+            isSold = false;
         }
 
         [Key]
@@ -47,6 +48,8 @@ namespace VelocityAutos.Data.Models
         [Range(CarHorsePowerMinValue, CarHorsePowerMaxValue)]
         public int HorsePower { get; set; }
 
+        [Required]
+        [ForeignKey(nameof(FuelType))]
         public int FuelTypeId { get; set; }
 
         [Required]
@@ -56,6 +59,8 @@ namespace VelocityAutos.Data.Models
         [Range(CarFuelConsumptionMinValue, CarFuelConsumptionMaxValue)]
         public double FuelConsumption { get; set; }
 
+        [Required]
+        [ForeignKey(nameof(TransmissionType))]
         public int TransmissionTypeId { get; set; }
 
         [Required]
@@ -76,12 +81,18 @@ namespace VelocityAutos.Data.Models
         [MaxLength(CarLocationCountryMaxLength)]
         public string LocationCountry { get; set; }
 
+        [Required]
+        [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
 
+        [Required]
         public Category Category { get; set; }
 
+        [Required]
+        [ForeignKey(nameof(Owner))]
         public Guid OwnerId { get; set; }
 
+        [Required]
         public ApplicationUser Owner { get; set; } = null!;
 
         public bool isSold { get; set; }

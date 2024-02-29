@@ -1,4 +1,4 @@
-﻿namespace HouseRentingSystem.Common
+﻿namespace VelocityAutos.Common
 {
     public static class NotificationMessagesConstants
     {

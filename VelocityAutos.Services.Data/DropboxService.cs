@@ -43,5 +43,57 @@ namespace VelocityAutos.Services.Data
 
             return uploadedUrls;
         }
+
+        public async Task<List<String>> GetCarImages(string carFolderPath)
+        {
+            var dbx = new DropboxClient(accessToken);
+
+            List<string> imageUrls = new List<string>();
+
+            try
+            {
+                // Use the Dropbox client to list files in the specified folder
+                var list = await dbx.Files.ListFolderAsync(carFolderPath);
+
+                // Iterate through each file in the folder
+                foreach (var entry in list.Entries)
+                {
+                    // Check if the entry is a file and an image
+                    if (entry.IsFile && IsImage(entry.Name))
+                    {
+                        // Download the image
+                        using (var response = await dbx.Files.DownloadAsync(entry.PathLower))
+                        {
+                            // Get the image data
+                            var imageBytes = await response.GetContentAsByteArrayAsync();
+
+                            // Convert image data to base64 string
+                            var base64String = Convert.ToBase64String(imageBytes);
+
+                            // Create image URL for display
+                            var imageUrl = string.Format("data:image/png;base64,{0}", base64String);
+
+                            // Add image URL to the list
+                            imageUrls.Add(imageUrl);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exception
+                throw new Exception($"An error occured while trying to display images! Please try again! If the issue continues, contact an administrator!");
+            }
+
+            return imageUrls;
+        }
+
+        // Helper method to check if a file is an image
+        private bool IsImage(string fileName)
+        {
+            string[] imageExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", "avif" };
+            string extension = Path.GetExtension(fileName).ToLower();
+            return Array.IndexOf(imageExtensions, extension) != -1;
+        }
     }
 }

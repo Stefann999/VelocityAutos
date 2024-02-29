@@ -10,6 +10,7 @@ namespace VelocityAutos.Data.Models
             this.Cars = new HashSet<Car>();
         }
 
+        [Key]
         public int Id { get; set; }
 
         [Required]
