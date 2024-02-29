@@ -32,20 +32,20 @@ namespace VelocityAutos.Web.Controllers
         {
             var allCars = await this.carService.GetAllCarsAsync();
 
-            //try
+            try
 
-            //{
-            //    foreach (var car in allCars)
-            //    {
-            //        string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
-            //        var currCarImagesUrls = await dropboxService.GetCarImages(folderPath);
-            //        car.ImagesPaths = currCarImagesUrls;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    TempData[ErrorMessage] = "An unexpected error occured while trying to visualize all cars! Please try again! If the issue continues, contact an administrator!";
-            //}
+            {
+                foreach (var car in allCars)
+                {
+                    string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
+                    var currCarImagesUrls = await dropboxService.GetCarImages(folderPath);
+                    car.ImagesPaths = currCarImagesUrls;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData[ErrorMessage] = "An unexpected error occured while trying to visualize all cars! Please try again! If the issue continues, contact an administrator!";
+            }
 
             return View(allCars);
         }

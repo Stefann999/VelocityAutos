@@ -19,7 +19,7 @@
 {
     bool isUserOwner = await CarService.IsUserCarOwnerById(car.Id, User.GetId()!);
       <div class="car">
-          <img src="~/lib/gt63s-image4.webp" alt="@car.Make">
+          <img src="@car.ImagesPaths.FirstOrDefault()" alt="@car.Make">
           <div class="car-info">
                 @if (isUserOwner)
                 {
