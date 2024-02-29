@@ -81,8 +81,7 @@ namespace VelocityAutos.Services.Data
             }
             catch (Exception ex)
             {
-                // Handle exception
-                throw new Exception($"An error occured while trying to display images! Please try again! If the issue continues, contact an administrator!");
+                throw new Exception();
             }
 
             return imageUrls;

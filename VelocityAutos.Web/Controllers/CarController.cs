@@ -44,7 +44,7 @@ namespace VelocityAutos.Web.Controllers
             }
             catch (Exception ex)
             {
-                TempData[ErrorMessage] = "An unexpected error occured while trying to visualize all cars! Please try again! If the issue continues, contact an administrator!";
+                TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
             }
 
             return View(allCars);
