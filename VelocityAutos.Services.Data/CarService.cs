@@ -111,9 +111,18 @@ namespace VelocityAutos.Services.Data
             return cars;
         }
 
-        public async Task IsUserCarOwnerById(string carId, string userId)
+        public async Task<bool> IsUserCarOwnerById(string carId, string userId)
         {
-            
+            Car? car = await this.dbContext
+                .Cars
+                .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
+
+            if (car == null)
+            {
+                return false;
+            }
+
+            return car.OwnerId.ToString() == userId;
         }
     }
 }

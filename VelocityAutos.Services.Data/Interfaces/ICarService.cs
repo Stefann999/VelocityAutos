@@ -12,6 +12,6 @@ namespace VelocityAutos.Services.Data.Interfaces
 
         Task<IEnumerable<CarAllViewModel>> GetAllCarsAsync();
 
-        Task IsUserCarOwnerById(string carId, string userId);
+        Task<bool> IsUserCarOwnerById(string carId, string userId);
     }
 }
