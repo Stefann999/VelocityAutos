@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VelocityAutos.Data.Models
 {
     public class Post
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
@@ -12,16 +13,18 @@ namespace VelocityAutos.Data.Models
 
         public DateTime? UpdatedOn { get; set;}
 
-        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
 
         [Required]
-        public string SellerId { get; set; } = null!;
+        public Guid SellerId { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; } = null!;
+        public ApplicationUser Seller { get; set; } = null!;
 
+        [Required]
+        [ForeignKey(nameof(Car))]
         public Guid CarId { get; set; }
 
-        public Car Car { get; set; }
+        public Car Car { get; set; } = null!;
 
         [Required]
         public string SellerFirstName { get; set; } = null!;

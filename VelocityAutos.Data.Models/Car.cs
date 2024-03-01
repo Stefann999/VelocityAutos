@@ -11,7 +11,6 @@ namespace VelocityAutos.Data.Models
             this.Id = Guid.NewGuid();
             this.Images = new HashSet<Image>();
             this.UsersFavourite = new HashSet<ApplicationUser>();
-            isSold = false;
         }
 
         [Key]
@@ -88,14 +87,6 @@ namespace VelocityAutos.Data.Models
         [Required]
         public Category Category { get; set; }
 
-        [Required]
-        [ForeignKey(nameof(Owner))]
-        public Guid OwnerId { get; set; }
-
-        [Required]
-        public ApplicationUser Owner { get; set; } = null!;
-
-        public bool isSold { get; set; }
 
         public virtual ICollection<Image> Images { get; set; } = null!;
 

@@ -6,12 +6,12 @@ namespace VelocityAutos.Data.Models
     {
         public ApplicationUser()
         {
-            this.Id = new Guid();
-            this.OwnerdCars = new HashSet<Car>();
+            this.Id = Guid.NewGuid();
+            this.OwnedPosts = new HashSet<Post>();
             this.FavouriteCars = new HashSet<Car>();
         }
 
-        public virtual ICollection<Car> OwnerdCars { get; set; } = null!;
+        public virtual ICollection<Post> OwnedPosts { get; set; } = null!;
 
         public virtual ICollection<Car> FavouriteCars { get; set; } = null!;
     }
