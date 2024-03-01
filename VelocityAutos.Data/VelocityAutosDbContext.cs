@@ -27,13 +27,10 @@ namespace VelocityAutos.Data
 
         public DbSet<Image> Images { get; set; }
 
+        public DbSet<Post> Posts { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder
-                .Entity<Car>()
-                .HasOne(c => c.Owner)
-                .WithMany(u => u.OwnerdCars)
-                .HasForeignKey(c => c.OwnerId);
 
             builder
                 .Entity<Car>()
@@ -60,6 +57,21 @@ namespace VelocityAutos.Data
                 .WithMany(tt => tt.Cars)
                 .HasForeignKey(c => c.TransmissionTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Post>()
+                .HasOne(p => p.Seller)
+                .WithMany(u => u.OwnedPosts)
+                .HasForeignKey(p => p.SellerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+               .Entity<ApplicationUser>()
+               .HasMany(u => u.OwnedPosts)
+               .WithOne(p => p.Seller)
+               .HasForeignKey(p => p.SellerId)
+               .OnDelete(DeleteBehavior.Restrict);
+
 
             if (this.seedDb)
             {
