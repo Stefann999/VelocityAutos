@@ -8,10 +8,10 @@ namespace VelocityAutos.Services.Data.Interfaces
     {
         Task<bool> ExistsByIdAsync(string carId);
 
-        Task CreateAsync(CarFormModel carFormModel, string currUserId);
+        Task CreateAsync(CarFormModel carFormModel);
 
         Task<IEnumerable<CarAllViewModel>> GetAllCarsAsync();
 
-        Task<bool> IsUserCarOwnerById(string carId, string userId);
+        Task<Car> GetCar(CarFormModel formModel, string currUserId);
     }
 }
