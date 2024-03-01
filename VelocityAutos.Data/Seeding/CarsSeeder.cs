@@ -32,9 +32,7 @@ namespace VelocityAutos.Data.Seeding
                 Description = "The 2019 Audi A4 is a luxury compact sedan that combines sophisticated design, advanced technology, and impressive performance.",
                 LocationCity = "Sofia",
                 LocationCountry = "Bulgaria",
-                CategoryId = 1,
-                OwnerId = Guid.Parse("66543f29-bafc-4680-8028-5c4b7e444ccb"),
-                isSold = false
+                CategoryId = 1
             };
             cars.Add(firstCar);
 
@@ -55,9 +53,7 @@ namespace VelocityAutos.Data.Seeding
                 Description = "The Mercedes-AMG GT 63 S is a high-performance luxury four-door coupe that offers a combination of striking design, advanced technology, and powerful performance.",
                 LocationCity = "Sofia",
                 LocationCountry = "Bulgaria",
-                CategoryId = 2,
-                OwnerId = Guid.Parse("ed670787-a2d5-45e9-a069-83dcd8e84e30"),
-                isSold = false
+                CategoryId = 2
             };
 
             cars.Add(secondCar);
