@@ -4,6 +4,7 @@ using VelocityAutos.Services.Data;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Extensions;
 using VelocityAutos.Web.ViewModels.Car;
+using VelocityAutos.Web.ViewModels.Post;
 using static VelocityAutos.Common.GeneralApplicationConstants;
 using static VelocityAutos.Common.NotificationMessagesConstants;
 
@@ -12,19 +13,23 @@ namespace VelocityAutos.Web.Controllers
     [Authorize]
     public class CarController : Controller
     {
+        // NEW ACCESS TOKEN
+
         private readonly ICategoryService categoryService;
         private readonly IFuelTypeService fuelTypeService;
         private readonly ITransmissionTypeService transmissionTypeService;
         private readonly ICarService carService;
         private readonly IDropboxService dropboxService;
+        private readonly IPostService postService;
 
-        public CarController(ICategoryService categoryService, IFuelTypeService fuelTypeService, ITransmissionTypeService transmissionTypeService, ICarService carService, IDropboxService dropboxService)
+        public CarController(ICategoryService categoryService, IFuelTypeService fuelTypeService, ITransmissionTypeService transmissionTypeService, ICarService carService, IDropboxService dropboxService, IPostService postService)
         {
             this.categoryService = categoryService;
             this.fuelTypeService = fuelTypeService;
             this.transmissionTypeService = transmissionTypeService;
             this.carService = carService;
             this.dropboxService = dropboxService;
+            this.postService = postService;
          }
 
         [AllowAnonymous]
@@ -53,73 +58,89 @@ namespace VelocityAutos.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            CarFormModel formModel = new CarFormModel()
+
+            CarFormModel carFormModel = new CarFormModel()
             {
                 Categories = await this.categoryService.AllCategoriesAsync(),
                 FuelTypes = await this.fuelTypeService.AllFuelTypesAsync(),
                 TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync()
             };
-            return View(formModel);
+
+            PostFormModel postFormModel = new PostFormModel()
+            {
+                Car = carFormModel,
+            };
+
+            return View(postFormModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CarFormModel carFormModel)
+        public async Task<IActionResult> Add(PostFormModel postFormModel)
         {
             bool categoryExists = await this.categoryService
-                .ExistsByIdAsync(carFormModel.CategoryId);
+                .ExistsByIdAsync(postFormModel.Car.CategoryId);
 
             bool fuelTypeExists = await this.fuelTypeService
-                .ExistsByIdAsync(carFormModel.FuelTypeId);
+                .ExistsByIdAsync(postFormModel.Car.FuelTypeId);
 
             bool transmissionTypeExists = await this.transmissionTypeService
-                .ExistsByIdAsync(carFormModel.TransmissionTypeId);
+                .ExistsByIdAsync(postFormModel.Car.TransmissionTypeId);
 
             if (!categoryExists)
             {
-                ModelState.AddModelError(nameof(carFormModel.CategoryId), "Category does not exist.");
+                ModelState.AddModelError(nameof(postFormModel.Car.CategoryId), "Category does not exist.");
             }
 
             if (!fuelTypeExists)
             {
-                   ModelState.AddModelError(nameof(carFormModel.FuelTypeId), "Fuel type does not exist.");
+                   ModelState.AddModelError(nameof(postFormModel.Car.FuelTypeId), "Fuel type does not exist.");
             }
 
             if (!transmissionTypeExists)
             {
-                ModelState.AddModelError(nameof(carFormModel.TransmissionTypeId), "Transmission type does not exist.");
+                ModelState.AddModelError(nameof(postFormModel.Car.TransmissionTypeId), "Transmission type does not exist.");
             }
 
-            if (!carFormModel.Images.Any())
+            if (!postFormModel.Car.Images.Any())
             {
-                ModelState.AddModelError(nameof(carFormModel.Images), "Please attach atleast one image!");
+                ModelState.AddModelError(nameof(postFormModel.Car.Images), "Please attach atleast one image!");
             }
 
             if (!ModelState.IsValid)
             {
-                carFormModel.Categories = await this.categoryService.AllCategoriesAsync();
-                carFormModel.FuelTypes = await this.fuelTypeService.AllFuelTypesAsync();
-                carFormModel.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync();
+                postFormModel.Car.Categories = await this.categoryService.AllCategoriesAsync();
+                postFormModel.Car.FuelTypes = await this.fuelTypeService.AllFuelTypesAsync();
+                postFormModel.Car.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync();
 
-                return this.View(carFormModel);
+                return this.View(postFormModel);
             }
 
             try
             {
                 string? currUserId = this.User.GetId();
-                await this.carService.CreateAsync(carFormModel, currUserId);
+                await this.carService.CreateAsync(postFormModel.Car);
+                var targetCar = await this.carService.GetCar(postFormModel.Car, currUserId!);
+                await this.postService.CreateAsync(postFormModel, targetCar, currUserId!);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to add new car! Please try again later or contact administrator!");
 
-                carFormModel.Categories = await this.categoryService.AllCategoriesAsync();
-                carFormModel.FuelTypes = await this.fuelTypeService.AllFuelTypesAsync();
-                carFormModel.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync();
+                postFormModel.Car.Categories = await this.categoryService.AllCategoriesAsync();
+                postFormModel.Car.FuelTypes = await this.fuelTypeService.AllFuelTypesAsync();
+                postFormModel.Car.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync();
 
-                return this.View(carFormModel);
+                return this.View(postFormModel);
             }  
             
             return this.RedirectToAction(nameof(All));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit()
+        {
+            return this.View();
+        }
+
     }
 }
