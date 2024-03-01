@@ -54,16 +54,18 @@ namespace VelocityAutos.Common
             public const int CategoryNameMaxLength = 30;
         }
 
-        public static class Extra
+        public static class Post
         {
-            public const int ExtraNameMinLength = 3;
-            public const int ExtraNameMaxLength = 30;
-        }
+            public const int SellerFirstNameMinLength = 2;
+            public const int SellerFirstNameMaxLength = 20;
 
-        public static class ExtraType
-        {
-            public const int ExtraTypeDescriptionMinLength = 3;
+            public const int SellerLastNameMinLength = 2;
+            public const int SellerLastNameMaxLength = 20;
+
+            public const int SellerPhoneNumberMinLength = 6;
+            public const int SellerPhoneNumberMaxLength = 20;
+
+            public const string SellerEmailAddressRegex = @"^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$";
         }
-       
     }
 }
