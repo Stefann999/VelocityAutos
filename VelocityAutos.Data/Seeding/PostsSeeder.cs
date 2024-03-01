@@ -4,7 +4,7 @@ using VelocityAutos.Data.Models;
 
 namespace VelocityAutos.Data.Seeding
 {
-    public class PostSeeder : IEntityTypeConfiguration<Post>
+    public class PostsSeeder : IEntityTypeConfiguration<Post>
     {
         public void Configure(EntityTypeBuilder<Post> builder)
         {
