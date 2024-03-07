@@ -16,7 +16,7 @@ namespace VelocityAutos.Data.Models
         [Required]
         [MinLength(TransmissionTypeMinLength)]
         [MaxLength(TransmissionTypeMaxLength)]
-        public string TransmissionTypeName { get; set; }
+        public string Name { get; set; }
 
         public virtual ICollection<Car> Cars { get; set; }
     }

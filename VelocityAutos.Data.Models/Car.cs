@@ -87,6 +87,8 @@ namespace VelocityAutos.Data.Models
         [Required]
         public Category Category { get; set; }
 
+        [Required]
+        public Post Post { get; set; } = null!;
 
         public virtual ICollection<Image> Images { get; set; } = null!;
 

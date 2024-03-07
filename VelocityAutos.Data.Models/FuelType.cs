@@ -18,7 +18,7 @@ namespace VelocityAutos.Data.Models
         public int Id { get; set; }
 
         [Required]
-        public string FuelTypeName { get; set; } = null!;
+        public string Name { get; set; } = null!;
 
         public virtual ICollection<Car> Cars { get; set; }
     }

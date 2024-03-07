@@ -16,7 +16,7 @@ namespace VelocityAutos.Data.Models
         [Required]
         [MinLength(CategoryNameMinLength)]
         [MaxLength(CategoryNameMaxLength)]
-        public string CategoryName { get; set; } = null!;
+        public string Name { get; set; } = null!;
 
         public ICollection<Car> Cars { get; set; }
     }

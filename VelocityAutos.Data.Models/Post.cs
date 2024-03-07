@@ -5,6 +5,11 @@ namespace VelocityAutos.Data.Models
 {
     public class Post
     {
+        public Post()
+        {
+            IsActive = true;
+        }
+
         public Guid Id { get; set; }
 
         public DateTime CreatedOn { get; set; }
