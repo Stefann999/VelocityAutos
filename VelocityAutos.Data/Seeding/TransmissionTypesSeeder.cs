@@ -15,13 +15,13 @@ namespace VelocityAutos.Data.Seeding
         {
             ICollection<TransmissionType> transmissionTypes = new HashSet<TransmissionType>()
             {
-                new TransmissionType { TransmissionTypeName = "Manual", Id = 1 },
-                new TransmissionType { TransmissionTypeName = "Automatic", Id = 2 },
-                new TransmissionType { TransmissionTypeName = "Semi-automatic", Id = 3 },
-                new TransmissionType { TransmissionTypeName = "CVT" , Id = 4 },
-                new TransmissionType { TransmissionTypeName = "DSG" , Id = 5 },
-                new TransmissionType { TransmissionTypeName = "Tiptronic" , Id = 6 },
-                new TransmissionType { TransmissionTypeName = "Other", Id = 7 }
+                new TransmissionType { Name = "Manual", Id = 1 },
+                new TransmissionType { Name = "Automatic", Id = 2 },
+                new TransmissionType { Name = "Semi-automatic", Id = 3 },
+                new TransmissionType { Name = "CVT" , Id = 4 },
+                new TransmissionType { Name = "DSG" , Id = 5 },
+                new TransmissionType { Name = "Tiptronic" , Id = 6 },
+                new TransmissionType { Name = "Other", Id = 7 }
              };
 
             return transmissionTypes.ToArray();

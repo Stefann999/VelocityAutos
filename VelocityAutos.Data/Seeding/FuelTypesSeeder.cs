@@ -15,20 +15,20 @@ namespace VelocityAutos.Data.Seeding
         {
             ICollection<FuelType> fuelTypes = new HashSet<FuelType>()
             {
-                new FuelType { FuelTypeName = "Petrol", Id = 1 },
-                new FuelType { FuelTypeName = "Diesel", Id = 2 },
-                new FuelType { FuelTypeName = "Electric", Id = 3 },
-                new FuelType { FuelTypeName = "Hybrid", Id = 4 },
-                new FuelType { FuelTypeName = "LPG", Id = 5 },
-                new FuelType { FuelTypeName = "CNG" ,Id = 6 },
-                new FuelType { FuelTypeName = "Ethanol", Id = 7 },
-                new FuelType { FuelTypeName = "Biodiesel", Id = 8 },
-                new FuelType { FuelTypeName = "Bioethanol", Id = 9 },
-                new FuelType { FuelTypeName = "Methanol", Id = 10 },
-                new FuelType { FuelTypeName = "Biogas", Id = 11 },
-                new FuelType { FuelTypeName = "Synthetic", Id = 12 },
-                new FuelType { FuelTypeName = "Hydrogen", Id = 13 },
-                new FuelType { FuelTypeName = "Other", Id = 14 }
+                new FuelType { Name = "Petrol", Id = 1 },
+                new FuelType { Name = "Diesel", Id = 2 },
+                new FuelType { Name = "Electric", Id = 3 },
+                new FuelType { Name = "Hybrid", Id = 4 },
+                new FuelType { Name = "LPG", Id = 5 },
+                new FuelType { Name = "CNG" ,Id = 6 },
+                new FuelType { Name = "Ethanol", Id = 7 },
+                new FuelType { Name = "Biodiesel", Id = 8 },
+                new FuelType { Name = "Bioethanol", Id = 9 },
+                new FuelType { Name = "Methanol", Id = 10 },
+                new FuelType { Name = "Biogas", Id = 11 },
+                new FuelType { Name = "Synthetic", Id = 12 },
+                new FuelType { Name = "Hydrogen", Id = 13 },
+                new FuelType { Name = "Other", Id = 14 }
              };
 
             return fuelTypes.ToArray();
