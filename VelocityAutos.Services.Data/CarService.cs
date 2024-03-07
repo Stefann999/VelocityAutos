@@ -29,6 +29,33 @@ namespace VelocityAutos.Services.Data
             return result;
         }
 
+        public async Task<IEnumerable<CarAllViewModel>> GetAllCarsAsync()
+        {
+            var cars = await this.dbContext
+                .Posts
+                .AsNoTracking()
+                .Where(p => p.IsActive == true)
+                .Select(p => new CarAllViewModel
+                {
+                    Id = p.Car.Id.ToString(),
+                    Make = p.Car.Make,
+                    Model = p.Car.Model,
+                    Price = p.Car.Price,
+                    Month = p.Car.Month,
+                    Year = p.Car.Year,
+                    Mileage = p.Car.Mileage,
+                    HorsePower = p.Car.HorsePower,
+                    FuelConsumption = p.Car.FuelConsumption,
+                    Color = p.Car.Color,
+                    Description = p.Car.Description,
+                    LocationCity = p.Car.LocationCity,
+                    LocationCountry = p.Car.LocationCountry
+                })
+                .ToListAsync();
+
+            return cars;
+        }
+
         public async Task CreateAsync(CarFormModel carFormModel)
         {
             Car newCar = new Car
@@ -132,33 +159,6 @@ namespace VelocityAutos.Services.Data
                 .FirstOrDefaultAsync();
 
             return car;
-        }
-
-        public async Task<IEnumerable<CarAllViewModel>> GetAllCarsAsync()
-        {
-            var cars = await this.dbContext
-                .Posts
-                .AsNoTracking()
-                .Where(p => p.IsActive == true)
-                .Select(p => new CarAllViewModel
-                {
-                    Id = p.Car.Id.ToString(),
-                    Make = p.Car.Make,
-                    Model = p.Car.Model,
-                    Price = p.Car.Price,
-                    Month = p.Car.Month,
-                    Year = p.Car.Year,
-                    Mileage = p.Car.Mileage,
-                    HorsePower = p.Car.HorsePower,
-                    FuelConsumption = p.Car.FuelConsumption,
-                    Color = p.Car.Color,
-                    Description = p.Car.Description,
-                    LocationCity = p.Car.LocationCity,
-                    LocationCountry = p.Car.LocationCountry
-                })
-                .ToListAsync();
-
-            return cars;
         }
     }
 }
