@@ -31,6 +31,13 @@ namespace VelocityAutos.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder
+                .Entity<Car>()
+                .HasOne(c => c.Post)
+                .WithOne(p => p.Car)
+                .HasForeignKey<Post>(p => p.CarId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
             builder
                 .Entity<Car>()
