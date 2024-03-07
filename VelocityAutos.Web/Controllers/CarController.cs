@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using VelocityAutos.Services.Data;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Extensions;
 using VelocityAutos.Web.ViewModels.Car;
 using VelocityAutos.Web.ViewModels.Post;
-using static VelocityAutos.Common.GeneralApplicationConstants;
 using static VelocityAutos.Common.NotificationMessagesConstants;
 
 namespace VelocityAutos.Web.Controllers
@@ -119,7 +117,7 @@ namespace VelocityAutos.Web.Controllers
             {
                 string? currUserId = this.User.GetId();
                 await this.carService.CreateAsync(postFormModel.Car);
-                var targetCar = await this.carService.GetCar(postFormModel.Car, currUserId!);
+                var targetCar = await this.carService.GetCarAsync(postFormModel.Car, currUserId!);
                 await this.postService.CreateAsync(postFormModel, targetCar, currUserId!);
             }
             catch (Exception)
@@ -136,10 +134,30 @@ namespace VelocityAutos.Web.Controllers
             return this.RedirectToAction(nameof(All));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Details(string carId)
         {
-            return this.View();
+            try
+            {
+                var targetCar = await this.carService.GetCarAsync(carId);
+
+                if (targetCar == null)
+                {
+                    TempData[ErrorMessage] = "Car does not exist or the post is no longer available!";
+                    return RedirectToAction(nameof(All));
+                }
+
+                var targetPost = await this.postService.GetPostByIdAsync(carId);
+
+                targetPost.Car = targetCar;
+
+                return View(targetPost);
+
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = "Unexpected error occured while trying to add new targetCar! Please try again later or contact administrator!";
+                return RedirectToAction(nameof(All));
+            }
         }
 
     }

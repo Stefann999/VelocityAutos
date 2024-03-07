@@ -3,6 +3,8 @@ using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Data;
 using VelocityAutos.Web.ViewModels.Car;
 using VelocityAutos.Data.Models;
+using static Dropbox.Api.Files.ListRevisionsMode;
+using Microsoft.AspNetCore.Mvc;
 
 namespace VelocityAutos.Services.Data
 {
@@ -79,7 +81,7 @@ namespace VelocityAutos.Services.Data
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<Car> GetCar(CarFormModel formModel, string userId)
+        public async Task<Car> GetCarAsync(CarFormModel formModel, string userId)
         {
             var car = new Car()
             {
@@ -99,6 +101,35 @@ namespace VelocityAutos.Services.Data
                 LocationCountry = formModel.LocationCountry,
                 CategoryId = formModel.CategoryId
             };
+
+            return car;
+        }
+
+        public async Task<CarDetailsViewModel> GetCarAsync(string carId)
+        {
+            var car = await this.dbContext
+                .Cars
+                .AsNoTracking()
+                .Where(c => c.Id.ToString() == carId)
+                .Select(c => new CarDetailsViewModel
+                {
+                    Make = c.Make,
+                    Model = c.Model,
+                    Price = c.Price,
+                    Month = c.Month,
+                    Year = c.Year,
+                    Mileage = c.Mileage,
+                    HorsePower = c.HorsePower,
+                    FuelConsumption = c.FuelConsumption,
+                    Color = c.Color,
+                    Description = c.Description,
+                    LocationCity = c.LocationCity,
+                    LocationCountry = c.LocationCountry,
+                    Category = c.Category.Name,
+                    FuelType = c.FuelType.Name,
+                    TransmissionType = c.TransmissionType.Name
+                })
+                .FirstOrDefaultAsync();
 
             return car;
         }

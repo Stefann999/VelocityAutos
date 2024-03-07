@@ -22,7 +22,7 @@ namespace VelocityAutos.Services.Data
                 .Select(c => new CarSelectFuelTypeFormModel
                 {
                     Id = c.Id,
-                    Name = c.FuelTypeName
+                    Name = c.Name
                 })
                 .ToArrayAsync();
 

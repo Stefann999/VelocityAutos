@@ -7,5 +7,7 @@ namespace VelocityAutos.Services.Data.Interfaces
     {
         public Task CreateAsync(PostFormModel postFormModel, Car car, string currUserId);
         //public Task<bool> IsUserPostOwnerById(string carId, string userId);
+
+        public Task<PostDetailsViewModel> GetPostByIdAsync(string postId);
     }
 }

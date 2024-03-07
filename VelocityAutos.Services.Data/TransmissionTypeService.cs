@@ -21,7 +21,7 @@ namespace VelocityAutos.Services.Data
                 .Select(c => new CarSelectTransmissionFormModel
                 {
                     Id = c.Id,
-                    Name = c.TransmissionTypeName
+                    Name = c.Name
                 })
                 .ToArrayAsync();
 

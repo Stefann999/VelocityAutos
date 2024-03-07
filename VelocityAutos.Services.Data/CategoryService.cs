@@ -22,7 +22,7 @@ namespace VelocityAutos.Services.Data
                 .Select(c => new CarSelectCategoryFormModel
                 {
                     Id = c.Id,
-                    Name = c.CategoryName
+                    Name = c.Name
                 })
                 .ToArrayAsync();
 

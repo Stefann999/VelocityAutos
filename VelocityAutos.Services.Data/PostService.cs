@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 using VelocityAutos.Data;
@@ -38,6 +39,26 @@ namespace VelocityAutos.Services.Data
 
             await this.dbContext.Posts.AddAsync(post);
             await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<PostDetailsViewModel> GetPostByIdAsync(string carId)
+        {
+            var post = await this.dbContext
+                .Posts
+                .AsNoTracking()
+                .Where(p => p.Car.Id.ToString() == carId)
+                .Select(p => new PostDetailsViewModel()
+                {
+                    CreatedOn = p.CreatedOn,
+                    DeletedOn = p.DeletedOn,
+                    UpdatedOn = p.UpdatedOn,
+                    SellerName = p.SellerFirstName + " " + p.SellerLastName,
+                    SellerPhoneNumber = p.SellerPhoneNumber,
+                    SellerEmailAddress = p.SellerEmailAddress
+                })
+                .FirstOrDefaultAsync();
+
+            return post;
         }
 
         //public async Task<bool> IsUserPostOwnerById(string carId, string userId)

@@ -12,6 +12,8 @@ namespace VelocityAutos.Services.Data.Interfaces
 
         Task<IEnumerable<CarAllViewModel>> GetAllCarsAsync();
 
-        Task<Car> GetCar(CarFormModel formModel, string currUserId);
+        Task<Car> GetCarAsync(CarFormModel formModel, string currUserId);
+
+        Task<CarDetailsViewModel> GetCarAsync(string carId);
     }
 }
