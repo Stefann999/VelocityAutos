@@ -54,7 +54,7 @@ namespace VelocityAutos.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,7 +67,7 @@ namespace VelocityAutos.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FuelTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,7 +80,7 @@ namespace VelocityAutos.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TransmissionTypeName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -212,19 +212,11 @@ namespace VelocityAutos.Data.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocationCity = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     LocationCountry = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    isSold = table.Column<bool>(type: "bit", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cars", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Cars_AspNetUsers_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Cars_Categories_CategoryId",
                         column: x => x.CategoryId,
@@ -260,13 +252,13 @@ namespace VelocityAutos.Data.Migrations
                         column: x => x.UsersFavouriteId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ApplicationUserCar_Cars_FavouriteCarsId",
                         column: x => x.FavouriteCarsId,
                         principalTable: "Cars",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -288,18 +280,51 @@ namespace VelocityAutos.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Posts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    SellerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SellerFirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SellerLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SellerPhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SellerEmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Posts_AspNetUsers_SellerId",
+                        column: x => x.SellerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Posts_Cars_CarId",
+                        column: x => x.CarId,
+                        principalTable: "Cars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("66543f29-bafc-4680-8028-5c4b7e444ccb"), 0, "668e7d82-3497-47eb-9098-6132d4888d53", "ivancars1@cars.com", true, false, null, "IVANCARS1@CARS.COM", "IVANCARS1@CARS.COM", "AQAAAAEAACcQAAAAEAPI3Oe1JwUxBs534KRhrWnDfali+dCkzmXiVYgzt8rjeizmoz4YcLPsLwR0Hs28IA==", "0888888888", true, "f49c695d-b65c-4245-a204-70ac1ef3167c", false, "ivancars1@cars.com" },
-                    { new Guid("ed670787-a2d5-45e9-a069-83dcd8e84e30"), 0, "3f509880-8a4c-4e64-ba38-353c1611c646", "dimitur122@cars.com", true, false, null, "DIMITUR122@CARS.COM", "DIMITUR122@CARS.COM", "AQAAAAEAACcQAAAAEBl9YgTOKqvLjPiMBd8lVokw6IIa4zqUm+GEdOyNCfa4k6nnkBexWm2NPjFbhV++Vg==", "0999999999", true, "e5507714-6b85-407b-a9e4-85b8856de4bd", false, "dimitur122@cars.com" }
+                    { new Guid("66543f29-bafc-4680-8028-5c4b7e444ccb"), 0, "668e7d82-3497-47eb-9098-6132d4888d53", "ivancars1@cars.com", true, false, null, "IVANCARS1@CARS.COM", "IVANCARS1@CARS.COM", "AQAAAAEAACcQAAAAEDRd6vIbIsvycW5haJSLkgLfponB1qC/4rbLR/EWuKwuVm1nbMx64JjeeSWK8C2EEg==", "0888888888", true, "f49c695d-b65c-4245-a204-70ac1ef3167c", false, "ivancars1@cars.com" },
+                    { new Guid("ed670787-a2d5-45e9-a069-83dcd8e84e30"), 0, "3f509880-8a4c-4e64-ba38-353c1611c646", "dimitur122@cars.com", true, false, null, "DIMITUR122@CARS.COM", "DIMITUR122@CARS.COM", "AQAAAAEAACcQAAAAEFnTW5mfnaQrbOOtB6WwroIYffF/k/QmymoQAGhlg2oB9MPBNE3pFwSwd7qPESWxgg==", "0999999999", true, "e5507714-6b85-407b-a9e4-85b8856de4bd", false, "dimitur122@cars.com" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "CategoryName" },
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
                     { 1, "Sedan" },
@@ -320,7 +345,7 @@ namespace VelocityAutos.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "FuelTypes",
-                columns: new[] { "Id", "FuelTypeName" },
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
                     { 1, "Petrol" },
@@ -341,7 +366,7 @@ namespace VelocityAutos.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "TransmissionTypes",
-                columns: new[] { "Id", "TransmissionTypeName" },
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
                     { 1, "Manual" },
@@ -355,13 +380,23 @@ namespace VelocityAutos.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Cars",
-                columns: new[] { "Id", "CategoryId", "Color", "Description", "FuelConsumption", "FuelTypeId", "HorsePower", "LocationCity", "LocationCountry", "Make", "Mileage", "Model", "Month", "OwnerId", "Price", "TransmissionTypeId", "Year", "isSold" },
-                values: new object[] { new Guid("74576f3e-a409-46e4-a8ff-9c93eb409cba"), 1, "Black", "The 2019 Audi A4 is a luxury compact sedan that combines sophisticated design, advanced technology, and impressive performance.", 6.5, 1, 150, "Sofia", "Bulgaria", "Audi", 10000, "A4", 3, new Guid("66543f29-bafc-4680-8028-5c4b7e444ccb"), 50000m, 1, 2019, false });
+                columns: new[] { "Id", "CategoryId", "Color", "Description", "FuelConsumption", "FuelTypeId", "HorsePower", "LocationCity", "LocationCountry", "Make", "Mileage", "Model", "Month", "Price", "TransmissionTypeId", "Year" },
+                values: new object[] { new Guid("74576f3e-a409-46e4-a8ff-9c93eb409cba"), 1, "Black", "The 2019 Audi A4 is a luxury compact sedan that combines sophisticated design, advanced technology, and impressive performance.", 6.5, 1, 150, "Sofia", "Bulgaria", "Audi", 10000, "A4", 3, 50000m, 1, 2019 });
 
             migrationBuilder.InsertData(
                 table: "Cars",
-                columns: new[] { "Id", "CategoryId", "Color", "Description", "FuelConsumption", "FuelTypeId", "HorsePower", "LocationCity", "LocationCountry", "Make", "Mileage", "Model", "Month", "OwnerId", "Price", "TransmissionTypeId", "Year", "isSold" },
-                values: new object[] { new Guid("9219e817-e86a-4ea0-807f-976d8195d93a"), 2, "White", "The Mercedes-AMG GT 63 S is a high-performance luxury four-door coupe that offers a combination of striking design, advanced technology, and powerful performance.", 15.0, 1, 639, "Sofia", "Bulgaria", "Mercedes", 5000, "GT63 S 4-door", 1, new Guid("ed670787-a2d5-45e9-a069-83dcd8e84e30"), 200000m, 2, 2023, false });
+                columns: new[] { "Id", "CategoryId", "Color", "Description", "FuelConsumption", "FuelTypeId", "HorsePower", "LocationCity", "LocationCountry", "Make", "Mileage", "Model", "Month", "Price", "TransmissionTypeId", "Year" },
+                values: new object[] { new Guid("9219e817-e86a-4ea0-807f-976d8195d93a"), 2, "White", "The Mercedes-AMG GT 63 S is a high-performance luxury four-door coupe that offers a combination of striking design, advanced technology, and powerful performance.", 15.0, 1, 639, "Sofia", "Bulgaria", "Mercedes", 5000, "GT63 S 4-door", 1, 200000m, 2, 2023 });
+
+            migrationBuilder.InsertData(
+                table: "Posts",
+                columns: new[] { "Id", "CarId", "CreatedOn", "DeletedOn", "IsActive", "SellerEmailAddress", "SellerFirstName", "SellerId", "SellerLastName", "SellerPhoneNumber", "UpdatedOn" },
+                values: new object[] { new Guid("3e5e72c8-ae7d-4c68-ad81-1bdc9c9eaad9"), new Guid("74576f3e-a409-46e4-a8ff-9c93eb409cba"), new DateTime(2024, 2, 21, 20, 32, 42, 679, DateTimeKind.Utc).AddTicks(4937), null, true, "dimitur122@cars.com", "Ivan", new Guid("ed670787-a2d5-45e9-a069-83dcd8e84e30"), "Zdravkov", "0813819279", null });
+
+            migrationBuilder.InsertData(
+                table: "Posts",
+                columns: new[] { "Id", "CarId", "CreatedOn", "DeletedOn", "IsActive", "SellerEmailAddress", "SellerFirstName", "SellerId", "SellerLastName", "SellerPhoneNumber", "UpdatedOn" },
+                values: new object[] { new Guid("b5a2fe5f-8161-48d4-bd61-0d6f1b38609c"), new Guid("9219e817-e86a-4ea0-807f-976d8195d93a"), new DateTime(2024, 2, 16, 20, 32, 42, 679, DateTimeKind.Utc).AddTicks(4922), null, true, "ivancars1@cars.com", "Dimitur", new Guid("66543f29-bafc-4680-8028-5c4b7e444ccb"), "Vasilev", "0867219923", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ApplicationUserCar_UsersFavouriteId",
@@ -418,11 +453,6 @@ namespace VelocityAutos.Data.Migrations
                 column: "FuelTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cars_OwnerId",
-                table: "Cars",
-                column: "OwnerId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Cars_TransmissionTypeId",
                 table: "Cars",
                 column: "TransmissionTypeId");
@@ -431,6 +461,17 @@ namespace VelocityAutos.Data.Migrations
                 name: "IX_Images_CarId",
                 table: "Images",
                 column: "CarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_CarId",
+                table: "Posts",
+                column: "CarId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_SellerId",
+                table: "Posts",
+                column: "SellerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -457,13 +498,16 @@ namespace VelocityAutos.Data.Migrations
                 name: "Images");
 
             migrationBuilder.DropTable(
+                name: "Posts");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Cars");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Cars");
 
             migrationBuilder.DropTable(
                 name: "Categories");
