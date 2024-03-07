@@ -2,7 +2,7 @@
 @using VelocityAutos.Web.Infrastructure.Extensions
 @model IEnumerable<CarAllViewModel>
 
-@inject ICarService CarService
+@inject IPostService PostService
 
 <head>
     <title>All cars</title>
@@ -17,14 +17,14 @@
 
 @foreach (var car in Model)
 {
-    bool isUserOwner = await CarService.IsUserCarOwnerById(car.Id, User.GetId()!);
+    //bool isUserOwner = await PostService.IsUserPostOwnerById(car.Id, User.GetId()!);
       <div class="car">
           <img src="@car.ImagesPaths.FirstOrDefault()" alt="@car.Make">
           <div class="car-info">
-                @if (isUserOwner)
+                @* @if (isUserOwner)
                 {
                     <a asp-controller="Car" asp-action="Edit" asp-route-id="@car.Id" class="btn btn-warning fw-bold">Edit</a>
-                }
+                } *@
               <div class="car-title">@car.Make</div>
               <div class="car-description">@car.Model</div>
                 <a asp-controller="Car" asp-action="Details" asp-route-id="@car.Id" class="btn btn-warning fw-bold">View Details</a>

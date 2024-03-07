@@ -1,4 +1,4 @@
-﻿@model CarFormModel
+﻿@model PostFormModel
 
 @{
     ViewData["Title"] = "Add Car";
@@ -27,104 +27,104 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label asp-for="Make">Make:</label>
-                                    <input asp-for="Make" class="form-control" />
+                                    <label asp-for="@Model.Car.Make">Make:</label>
+                                    <input asp-for="@Model.Car.Make" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="Model">Model:</label>
-                                    <input asp-for="Model" class="form-control" />
+                                    <label asp-for="@Model.Car.Model">Model:</label>
+                                    <input asp-for="@Model.Car.Model" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="Price">Price:</label>
-                                    <input asp-for="Price" class="form-control" />
+                                    <label asp-for="@Model.Car.Price">Price:</label>
+                                    <input asp-for="@Model.Car.Price" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="Month">Month:</label>
-                                    <input asp-for="Month" class="form-control" />
+                                    <label asp-for="@Model.Car.Month">Month:</label>
+                                    <input asp-for="@Model.Car.Month" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="Year">Year:</label>
-                                    <input asp-for="Year" class="form-control" />
+                                    <label asp-for="@Model.Car.Year">Year:</label>
+                                    <input asp-for="@Model.Car.Year" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="Mileage">Mileage:</label>
-                                    <input asp-for="Mileage" class="form-control" />
+                                    <label asp-for="@Model.Car.Mileage">Mileage:</label>
+                                    <input asp-for="@Model.Car.Mileage" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="HorsePower">Horse Power:</label>
-                                    <input asp-for="HorsePower" class="form-control" />
+                                    <label asp-for="@Model.Car.HorsePower">Horse Power:</label>
+                                    <input asp-for="@Model.Car.HorsePower" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="FuelConsumption">Fuel Consumption:</label>
-                                    <input asp-for="FuelConsumption" class="form-control" />
+                                    <label asp-for="@Model.Car.FuelConsumption">Fuel Consumption:</label>
+                                    <input asp-for="@Model.Car.FuelConsumption" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label asp-for="Color">Color:</label>
-                                    <input asp-for="Color" class="form-control" />
+                                    <label asp-for="@Model.Car.Color">Color:</label>
+                                    <input asp-for="@Model.Car.Color" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="Description">Description:</label>
-                                    <textarea asp-for="Description" class="form-control"></textarea>
+                                    <label asp-for="@Model.Car.Description">Description:</label>
+                                    <textarea asp-for="@Model.Car.Description" class="form-control"></textarea>
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="LocationCity">Location City:</label>
-                                    <input asp-for="LocationCity" class="form-control" />
+                                    <label asp-for="@Model.Car.LocationCity">Location City:</label>
+                                    <input asp-for="@Model.Car.LocationCity" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="LocationCountry">Location Country:</label>
-                                    <input asp-for="LocationCountry" class="form-control" />
+                                    <label asp-for="@Model.Car.LocationCountry">Location Country:</label>
+                                    <input asp-for="@Model.Car.LocationCountry" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="CategoryId"></label>
-                                    <select asp-for="CategoryId" class="form-control">
-                                        @foreach (var category in Model.Categories)
+                                    <label asp-for="@Model.Car.CategoryId"></label>
+                                    <select asp-for="@Model.Car." class="form-control">
+                                        @foreach (var category in Model.Car.Categories)
                                         {
                                             <option value="@category.Id">@category.Name</option>
                                         }
                                     </select>
-                                    <span asp-validation-for="CategoryId" class="small text-danger"></span>
+                                    <span asp-validation-for="@Model.Car.CategoryId" class="small text-danger"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="FuelTypeId"></label>
-                                    <select asp-for="FuelTypeId" class="form-control">
-                                        @foreach (var fuelType in Model.FuelTypes)
+                                    <label asp-for="@Model.Car.FuelTypeId"></label>
+                                    <select asp-for="@Model.Car.FuelTypeId" class="form-control">
+                                        @foreach (var fuelType in Model.Car.FuelTypes)
                                         {
                                             <option value="@fuelType.Id">@fuelType.Name</option>
                                         }
                                     </select>
-                                    <span asp-validation-for="FuelTypeId" class="small text-danger"></span>
+                                    <span asp-validation-for="@Model.Car.FuelTypeId" class="small text-danger"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label asp-for="TransmissionTypeId"></label>
-                                    <select asp-for="TransmissionTypeId" class="form-control">
-                                        @foreach (var transmissionType in Model.TransmissionTypes)
+                                    <label asp-for="@Model.Car.TransmissionTypeId"></label>
+                                    <select asp-for="@Model.Car.TransmissionTypeId" class="form-control">
+                                        @foreach (var transmissionType in Model.Car.TransmissionTypes)
                                         {
                                             <option value="@transmissionType.Id">@transmissionType.Name</option>
                                         }
                                     </select>
-                                    <span asp-validation-for="TransmissionTypeId" class="small text-danger"></span>
+                                    <span asp-validation-for="@Model.Car.TransmissionTypeId" class="small text-danger"></span>
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label asp-for="Images">Upload Images:</label>
-                                    <input asp-for="Images" type="file" class="form-control" multiple />
-                                    <span asp-validation-for="Images" class="small text-danger"></span>
+                                    <label asp-for="@Model.Car.Images">Upload Images:</label>
+                                    <input asp-for="@Model.Car.Images" type="file" class="form-control" multiple />
+                                    <span asp-validation-for="@Model.Car.Images" class="small text-danger"></span>
                                 </div>
                             </div>
                         </div>
