@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using static VelocityAutos.Common.EntityValidationConstants.Post;
 
 namespace VelocityAutos.Data.Models
 {
@@ -12,10 +14,14 @@ namespace VelocityAutos.Data.Models
 
         public Guid Id { get; set; }
 
+        [Required]
+        [DisplayFormat(DataFormatString = MyDateTimeFormat)]
         public DateTime CreatedOn { get; set; }
 
+        [DisplayFormat(DataFormatString = MyDateTimeFormat)]
         public DateTime? DeletedOn { get; set; }
 
+        [DisplayFormat(DataFormatString = MyDateTimeFormat)]
         public DateTime? UpdatedOn { get; set;}
 
         public bool IsActive { get; set; }
@@ -32,14 +38,21 @@ namespace VelocityAutos.Data.Models
         public Car Car { get; set; } = null!;
 
         [Required]
+        [MinLength(SellerFirstNameMinLength)]
+        [MaxLength(SellerFirstNameMaxLength)]
         public string SellerFirstName { get; set; } = null!;
 
         [Required]
+        [MinLength(SellerLastNameMinLength)]
+        [MaxLength(SellerLastNameMaxLength)]
         public string SellerLastName { get; set; } = null!;
 
         [Required]
+        [MinLength(SellerPhoneNumberMinLength)]
+        [MaxLength(SellerPhoneNumberMaxLength)]
         public string SellerPhoneNumber { get; set; } = null!;
 
+        [RegularExpression(SellerEmailAddressRegex)]
         public string? SellerEmailAddress { get; set; }
     }
 }
