@@ -95,7 +95,10 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><strong>Name:</strong> @Model.SellerName</li>
                     <li class="list-group-item"><strong>Phone Number:</strong> @Model.SellerPhoneNumber</li>
-                    <li class="list-group-item"><strong>Email address:</strong> @Model.SellerEmailAddress</li>
+                    @if (string.IsNullOrEmpty(Model.SellerEmailAddress))
+                    {
+                        <li class="list-group-item"><strong>Email address:</strong> @Model.SellerEmailAddress</li>
+                    }
                     <li class="list-group-item"><strong>Added on:</strong> @Model.CreatedOn.ToString(MyDateTimeFormat)</li>
                     @if (Model.UpdatedOn != null)
                     {
