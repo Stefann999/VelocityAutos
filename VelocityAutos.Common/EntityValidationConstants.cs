@@ -66,6 +66,8 @@ namespace VelocityAutos.Common
             public const int SellerPhoneNumberMaxLength = 20;
 
             public const string SellerEmailAddressRegex = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+            public const string MyDateTimeFormat = "dd/MM/yyyy HH:mm";
         }
     }
 }

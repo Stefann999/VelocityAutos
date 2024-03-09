@@ -1,4 +1,5 @@
 ﻿@model PostDetailsViewModel
+@using static VelocityAutos.Common.EntityValidationConstants.Post
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +76,10 @@
                     <li class="list-group-item"><strong>Horsepower:</strong> @Model.Car.HorsePower</li>
                     <li class="list-group-item"><strong>Fuel Consumption:</strong> @Model.Car.FuelConsumption</li>
                     <li class="list-group-item"><strong>Color:</strong> @Model.Car.Color</li>
-                    <li class="list-group-item"><strong>Description:</strong> @Model.Car.Description</li>
+                    @if (!string.IsNullOrEmpty(Model.Car.Description))
+                    {
+                        <li class="list-group-item"><strong>Description:</strong> @Model.Car.Description</li>
+                    }
                     <li class="list-group-item"><strong>Transmission Type:</strong> @Model.Car.TransmissionType</li>
                     <li class="list-group-item"><strong>Fuel Type:</strong> @Model.Car.FuelType</li>
                     <li class="list-group-item"><strong>Category:</strong> @Model.Car.Category</li>
@@ -92,6 +96,15 @@
                     <li class="list-group-item"><strong>Name:</strong> @Model.SellerName</li>
                     <li class="list-group-item"><strong>Phone Number:</strong> @Model.SellerPhoneNumber</li>
                     <li class="list-group-item"><strong>Email address:</strong> @Model.SellerEmailAddress</li>
+                    <li class="list-group-item"><strong>Added on:</strong> @Model.CreatedOn.ToString(MyDateTimeFormat)</li>
+                    @if (Model.UpdatedOn != null)
+                    {
+                        <li class="list-group-item"><strong>Updated on:</strong> @Model.UpdatedOn?.ToString(MyDateTimeFormat)</li>
+                    }
+                    @if (Model.DeletedOn != null)
+                    {
+                        <li class="list-group-item"><strong>Deleted on:</strong> @Model.DeletedOn?.ToString(MyDateTimeFormat)</li>
+                    }
                 </ul>
             </div>
         </div>

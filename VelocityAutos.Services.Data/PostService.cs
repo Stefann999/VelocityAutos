@@ -1,14 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading.Tasks;
 using VelocityAutos.Data;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.ViewModels.Post;
+using static VelocityAutos.Common.EntityValidationConstants.Post;
 
 namespace VelocityAutos.Services.Data
 {
@@ -32,8 +27,9 @@ namespace VelocityAutos.Services.Data
                SellerPhoneNumber = postFormModel.PhoneNumber,
                SellerEmailAddress = postFormModel.EmailAddress,
                SellerId = Guid.Parse(currUserId),
-               CreatedOn = DateTime.UtcNow,
+               CreatedOn = DateTime.Now,
                UpdatedOn = null,
+               DeletedOn = null,
                IsActive = true,
            };
 
