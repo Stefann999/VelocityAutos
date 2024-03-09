@@ -10,6 +10,12 @@ namespace VelocityAutos.Web.ViewModels.Post
         [Required]
         public CarFormModel Car { get; set; } = null!;
 
+        [Required(ErrorMessage = RequiredErrorMessage)]
+        [StringLength(
+                       SellerFirstNameMaxLength,
+                       MinimumLength = SellerFirstNameMinLength,
+                       ErrorMessage = StringLengthErrorMessage)]
+        [Display(Name = "Seller First Name")]
         public string FirstName { get; set; } = null!;
 
         [Required(ErrorMessage = RequiredErrorMessage)]
@@ -28,9 +34,8 @@ namespace VelocityAutos.Web.ViewModels.Post
         [Display(Name = "Seller Phone number")]
         public string PhoneNumber { get; set; } = null!;
 
-        [Required(ErrorMessage = RequiredErrorMessage)]
         [RegularExpression(SellerEmailAddressRegex, ErrorMessage = InvalidEmailAddressMessage)]
-        [Display(Name = "Seller First Name")]
-        public string EmailAddress { get; set; } = null!;
+        [Display(Name = "Seller Email Address")]
+        public string? EmailAddress { get; set; } = null!;
     }
 }
