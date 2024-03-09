@@ -26,7 +26,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 })
     .AddEntityFrameworkStores<VelocityAutosDbContext>();
 
-builder.Services.AddScoped<IDropboxService>(provider => new DropboxService("sl.BwinUuDEgh24ijMkVF6D2R1nC-zz5CDyJRFnu0Sm9X-FAyXUzZ1bx5tEgWBCOweQisIRca0dILloN6SYmGRfsZO0FcoXc4CBG7EPpg4rIRUyIKT_a71fncTWT4hdpPLoCWeGVHyu4EN3"));
+builder.Services.AddScoped<IDropboxService>(provider => new DropboxService("sl.BxFuSK3qnSzfcYPrL5HPoGI066dI4vBlVN0FOMbIc8vkTaiw9QHAfOhNUUEICIngB2282FsYSJj1b6n2Ib-we0Wv8wWsByMLqrMHyZaIbAL6d_YkCePex6Yq8njJO4QiFk7YezuJFHE6"));
 
 
 builder.Services.AddApplicationServices(typeof(ICarService));

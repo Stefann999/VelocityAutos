@@ -31,6 +31,26 @@
                                     <input asp-for="@Model.Car.Make" class="form-control" />
                                 </div>
 
+                                 <div class="form-group">
+                                    <label asp-for="@Model.FirstName">First name:</label>
+                                    <input asp-for="@Model.FirstName" class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="@Model.LastName">Last Name:</label>
+                                    <input asp-for="@Model.LastName" class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="@Model.PhoneNumber">Phone Number:</label>
+                                    <input asp-for="@Model.PhoneNumber" class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="@Model.EmailAddress">Email Address:</label>
+                                    <input asp-for="@Model.EmailAddress" class="form-control" />
+                                </div>
+
                                 <div class="form-group">
                                     <label asp-for="@Model.Car.Model">Model:</label>
                                     <input asp-for="@Model.Car.Model" class="form-control" />
@@ -90,7 +110,7 @@
 
                                 <div class="form-group">
                                     <label asp-for="@Model.Car.CategoryId"></label>
-                                    <select asp-for="@Model.Car." class="form-control">
+                                    <select asp-for="@Model.Car.CategoryId" class="form-control">
                                         @foreach (var category in Model.Car.Categories)
                                         {
                                             <option value="@category.Id">@category.Name</option>

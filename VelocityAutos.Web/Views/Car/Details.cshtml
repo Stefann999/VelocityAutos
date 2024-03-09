@@ -1,4 +1,4 @@
-﻿@model CarDetailsViewModel
+﻿@model PostDetailsViewModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,23 +62,23 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h2 class="card-title">@Model.Make @Model.Model Details</h2>
+                <h2 class="card-title">@Model.Car.Make @Model.Car.Model Details</h2>
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><strong>Make:</strong> @Model.Make</li>
-                    <li class="list-group-item"><strong>Model:</strong> @Model.Model</li>
-                    <li class="list-group-item"><strong>Price:</strong> @Model.Price</li>
-                    <li class="list-group-item"><strong>Month:</strong> @Model.Month</li>
-                    <li class="list-group-item"><strong>Year:</strong> @Model.Year</li>
-                    <li class="list-group-item"><strong>Mileage:</strong> @Model.Mileage</li>
-                    <li class="list-group-item"><strong>Horsepower:</strong> @Model.HorsePower</li>
-                    <li class="list-group-item"><strong>Fuel Consumption:</strong> @Model.FuelConsumption</li>
-                    <li class="list-group-item"><strong>Color:</strong> @Model.Color</li>
-                    <li class="list-group-item"><strong>Description:</strong> @Model.Description</li>
-                    <li class="list-group-item"><strong>Transmission Type:</strong> @Model.TransmissionType</li>
-                    <li class="list-group-item"><strong>Fuel Type:</strong> @Model.FuelType</li>
-                    <li class="list-group-item"><strong>Category:</strong> @Model.Category</li>
+                    <li class="list-group-item"><strong>Make:</strong> @Model.Car.Make</li>
+                    <li class="list-group-item"><strong>Model:</strong> @Model.Car.Model</li>
+                    <li class="list-group-item"><strong>Price:</strong> @Model.Car.Price</li>
+                    <li class="list-group-item"><strong>Month:</strong> @Model.Car.Month</li>
+                    <li class="list-group-item"><strong>Year:</strong> @Model.Car.Year</li>
+                    <li class="list-group-item"><strong>Mileage:</strong> @Model.Car.Mileage</li>
+                    <li class="list-group-item"><strong>Horsepower:</strong> @Model.Car.HorsePower</li>
+                    <li class="list-group-item"><strong>Fuel Consumption:</strong> @Model.Car.FuelConsumption</li>
+                    <li class="list-group-item"><strong>Color:</strong> @Model.Car.Color</li>
+                    <li class="list-group-item"><strong>Description:</strong> @Model.Car.Description</li>
+                    <li class="list-group-item"><strong>Transmission Type:</strong> @Model.Car.TransmissionType</li>
+                    <li class="list-group-item"><strong>Fuel Type:</strong> @Model.Car.FuelType</li>
+                    <li class="list-group-item"><strong>Category:</strong> @Model.Car.Category</li>
                 </ul>
             </div>
         </div>
@@ -89,9 +89,9 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><strong>Name:</strong> asddsa/li>
-                    <li class="list-group-item"><strong>Phone Number:</strong> asd</li>
-                    <li class="list-group-item"><strong>Email:</strong> asd</li>
+                    <li class="list-group-item"><strong>Name:</strong> @Model.SellerName</li>
+                    <li class="list-group-item"><strong>Phone Number:</strong> @Model.SellerPhoneNumber</li>
+                    <li class="list-group-item"><strong>Email address:</strong> @Model.SellerEmailAddress</li>
                 </ul>
             </div>
         </div>

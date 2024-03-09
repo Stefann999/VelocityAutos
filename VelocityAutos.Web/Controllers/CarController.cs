@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Extensions;
 using VelocityAutos.Web.ViewModels.Car;
@@ -104,6 +105,11 @@ namespace VelocityAutos.Web.Controllers
             {
                 ModelState.AddModelError(nameof(postFormModel.Car.Images), "Please attach atleast one image!");
             }
+            // Add more validation for Post's creator details
+
+            string messages = string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
 
             if (!ModelState.IsValid)
             {
@@ -114,12 +120,15 @@ namespace VelocityAutos.Web.Controllers
                 return this.View(postFormModel);
             }
 
+            string targetCarId = string.Empty;
+
             try
             {
                 string? currUserId = this.User.GetId();
                 await this.carService.CreateAsync(postFormModel.Car);
                 var targetCar = await this.carService.GetCarAsync(postFormModel.Car, currUserId!);
                 await this.postService.CreateAsync(postFormModel, targetCar, currUserId!);
+                targetCarId = targetCar.Id.ToString();
             }
             catch (Exception)
             {
@@ -130,9 +139,11 @@ namespace VelocityAutos.Web.Controllers
                 postFormModel.Car.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync();
 
                 return this.View(postFormModel);
-            }  
+            }
+
+            TempData[SuccessMessage] = "Car was added for sale successfully!";
             
-            return this.RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(Details), new { carId = targetCarId});
         }
 
         public async Task<IActionResult> Details(string carId)
@@ -151,7 +162,7 @@ namespace VelocityAutos.Web.Controllers
 
                 targetPost.Car = targetCar;
 
-                return View(targetCar);
+                return View(targetPost);
 
             }
             catch (Exception)

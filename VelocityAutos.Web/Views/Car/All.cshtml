@@ -19,7 +19,7 @@
 {
     //bool isUserOwner = await PostService.IsUserPostOwnerById(car.Id, User.GetId()!);
       <div class="car">
-          <img src="@car.ImagesPaths.FirstOrDefault()" alt="@car.Make">
+          <img src="~/audiA4-image3.jpg" alt="@car.Make">
           <div class="car-info">
                 @* @if (isUserOwner)
                 {
@@ -27,7 +27,7 @@
                 } *@
               <div class="car-title">@car.Make</div>
               <div class="car-description">@car.Model</div>
-                <a asp-controller="Car" asp-action="Details" asp-route-id="@car.Id" class="btn btn-warning fw-bold">View Details</a>
+                        <a asp-controller="Car" asp-action="Details" asp-route-CarId="@car.Id" class="btn btn-primary">Details</a>
           </div>
       </div>
 }
