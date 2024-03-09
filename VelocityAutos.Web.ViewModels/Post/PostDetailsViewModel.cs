@@ -1,6 +1,4 @@
 ﻿using VelocityAutos.Web.ViewModels.Car;
-using VelocityAutos.Web.ViewModels.FuelType;
-using VelocityAutos.Web.ViewModels.SelectViewModels;
 
 namespace VelocityAutos.Web.ViewModels.Post
 {

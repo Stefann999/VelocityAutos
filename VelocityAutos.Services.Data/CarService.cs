@@ -3,8 +3,6 @@ using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Data;
 using VelocityAutos.Web.ViewModels.Car;
 using VelocityAutos.Data.Models;
-using static Dropbox.Api.Files.ListRevisionsMode;
-using Microsoft.AspNetCore.Mvc;
 
 namespace VelocityAutos.Services.Data
 {

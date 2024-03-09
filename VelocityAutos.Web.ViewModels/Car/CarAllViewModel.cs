@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
-using VelocityAutos.Data.Models;
-using VelocityAutos.Web.ViewModels.FuelType;
-using VelocityAutos.Web.ViewModels.SelectViewModels;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace VelocityAutos.Web.ViewModels.Car
 {

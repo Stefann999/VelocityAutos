@@ -3,7 +3,6 @@ using VelocityAutos.Data;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.ViewModels.Post;
-using static VelocityAutos.Common.EntityValidationConstants.Post;
 
 namespace VelocityAutos.Services.Data
 {

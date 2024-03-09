@@ -1,5 +1,4 @@
 ﻿using VelocityAutos.Web.ViewModels.Car;
-using VelocityAutos.Services.Data.Models.Car;
 using VelocityAutos.Data.Models;
 
 namespace VelocityAutos.Services.Data.Interfaces
