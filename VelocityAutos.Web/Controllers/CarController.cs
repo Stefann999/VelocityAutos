@@ -105,11 +105,6 @@ namespace VelocityAutos.Web.Controllers
             {
                 ModelState.AddModelError(nameof(postFormModel.Car.Images), "Please attach atleast one image!");
             }
-            // Add more validation for Post's creator details
-
-            string messages = string.Join("; ", ModelState.Values
-                                        .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage));
 
             if (!ModelState.IsValid)
             {
