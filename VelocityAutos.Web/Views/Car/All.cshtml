@@ -27,9 +27,13 @@
                 } *@
               <div class="car-title">@car.Make</div>
               <div class="car-description">@car.Model</div>
-                        <a asp-controller="Car" asp-action="Details" asp-route-CarId="@car.Id" class="btn btn-primary">Details</a>
+                <a asp-controller="Car" asp-action="Details" asp-route-id="@car.Id" class="btn btn-primary">Details</a>
+                <a asp-controller="Car" asp-action="Edit" asp-route-id="@car.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
           </div>
       </div>
 }
-
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
