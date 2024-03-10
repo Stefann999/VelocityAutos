@@ -1,5 +1,6 @@
 ﻿using VelocityAutos.Web.ViewModels.Car;
 using VelocityAutos.Data.Models;
+using System.Globalization;
 
 namespace VelocityAutos.Services.Data.Interfaces
 {
@@ -7,12 +8,16 @@ namespace VelocityAutos.Services.Data.Interfaces
     {
         Task<bool> ExistsByIdAsync(string carId);
 
-        Task CreateAsync(CarFormModel carFormModel);
+        Task<string> CreateAsync(CarFormModel carFormModel);
 
         Task<IEnumerable<CarAllViewModel>> GetAllCarsAsync();
 
-        Task<Car> GetCarAsync(CarFormModel formModel, string currUserId);
+        Task<Car> GetCarEntityAsync(string carId);
 
-        Task<CarDetailsViewModel> GetCarAsync(string carId);
+        Task<CarDetailsViewModel> GetCarDetailsAsync(string carId);
+
+        Task<CarFormModel> GetCarEditAsync(string carId);
+
+        Task UpdateAsync(CarFormModel carFormModel, string carId);
     }
 }

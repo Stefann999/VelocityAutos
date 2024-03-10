@@ -20,7 +20,6 @@ namespace VelocityAutos.Services.Data
            var post = new Post
            {
                CarId = car.Id,
-               Car = car,
                SellerFirstName = postFormModel.FirstName,
                SellerLastName = postFormModel.LastName,
                SellerPhoneNumber = postFormModel.PhoneNumber,
@@ -36,7 +35,7 @@ namespace VelocityAutos.Services.Data
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<PostDetailsViewModel> GetPostByIdAsync(string carId)
+        public async Task<PostDetailsViewModel> GetPostForDetailsByIdAsync(string carId)
         {
             var post = await this.dbContext
                 .Posts
@@ -54,6 +53,43 @@ namespace VelocityAutos.Services.Data
                 .FirstOrDefaultAsync();
 
             return post;
+        }
+
+        public async Task<PostFormModel> GetPostForEditByIdAsync(string carId)
+        {
+            var post = await this.dbContext
+               .Posts
+               .AsNoTracking()
+               .Where(p => p.Car.Id.ToString() == carId)
+               .Select(p => new PostFormModel()
+               {
+                   FirstName = p.SellerFirstName,
+                   LastName = p.SellerLastName,
+                   PhoneNumber = p.SellerPhoneNumber,
+                   EmailAddress = p.SellerEmailAddress,
+                   SellerId = p.SellerId.ToString()
+               })
+               .FirstOrDefaultAsync();
+
+            return post;
+        }
+
+        public async Task UpdateAsync(PostFormModel postFormModel, string postId)
+        {
+            var post = await this.dbContext
+                .Posts
+                .FirstOrDefaultAsync(p => p.Id.ToString() == postId);
+
+            if (post != null)
+            {
+                post.SellerFirstName = postFormModel.FirstName;
+                post.SellerLastName = postFormModel.LastName;
+                post.SellerPhoneNumber = postFormModel.PhoneNumber;
+                post.SellerEmailAddress = postFormModel.EmailAddress;
+                post.UpdatedOn = DateTime.Now;
+            }
+
+            await this.dbContext.SaveChangesAsync();
         }
 
         //public async Task<bool> IsUserPostOwnerById(string carId, string userId)

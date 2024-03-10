@@ -4,6 +4,8 @@ using VelocityAutos.Data;
 using VelocityAutos.Web.ViewModels.Car;
 using VelocityAutos.Data.Models;
 
+using System.Drawing;
+
 namespace VelocityAutos.Services.Data
 {
     public class CarService : ICarService
@@ -54,7 +56,7 @@ namespace VelocityAutos.Services.Data
             return cars;
         }
 
-        public async Task CreateAsync(CarFormModel carFormModel)
+        public async Task<string> CreateAsync(CarFormModel carFormModel)
         {
             Car newCar = new Car
             {
@@ -104,33 +106,18 @@ namespace VelocityAutos.Services.Data
 
             await this.dbContext.Cars.AddAsync(newCar);
             await this.dbContext.SaveChangesAsync();
+
+            return newCar.Id.ToString();
         }
 
-        public async Task<Car> GetCarAsync(CarFormModel formModel, string userId)
+        public async Task<Car> GetCarEntityAsync(string carId)
         {
-            var car = new Car()
-            {
-                Make = formModel.Make,
-                Model = formModel.Model,
-                Price = formModel.Price,
-                Month = formModel.Month,
-                Year = formModel.Year,
-                Mileage = formModel.Mileage,
-                HorsePower = formModel.HorsePower,
-                FuelTypeId = formModel.FuelTypeId,
-                FuelConsumption = formModel.FuelConsumption,
-                TransmissionTypeId = formModel.TransmissionTypeId,
-                Color = formModel.Color,
-                Description = formModel.Description,
-                LocationCity = formModel.LocationCity,
-                LocationCountry = formModel.LocationCountry,
-                CategoryId = formModel.CategoryId
-            };
-
-            return car;
+            return await this.dbContext
+                .Cars
+                .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
         }
 
-        public async Task<CarDetailsViewModel> GetCarAsync(string carId)
+        public async Task<CarDetailsViewModel> GetCarDetailsAsync(string carId)
         {
             var car = await this.dbContext
                 .Cars
@@ -138,6 +125,7 @@ namespace VelocityAutos.Services.Data
                 .Where(c => c.Id.ToString() == carId)
                 .Select(c => new CarDetailsViewModel
                 {
+                    Id = c.Id.ToString(),
                     Make = c.Make,
                     Model = c.Model,
                     Price = c.Price,
@@ -157,6 +145,63 @@ namespace VelocityAutos.Services.Data
                 .FirstOrDefaultAsync();
 
             return car;
+        }
+
+        public async Task<CarFormModel> GetCarEditAsync(string carId)
+        {
+                var car = await this.dbContext
+                .Cars
+                .AsNoTracking()
+                .Where(c => c.Id.ToString() == carId)
+                .Select(c => new CarFormModel
+                {
+                    Make = c.Make,
+                    Model = c.Model,
+                    Price = c.Price,
+                    Month = c.Month,
+                    Year = c.Year,
+                    Mileage = c.Mileage,
+                    HorsePower = c.HorsePower,
+                    FuelTypeId = c.FuelTypeId,
+                    FuelConsumption = c.FuelConsumption,
+                    TransmissionTypeId = c.TransmissionTypeId,
+                    Color = c.Color,
+                    Description = c.Description,
+                    LocationCity = c.LocationCity,
+                    LocationCountry = c.LocationCountry,
+                    CategoryId = c.CategoryId
+                })
+                .FirstOrDefaultAsync();
+
+            return car;
+        }
+
+        public async Task UpdateAsync(CarFormModel carFormModel, string carId)
+        {
+            var carForEdit = await this.dbContext
+                .Cars
+                .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
+
+            if (carForEdit != null)
+            {
+                carForEdit.Make = carFormModel.Make;
+                carForEdit.Model = carFormModel.Model;
+                carForEdit.Price = carFormModel.Price;
+                carForEdit.Month = carFormModel.Month;
+                carForEdit.Year = carFormModel.Year;
+                carForEdit.Mileage = carFormModel.Mileage;
+                carForEdit.HorsePower = carFormModel.HorsePower;
+                carForEdit.FuelTypeId = carFormModel.FuelTypeId;
+                carForEdit.FuelConsumption = carFormModel.FuelConsumption;
+                carForEdit.TransmissionTypeId = carFormModel.TransmissionTypeId;
+                carForEdit.Color = carFormModel.Color;
+                carForEdit.Description = carFormModel.Description;
+                carForEdit.LocationCity = carFormModel.LocationCity;
+                carForEdit.LocationCountry = carFormModel.LocationCountry;
+                carForEdit.CategoryId = carFormModel.CategoryId;
+            }
+
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }
