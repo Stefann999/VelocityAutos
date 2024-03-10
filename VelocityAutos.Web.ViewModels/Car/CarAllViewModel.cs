@@ -36,10 +36,10 @@ namespace VelocityAutos.Web.ViewModels.Car
         public string? Description { get; set; }
 
         [Display(Name = "Location city")]
-        public string LocationCity { get; set; }
+        public string LocationCity { get; set; } = null!;
 
         [Display(Name = "Location country")]
-        public string LocationCountry { get; set; }
+        public string LocationCountry { get; set; } = null!;
 
         public int CategoryId { get; set; }
 

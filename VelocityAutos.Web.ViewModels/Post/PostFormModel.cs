@@ -37,5 +37,8 @@ namespace VelocityAutos.Web.ViewModels.Post
         [RegularExpression(SellerEmailAddressRegex, ErrorMessage = InvalidEmailAddressMessage)]
         [Display(Name = "Seller Email Address")]
         public string? EmailAddress { get; set; } = null!;
+
+        [Required]
+        public string SellerId { get; set; } = null!;
     }
 }
