@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Extensions;
 using VelocityAutos.Web.ViewModels.Car;
@@ -42,7 +41,7 @@ namespace VelocityAutos.Web.Controllers
             //{
             //    foreach (var car in allCars)
             //    {
-            //        string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
+            //        string folderPath = $"/VelocityAutos/CarImages/Car_{car.id}";
             //        var currCarImagesUrls = await dropboxService.GetCarImages(folderPath);
             //        car.ImagesPaths = currCarImagesUrls;
             //    }
@@ -106,6 +105,14 @@ namespace VelocityAutos.Web.Controllers
                 ModelState.AddModelError(nameof(postFormModel.Car.Images), "Please attach atleast one image!");
             }
 
+            postFormModel.SellerId = this.User.GetId()!;
+
+            ModelState.Remove(nameof(postFormModel.SellerId));
+
+            string messages = string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+
             if (!ModelState.IsValid)
             {
                 postFormModel.Car.Categories = await this.categoryService.AllCategoriesAsync();
@@ -120,8 +127,8 @@ namespace VelocityAutos.Web.Controllers
             try
             {
                 string? currUserId = this.User.GetId();
-                await this.carService.CreateAsync(postFormModel.Car);
-                var targetCar = await this.carService.GetCarAsync(postFormModel.Car, currUserId!);
+                targetCarId = await this.carService.CreateAsync(postFormModel.Car);
+                var targetCar = await this.carService.GetCarEntityAsync(targetCarId);
                 await this.postService.CreateAsync(postFormModel, targetCar, currUserId!);
                 targetCarId = targetCar.Id.ToString();
             }
@@ -141,11 +148,12 @@ namespace VelocityAutos.Web.Controllers
             return this.RedirectToAction(nameof(Details), new { carId = targetCarId});
         }
 
-        public async Task<IActionResult> Details(string carId)
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(string id)
         {
             try
             {
-                var targetCar = await this.carService.GetCarAsync(carId);
+                var targetCar = await this.carService.GetCarDetailsAsync(id);
 
                 if (targetCar == null)
                 {
@@ -153,7 +161,7 @@ namespace VelocityAutos.Web.Controllers
                     return RedirectToAction(nameof(All));
                 }
 
-                var targetPost = await this.postService.GetPostByIdAsync(carId);
+                var targetPost = await this.postService.GetPostForDetailsByIdAsync(id);
 
                 targetPost.Car = targetCar;
 
@@ -167,5 +175,113 @@ namespace VelocityAutos.Web.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var targetCar = await this.carService.GetCarEditAsync(id);
+
+            if (targetCar == null)
+            {
+                TempData[ErrorMessage] = "Car does not exist or the post is no longer available!";
+                return RedirectToAction(nameof(All));
+            }
+
+            string? currUserId = this.User.GetId();
+
+            var targetPost = await this.postService.GetPostForEditByIdAsync(id);
+
+            if (targetPost.SellerId != currUserId.ToUpper())
+            {
+                TempData[ErrorMessage] = "You have to be the owner of the post in order to edit it!";
+                return this.RedirectToAction(nameof(Details), new { id });
+            }
+
+            targetPost.Car = targetCar;
+
+            targetPost.Car.Categories = await this.categoryService.AllCategoriesAsync();
+            targetPost.Car.FuelTypes = await this.fuelTypeService.AllFuelTypesAsync();
+            targetPost.Car.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync();
+            
+
+            return View(targetPost);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, PostFormModel postFormModel)
+        {
+
+            var targetCar = await this.carService.GetCarEditAsync(id);
+
+            if (targetCar == null)
+            {
+                TempData[ErrorMessage] = "Car does not exist or the post is no longer available!";
+                return RedirectToAction(nameof(All));
+            }
+
+            ModelState.Remove(nameof(postFormModel.SellerId));
+
+            string? currUserId = this.User.GetId();
+
+            var targetPost = await this.postService.GetPostForEditByIdAsync(id);
+
+            if (targetPost.SellerId != currUserId!.ToUpper())
+            {
+                TempData[ErrorMessage] = "You have to be the owner of the post in order to edit it!";
+                return this.RedirectToAction(nameof(Details), new { id });
+            }
+
+            bool categoryExists = await this.categoryService
+                .ExistsByIdAsync(postFormModel.Car.CategoryId);
+
+            bool fuelTypeExists = await this.fuelTypeService
+                .ExistsByIdAsync(postFormModel.Car.FuelTypeId);
+
+            bool transmissionTypeExists = await this.transmissionTypeService
+                .ExistsByIdAsync(postFormModel.Car.TransmissionTypeId);
+
+            if (!categoryExists)
+            {
+                ModelState.AddModelError(nameof(postFormModel.Car.CategoryId), "Category does not exist.");
+            }
+
+            if (!fuelTypeExists)
+            {
+                ModelState.AddModelError(nameof(postFormModel.Car.FuelTypeId), "Fuel type does not exist.");
+            }
+
+            if (!transmissionTypeExists)
+            {
+                ModelState.AddModelError(nameof(postFormModel.Car.TransmissionTypeId), "Transmission type does not exist.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                postFormModel.Car.Categories = await this.categoryService.AllCategoriesAsync();
+                postFormModel.Car.FuelTypes = await this.fuelTypeService.AllFuelTypesAsync();
+                postFormModel.Car.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync();
+
+                return this.View(postFormModel);
+            }
+
+            try
+            {
+                await this.carService.UpdateAsync(postFormModel.Car, id);
+                await this.postService.UpdateAsync(postFormModel, id);
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to add new car! Please try again later or contact administrator!");
+
+                postFormModel.Car.Categories = await this.categoryService.AllCategoriesAsync();
+                postFormModel.Car.FuelTypes = await this.fuelTypeService.AllFuelTypesAsync();
+                postFormModel.Car.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync();
+
+                return this.View(postFormModel);
+            }
+
+            TempData[SuccessMessage] = "Post was updated successfully!";
+
+            return this.RedirectToAction(nameof(Details), new { id });
+        }
     }
 }
