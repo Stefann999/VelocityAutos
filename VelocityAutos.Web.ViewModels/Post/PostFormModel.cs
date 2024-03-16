@@ -7,6 +7,8 @@ namespace VelocityAutos.Web.ViewModels.Post
 {
     public class PostFormModel
     {
+        public string Id { get; set; } = null!;
+
         [Required]
         public CarFormModel Car { get; set; } = null!;
 

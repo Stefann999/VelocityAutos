@@ -107,5 +107,6 @@ namespace VelocityAutos.Services.Data
 
             return car.Post.SellerId.ToString() == userId;
         }
+
     }
 }

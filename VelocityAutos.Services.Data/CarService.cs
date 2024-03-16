@@ -200,6 +200,10 @@ namespace VelocityAutos.Services.Data
                 carForEdit.LocationCountry = carFormModel.LocationCountry;
                 carForEdit.CategoryId = carFormModel.CategoryId;
             }
+            else
+            {
+                throw new NullReferenceException("Car not found");
+            }
 
             await this.dbContext.SaveChangesAsync();
         }
