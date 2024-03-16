@@ -92,19 +92,20 @@ namespace VelocityAutos.Services.Data
             await this.dbContext.SaveChangesAsync();
         }
 
-        //public async Task<bool> IsUserPostOwnerById(string carId, string userId)
-        //{
-        //    Car? car = await this.dbContext
-        //        .Cars
-        //        .AsNoTracking()
-        //        .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
+        public async Task<bool> IsUserPostOwnerById(string carId, string userId)
+        {
+            Car? car = await this.dbContext
+                .Cars
+                .AsNoTracking()
+                .Include(c => c.Post)
+                .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
 
-        //    if (car == null)
-        //    {
-        //        return false;
-        //    }
+            if (car == null)
+            {
+                return false;
+            }
 
-        //    return car.Post.SellerId.ToString() == userId;
-        //}
+            return car.Post.SellerId.ToString() == userId;
+        }
     }
 }
