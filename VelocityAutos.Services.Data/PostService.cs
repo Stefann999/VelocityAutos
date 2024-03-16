@@ -2,6 +2,7 @@
 using VelocityAutos.Data;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
+using VelocityAutos.Web.ViewModels.Car;
 using VelocityAutos.Web.ViewModels.Post;
 
 namespace VelocityAutos.Services.Data
@@ -63,6 +64,7 @@ namespace VelocityAutos.Services.Data
                .Where(p => p.Car.Id.ToString() == carId)
                .Select(p => new PostFormModel()
                {
+                   Id = p.Id.ToString(),
                    FirstName = p.SellerFirstName,
                    LastName = p.SellerLastName,
                    PhoneNumber = p.SellerPhoneNumber,
@@ -78,7 +80,7 @@ namespace VelocityAutos.Services.Data
         {
             var post = await this.dbContext
                 .Posts
-                .FirstOrDefaultAsync(p => p.Id.ToString() == postId);
+                .FirstOrDefaultAsync(p => p.Id.ToString() == postId.ToLower());
 
             if (post != null)
             {
@@ -87,6 +89,10 @@ namespace VelocityAutos.Services.Data
                 post.SellerPhoneNumber = postFormModel.PhoneNumber;
                 post.SellerEmailAddress = postFormModel.EmailAddress;
                 post.UpdatedOn = DateTime.Now;
+            }
+            else
+            {
+                throw new NullReferenceException("Post not found");
             }
 
             await this.dbContext.SaveChangesAsync();
@@ -108,5 +114,37 @@ namespace VelocityAutos.Services.Data
             return car.Post.SellerId.ToString() == userId;
         }
 
+        public async Task<CarDeleteViewModel> GetPostForDelete(string carId)
+        {
+            var car = await this.dbContext
+                .Cars
+                .AsNoTracking()
+                .Where(c => c.Id.ToString() == carId)
+                .Select(c => new CarDeleteViewModel()
+                {
+                    Id = c.Id.ToString(),
+                    Make = c.Make,
+                    Model = c.Model,
+                    Month = c.Month,
+                    Year = c.Year,
+                    Price = c.Price,
+                    SellerId = c.Post.SellerId.ToString()
+                })
+                .FirstOrDefaultAsync();
+
+            return car;
+        }
+
+        public async Task DeleteAsync(string carId)
+        {
+            var post = await this.dbContext
+                .Posts
+                .FirstOrDefaultAsync(p => p.Car.Id.ToString() == carId);
+
+            post!.DeletedOn = DateTime.Now;
+            post.IsActive = false;
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

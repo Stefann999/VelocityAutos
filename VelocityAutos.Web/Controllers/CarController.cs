@@ -209,7 +209,6 @@ namespace VelocityAutos.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string id, PostFormModel postFormModel)
         {
-
             var targetCar = await this.carService.GetCarEditAsync(id);
 
             if (targetCar == null)
@@ -223,6 +222,8 @@ namespace VelocityAutos.Web.Controllers
             string? currUserId = this.User.GetId();
 
             var targetPost = await this.postService.GetPostForEditByIdAsync(id);
+
+            ModelState.Remove(nameof(postFormModel.Id));
 
             if (targetPost.SellerId != currUserId!.ToUpper())
             {
@@ -266,7 +267,7 @@ namespace VelocityAutos.Web.Controllers
             try
             {
                 await this.carService.UpdateAsync(postFormModel.Car, id);
-                await this.postService.UpdateAsync(postFormModel, id);
+                await this.postService.UpdateAsync(postFormModel, targetPost.Id);
             }
             catch (Exception)
             {

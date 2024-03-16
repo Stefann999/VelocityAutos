@@ -104,10 +104,12 @@
                         <li class="list-group-item"><strong>Email address:</strong> @Model.SellerEmailAddress</li>
                     }
                     <li class="list-group-item"><strong>Added on:</strong> @Model.CreatedOn.ToString(MyDateTimeFormat)</li>
+
                     @if (Model.UpdatedOn != null)
                     {
                         <li class="list-group-item"><strong>Updated on:</strong> @Model.UpdatedOn?.ToString(MyDateTimeFormat)</li>
                     }
+
                     @if (Model.DeletedOn != null)
                     {
                         <li class="list-group-item"><strong>Deleted on:</strong> @Model.DeletedOn?.ToString(MyDateTimeFormat)</li>
@@ -121,7 +123,11 @@
                     {
                         <a asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Car.Id" class="btn btn-warning fw-bold">Edit</a>
                     }
-
+                    <br />
+                    @if (isUserOwner)
+                    {
+                        <a asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Car.Id" class="btn btn-danger fw-bold">Delete</a>
+                    }
                 </ul>
             </div>
         </div>
