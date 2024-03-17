@@ -24,7 +24,7 @@ namespace VelocityAutos.Web.Infrastructure.Extensions
                 .GetTypes()
                 .Where(t => t.Name.EndsWith("Service") && !t.IsInterface)
                 .ToArray();
-            foreach (Type implementationType in implementationTypes.Where(i => i.Name != "DropboxService"))
+            foreach (Type implementationType in implementationTypes.Where(i => i.Name != "DropboxService" && i.Name != "IRepository"))
             {
                 Type? interfaceType = implementationType
                     .GetInterface($"I{implementationType.Name}");

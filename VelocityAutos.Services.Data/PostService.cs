@@ -2,6 +2,7 @@
 using VelocityAutos.Data;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
+using VelocityAutos.Web.Infrastructure.Common;
 using VelocityAutos.Web.ViewModels.Car;
 using VelocityAutos.Web.ViewModels.Post;
 
@@ -10,10 +11,12 @@ namespace VelocityAutos.Services.Data
     public class PostService : IPostService
     {
         private readonly VelocityAutosDbContext dbContext;
+        private readonly IRepository repository;
 
-        public PostService(VelocityAutosDbContext dbContext)
+        public PostService(VelocityAutosDbContext dbContext, IRepository repository)
         {
             this.dbContext = dbContext;
+            this.repository = repository;
         }
 
         public async Task CreateAsync(PostFormModel postFormModel, Car car, string currUserId)
@@ -32,16 +35,15 @@ namespace VelocityAutos.Services.Data
                IsActive = true,
            };
 
-            await this.dbContext.Posts.AddAsync(post);
-            await this.dbContext.SaveChangesAsync();
+            await repository.AddAsync(post);
+            await repository.SaveChangesAsync();
         }
 
         public async Task<PostDetailsViewModel> GetPostForDetailsByIdAsync(string carId)
         {
-            var post = await this.dbContext
-                .Posts
-                .AsNoTracking()
+            var post = await repository.AllAsReadOnly<Post>()
                 .Where(p => p.Car.Id.ToString() == carId)
+                .AsNoTracking()
                 .Select(p => new PostDetailsViewModel()
                 {
                     CreatedOn = p.CreatedOn,
@@ -58,10 +60,9 @@ namespace VelocityAutos.Services.Data
 
         public async Task<PostFormModel> GetPostForEditByIdAsync(string carId)
         {
-            var post = await this.dbContext
-               .Posts
-               .AsNoTracking()
+            var post = await repository.All<Post>()
                .Where(p => p.Car.Id.ToString() == carId)
+               .AsNoTracking()
                .Select(p => new PostFormModel()
                {
                    Id = p.Id.ToString(),
@@ -78,8 +79,7 @@ namespace VelocityAutos.Services.Data
 
         public async Task UpdateAsync(PostFormModel postFormModel, string postId)
         {
-            var post = await this.dbContext
-                .Posts
+            var post = await repository.All<Post>()
                 .FirstOrDefaultAsync(p => p.Id.ToString() == postId.ToLower());
 
             if (post != null)
@@ -95,13 +95,12 @@ namespace VelocityAutos.Services.Data
                 throw new NullReferenceException("Post not found");
             }
 
-            await this.dbContext.SaveChangesAsync();
+            await repository.SaveChangesAsync();
         }
 
         public async Task<bool> IsUserPostOwnerById(string carId, string userId)
         {
-            Car? car = await this.dbContext
-                .Cars
+            Car? car = await repository.AllAsReadOnly<Car>()
                 .AsNoTracking()
                 .Include(c => c.Post)
                 .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
@@ -116,9 +115,7 @@ namespace VelocityAutos.Services.Data
 
         public async Task<CarDeleteViewModel> GetPostForDelete(string carId)
         {
-            var car = await this.dbContext
-                .Cars
-                .AsNoTracking()
+            var car = await repository.All<Car>()
                 .Where(c => c.Id.ToString() == carId)
                 .Select(c => new CarDeleteViewModel()
                 {
@@ -137,14 +134,13 @@ namespace VelocityAutos.Services.Data
 
         public async Task DeleteAsync(string carId)
         {
-            var post = await this.dbContext
-                .Posts
+            var post = await repository.All<Post>()
                 .FirstOrDefaultAsync(p => p.Car.Id.ToString() == carId);
 
             post!.DeletedOn = DateTime.Now;
             post.IsActive = false;
 
-            await this.dbContext.SaveChangesAsync();
+            await repository.SaveChangesAsync();
         }
     }
 }

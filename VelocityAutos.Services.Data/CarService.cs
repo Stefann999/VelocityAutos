@@ -3,8 +3,7 @@ using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Data;
 using VelocityAutos.Web.ViewModels.Car;
 using VelocityAutos.Data.Models;
-
-using System.Drawing;
+using VelocityAutos.Web.Infrastructure.Common;
 
 namespace VelocityAutos.Services.Data
 {
@@ -12,18 +11,18 @@ namespace VelocityAutos.Services.Data
     {
         private readonly VelocityAutosDbContext dbContext;
         private readonly IDropboxService dropboxService;
+        private readonly IRepository repository;
 
-        public CarService(VelocityAutosDbContext dbContext, IDropboxService dropboxService)
+        public CarService(VelocityAutosDbContext dbContext, IDropboxService dropboxService, IRepository repository)
         {
             this.dbContext = dbContext;
             this.dropboxService = dropboxService;
-
+            this.repository = repository;
         }
 
         public async Task<bool> ExistsByIdAsync(string carId)
         {
-            bool result = await this.dbContext
-                .Cars
+            bool result = await repository.AllAsReadOnly<Car>()
                 .AnyAsync(c => c.Id.ToString() == carId);
 
             return result;
@@ -31,9 +30,7 @@ namespace VelocityAutos.Services.Data
 
         public async Task<IEnumerable<CarAllViewModel>> GetAllCarsAsync()
         {
-            var cars = await this.dbContext
-                .Posts
-                .AsNoTracking()
+            var cars = await repository.AllAsReadOnly<Post>()
                 .Where(p => p.IsActive == true)
                 .Select(p => new CarAllViewModel
                 {
@@ -104,24 +101,21 @@ namespace VelocityAutos.Services.Data
 
             newCar.Images = images;
 
-            await this.dbContext.Cars.AddAsync(newCar);
-            await this.dbContext.SaveChangesAsync();
+            await repository.AddAsync(newCar);
+            await repository.SaveChangesAsync();
 
             return newCar.Id.ToString();
         }
 
         public async Task<Car> GetCarEntityAsync(string carId)
         {
-            return await this.dbContext
-                .Cars
+            return await repository.AllAsReadOnly<Car>()
                 .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
         }
 
         public async Task<CarDetailsViewModel> GetCarDetailsAsync(string carId)
         {
-            var car = await this.dbContext
-                .Cars
-                .AsNoTracking()
+            var car = await repository.AllAsReadOnly<Car>()
                 .Where(c => c.Id.ToString() == carId)
                 .Select(c => new CarDetailsViewModel
                 {
@@ -149,9 +143,7 @@ namespace VelocityAutos.Services.Data
 
         public async Task<CarFormModel> GetCarEditAsync(string carId)
         {
-                var car = await this.dbContext
-                .Cars
-                .AsNoTracking()
+                var car = await repository.All<Car>()
                 .Where(c => c.Id.ToString() == carId)
                 .Select(c => new CarFormModel
                 {
@@ -178,8 +170,7 @@ namespace VelocityAutos.Services.Data
 
         public async Task UpdateAsync(CarFormModel carFormModel, string carId)
         {
-            var carForEdit = await this.dbContext
-                .Cars
+            var carForEdit = await repository.All<Car>()
                 .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
 
             if (carForEdit != null)
@@ -205,7 +196,7 @@ namespace VelocityAutos.Services.Data
                 throw new NullReferenceException("Car not found");
             }
 
-            await this.dbContext.SaveChangesAsync();
+            await repository.SaveChangesAsync();
         }
     }
 }
