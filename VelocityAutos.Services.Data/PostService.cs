@@ -43,7 +43,6 @@ namespace VelocityAutos.Services.Data
         {
             var post = await repository.AllAsReadOnly<Post>()
                 .Where(p => p.Car.Id.ToString() == carId)
-                .AsNoTracking()
                 .Select(p => new PostDetailsViewModel()
                 {
                     CreatedOn = p.CreatedOn,
@@ -62,7 +61,6 @@ namespace VelocityAutos.Services.Data
         {
             var post = await repository.All<Post>()
                .Where(p => p.Car.Id.ToString() == carId)
-               .AsNoTracking()
                .Select(p => new PostFormModel()
                {
                    Id = p.Id.ToString(),
@@ -101,7 +99,6 @@ namespace VelocityAutos.Services.Data
         public async Task<bool> IsUserPostOwnerById(string carId, string userId)
         {
             Car? car = await repository.AllAsReadOnly<Car>()
-                .AsNoTracking()
                 .Include(c => c.Post)
                 .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
 

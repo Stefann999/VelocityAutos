@@ -95,7 +95,7 @@ namespace VelocityAutos.Services.Data
                     ImagePath = imageUrl,
                     CarId = newCar.Id
                 };
-                await this.dbContext.Images.AddAsync(currImage);
+                await repository.AddAsync(currImage);
                 images.Add(currImage);
             }
 
