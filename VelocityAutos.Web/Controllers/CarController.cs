@@ -108,6 +108,7 @@ namespace VelocityAutos.Web.Controllers
             postFormModel.SellerId = this.User.GetId()!;
 
             ModelState.Remove(nameof(postFormModel.SellerId));
+            ModelState.Remove(nameof(postFormModel.Id));
 
             string messages = string.Join("; ", ModelState.Values
                                         .SelectMany(x => x.Errors)
@@ -145,7 +146,7 @@ namespace VelocityAutos.Web.Controllers
 
             TempData[SuccessMessage] = "Car was added for sale successfully!";
             
-            return this.RedirectToAction(nameof(Details), new { carId = targetCarId});
+            return this.RedirectToAction(nameof(Details), new { id = targetCarId});
         }
 
         [AllowAnonymous]
