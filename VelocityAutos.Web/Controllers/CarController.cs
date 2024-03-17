@@ -9,7 +9,7 @@ using static VelocityAutos.Common.NotificationMessagesConstants;
 namespace VelocityAutos.Web.Controllers
 {
     [Authorize]
-    public class CarController : Controller
+    public class CarController : BaseController
     {
         // NEW ACCESS TOKEN
 

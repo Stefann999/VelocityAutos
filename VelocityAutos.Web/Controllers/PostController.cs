@@ -5,7 +5,7 @@ using static VelocityAutos.Common.NotificationMessagesConstants;
 
 namespace VelocityAutos.Web.Controllers
 {
-    public class PostController : Controller
+    public class PostController : BaseController
     {
         private readonly IPostService postService;
 
