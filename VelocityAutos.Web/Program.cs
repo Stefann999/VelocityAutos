@@ -4,6 +4,7 @@ using VelocityAutos.Data;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data;
 using VelocityAutos.Services.Data.Interfaces;
+using VelocityAutos.Web.Infrastructure.Common;
 using VelocityAutos.Web.Infrastructure.Extensions;
 using static Dropbox.Api.TeamLog.EventCategory;
 
@@ -26,10 +27,9 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 })
     .AddEntityFrameworkStores<VelocityAutosDbContext>();
 
-builder.Services.AddScoped<IDropboxService>(provider => new DropboxService("sl.BxFuSK3qnSzfcYPrL5HPoGI066dI4vBlVN0FOMbIc8vkTaiw9QHAfOhNUUEICIngB2282FsYSJj1b6n2Ib-we0Wv8wWsByMLqrMHyZaIbAL6d_YkCePex6Yq8njJO4QiFk7YezuJFHE6"));
-
 
 builder.Services.AddApplicationServices(typeof(ICarService));
+builder.Services.AddScoped<IRepository, Repository>();
 
 
 builder.Services.AddControllersWithViews();
