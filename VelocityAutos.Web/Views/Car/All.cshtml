@@ -19,7 +19,7 @@
 {
     bool isUserOwner = await PostService.IsUserPostOwnerById(car.Id, User.GetId()!);
       <div class="car">
-          <img src="~/audiA4-image3.jpg" alt="@car.Make">
+          <img src = "@car.ImagesPaths.FirstOrDefault()" alt="@car.Make">
           <div class="car-info">
                 @if (isUserOwner)
                 {

@@ -37,19 +37,19 @@ namespace VelocityAutos.Web.Controllers
 
             //commented only for debugging purposes
 
-            //try
-            //{
-            //    foreach (var car in allCars)
-            //    {
-            //        string folderPath = $"/VelocityAutos/CarImages/Car_{car.id}";
-            //        var currCarImagesUrls = await dropboxService.GetCarImages(folderPath);
-            //        car.ImagesPaths = currCarImagesUrls;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
-            //}
+            try
+            {
+                foreach (var car in allCars)
+                {
+                    string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
+                    var currCarImagesUrls = await dropboxService.GetCarImages(folderPath, true);
+                    car.ImagesPaths = currCarImagesUrls;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
+            }
 
             return View(allCars);
         }

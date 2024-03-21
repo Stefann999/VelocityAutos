@@ -44,7 +44,7 @@ namespace VelocityAutos.Services.Data
             return uploadedUrls;
         }
 
-        public async Task<List<String>> GetCarImages(string carFolderPath)
+        public async Task<List<string>> GetCarImages(string carFolderPath, bool isForAll)
         {
             var dbx = new DropboxClient(accessToken);
 
@@ -75,6 +75,11 @@ namespace VelocityAutos.Services.Data
 
                             // Add image URL to the list
                             imageUrls.Add(imageUrl);
+
+                            if (isForAll)
+                            {
+                                break;
+                            }
                         }
                     }
                 }

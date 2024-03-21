@@ -6,6 +6,6 @@ namespace VelocityAutos.Services.Data.Interfaces
     {
         Task<List<string>> UploadImagesAsync(IEnumerable<IFormFile> images, Guid carId);
 
-        Task<List<string>> GetCarImages(string carFolderPath);
+        Task<List<string>> GetCarImages(string carFolderPath, bool isForAll);
     }
 }
