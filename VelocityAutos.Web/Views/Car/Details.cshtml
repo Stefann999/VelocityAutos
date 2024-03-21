@@ -121,12 +121,15 @@
 
                     @if (isUserOwner)
                     {
+                        <br />
                         <a asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Car.Id" class="btn btn-warning fw-bold">Edit</a>
                     }
                     <br />
                     @if (isUserOwner)
                     {
-                        <a asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Car.Id" class="btn btn-danger fw-bold">Delete</a>
+                        <strong>In case you want to remove this car from the showcase or it is no longer available due to being sold, click the button below:</strong>
+                        <br />
+                        <a asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Car.Id" class="btn btn-danger fw-bold">Remove</a>
                     }
                 </ul>
             </div>
