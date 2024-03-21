@@ -35,8 +35,6 @@ namespace VelocityAutos.Web.Controllers
         {
             var allCars = await this.carService.GetAllCarsAsync();
 
-            //commented only for debugging purposes
-
             try
             {
                 foreach (var car in allCars)
