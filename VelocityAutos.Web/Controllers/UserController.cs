@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Web.ViewModels.User;
+using static VelocityAutos.Common.NotificationMessagesConstants;
 
 namespace VelocityAutos.Web.Controllers
 {
@@ -63,5 +64,39 @@ namespace VelocityAutos.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Login(string? returnUrl = null)
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            LoginFormModel model = new LoginFormModel()
+            {
+                ReturnUrl = returnUrl
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result =
+                await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+
+            if (!result.Succeeded)
+            {
+                TempData[ErrorMessage] =
+                    "There was an error while logging you in! Please try again later or contact an administrator.";
+
+                return View(model);
+            }
+
+            return Redirect(model.ReturnUrl ?? "/Home/Index");
+        }
     }
 }
