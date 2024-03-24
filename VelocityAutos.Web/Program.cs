@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VelocityAutos.Data;
@@ -14,6 +15,8 @@ string connectionString =
 
 builder.Services.AddDbContext<VelocityAutosDbContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
@@ -30,6 +33,11 @@ builder.Services.AddScoped<IDropboxService>(provider => new DropboxService("sl.B
 
 builder.Services.AddApplicationServices(typeof(ICarService));
 builder.Services.AddScoped<IRepository, Repository>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/User/Login";
+});
 
 
 builder.Services.AddControllersWithViews()
