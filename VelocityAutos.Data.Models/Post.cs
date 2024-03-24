@@ -52,7 +52,8 @@ namespace VelocityAutos.Data.Models
         [MaxLength(SellerPhoneNumberMaxLength)]
         public string SellerPhoneNumber { get; set; } = null!;
 
+        [Required]
         [RegularExpression(SellerEmailAddressRegex)]
-        public string? SellerEmailAddress { get; set; }
+        public string SellerEmailAddress { get; set; }
     }
 }
