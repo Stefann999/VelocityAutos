@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using static VelocityAutos.Common.GeneralApplicationConstants;
+using static VelocityAutos.Common.ErrorConstants;
+using static VelocityAutos.Common.EntityValidationConstants.User;
 
 namespace VelocityAutos.Data.Models
 {
@@ -10,6 +14,14 @@ namespace VelocityAutos.Data.Models
             this.OwnedPosts = new HashSet<Post>();
             this.FavouriteCars = new HashSet<Car>();
         }
+
+        [Required(ErrorMessage = RequiredErrorMessage)]
+        [MaxLength(UserFirstNameMaxLength)]
+        public string FirstName { get; set; } = null!;
+
+        [Required(ErrorMessage = RequiredErrorMessage)]
+        [MaxLength(UserLastNameMaxLength)]
+        public string LastName { get; set; } = null!;
 
         public virtual ICollection<Post> OwnedPosts { get; set; } = null!;
 

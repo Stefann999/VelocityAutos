@@ -60,8 +60,15 @@
             public const int SellerPhoneNumberMaxLength = 20;
 
             public const string SellerEmailAddressRegex = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+        }
 
-            public const string MyDateTimeFormat = "dd/MM/yyyy HH:mm";
+        public static class User
+        {
+            public const int UserFirstNameMinLength = 3;
+            public const int UserFirstNameMaxLength = 20;
+
+            public const int UserLastNameMinLength = 3;
+            public const int UserLastNameMaxLength = 20;
         }
     }
 }

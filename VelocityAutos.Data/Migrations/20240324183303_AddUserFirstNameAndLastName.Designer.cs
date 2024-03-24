@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VelocityAutos.Data;
 
@@ -11,9 +12,10 @@ using VelocityAutos.Data;
 namespace VelocityAutos.Data.Migrations
 {
     [DbContext(typeof(VelocityAutosDbContext))]
-    partial class VelocityAutosDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240324183303_AddUserFirstNameAndLastName")]
+    partial class AddUserFirstNameAndLastName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
