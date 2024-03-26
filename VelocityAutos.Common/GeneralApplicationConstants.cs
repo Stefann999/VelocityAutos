@@ -7,6 +7,10 @@
         public const int DefaultCarsPerPage = 5;
 
         public const string MyDateTimeFormat = "dd/MM/yyyy HH:mm";
+
+        public const string AdminRoleName = "Administrator";
+
+        public const string DevelopmentAdminEmail = "admin@admin.com";
     }
 
 }

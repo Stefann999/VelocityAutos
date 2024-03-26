@@ -31,6 +31,10 @@ namespace VelocityAutos.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterFormModel model)
         {
+
+            string messages = string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
             if (!ModelState.IsValid)
             {
                 return View(model);

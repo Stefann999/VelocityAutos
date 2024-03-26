@@ -7,6 +7,7 @@ using VelocityAutos.Services.Data;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Common;
 using VelocityAutos.Web.Infrastructure.Extensions;
+using static VelocityAutos.Common.GeneralApplicationConstants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequiredLength = 6;
 })
+    .AddRoles<IdentityRole<Guid>>()
     .AddEntityFrameworkStores<VelocityAutosDbContext>();
 
 builder.Services.AddScoped<IDropboxService>(provider => new DropboxService("sl.BxFuSK3qnSzfcYPrL5HPoGI066dI4vBlVN0FOMbIc8vkTaiw9QHAfOhNUUEICIngB2282FsYSJj1b6n2Ib-we0Wv8wWsByMLqrMHyZaIbAL6d_YkCePex6Yq8njJO4QiFk7YezuJFHE6"));
@@ -67,6 +69,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.SeedAdministrator(DevelopmentAdminEmail);
 
 app.MapControllerRoute(
     name: "default",
