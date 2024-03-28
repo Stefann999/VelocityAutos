@@ -1,6 +1,9 @@
 ﻿namespace VelocityAutos.Web.ViewModels.Car
 {
-    public class CarDetailsViewModel
+    using Data.Models;
+    using VelocityAutos.Services.Mapping;
+
+    public class CarDetailsViewModel : IMapFrom<Car>
     {
         public string Id { get; set; } = null!;
         public string Make { get; set; } = null!;

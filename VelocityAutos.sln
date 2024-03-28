@@ -23,7 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{13
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelocityAutos.Services.Data", "VelocityAutos.Services.Data\VelocityAutos.Services.Data.csproj", "{5C51824A-69F7-46A2-93DA-B30F574A5179}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelocityAutos.Services.Data.Models", "VelocityAutos.Services.Data.Models\VelocityAutos.Services.Data.Models.csproj", "{E0BE4D60-5E6C-433C-9708-8CA44315457E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelocityAutos.Services.Data.Models", "VelocityAutos.Services.Data.Models\VelocityAutos.Services.Data.Models.csproj", "{E0BE4D60-5E6C-433C-9708-8CA44315457E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelocityAutos.Services.Mapping", "VelocityAutos.Services.Mapping\VelocityAutos.Services.Mapping.csproj", "{73D19FC5-090A-409C-BD7C-237F4ECEEDBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{E0BE4D60-5E6C-433C-9708-8CA44315457E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0BE4D60-5E6C-433C-9708-8CA44315457E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0BE4D60-5E6C-433C-9708-8CA44315457E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73D19FC5-090A-409C-BD7C-237F4ECEEDBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73D19FC5-090A-409C-BD7C-237F4ECEEDBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73D19FC5-090A-409C-BD7C-237F4ECEEDBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73D19FC5-090A-409C-BD7C-237F4ECEEDBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{C9B8CE49-F7FB-4006-8982-8A39C7EAC1BC} = {C4F934CE-6D81-48D6-A6BD-63B37541C5EB}
 		{5C51824A-69F7-46A2-93DA-B30F574A5179} = {13436FC3-AB23-40F6-AE04-101BB37C40AE}
 		{E0BE4D60-5E6C-433C-9708-8CA44315457E} = {13436FC3-AB23-40F6-AE04-101BB37C40AE}
+		{73D19FC5-090A-409C-BD7C-237F4ECEEDBD} = {13436FC3-AB23-40F6-AE04-101BB37C40AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BD66371-770D-4E5D-9ACD-7934401EFCF4}

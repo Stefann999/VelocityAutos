@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using VelocityAutos.Services.Mapping;
 
 namespace VelocityAutos.Web.ViewModels.Car
 {
-    public class CarAllViewModel
+    using VelocityAutos.Data.Models;
+
+    public class CarAllViewModel :IMapFrom<Post>
     {
         public CarAllViewModel()
         {

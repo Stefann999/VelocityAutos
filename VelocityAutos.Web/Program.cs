@@ -1,12 +1,15 @@
+using AspNetCoreTemplate.Services.Mapping;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using VelocityAutos.Data;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Common;
 using VelocityAutos.Web.Infrastructure.Extensions;
+using VelocityAutos.Web.ViewModels.Home;
 using static VelocityAutos.Common.GeneralApplicationConstants;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,6 +53,8 @@ builder.Services.AddControllersWithViews()
     });
 
 var app = builder.Build();
+
+AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
 if (app.Environment.IsDevelopment())
 {

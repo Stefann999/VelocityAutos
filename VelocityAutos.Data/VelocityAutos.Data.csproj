@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\VelocityAutos.Common\VelocityAutos.Common.csproj" />
     <ProjectReference Include="..\VelocityAutos.Data.Models\VelocityAutos.Data.Models.csproj" />
+    <ProjectReference Include="..\VelocityAutos.Services.Mapping\VelocityAutos.Services.Mapping.csproj" />
   </ItemGroup>
 
   <ItemGroup>
