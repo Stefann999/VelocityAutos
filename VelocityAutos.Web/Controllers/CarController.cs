@@ -35,19 +35,19 @@ namespace VelocityAutos.Web.Controllers
         {
             var allCars = await this.carService.GetAllCarsAsync();
 
-            try
-            {
-                foreach (var car in allCars)
-                {
-                    string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
-                    var currCarImagesUrls = await dropboxService.GetCarImages(folderPath, true);
-                    car.ImagesPaths = currCarImagesUrls;
-                }
-            }
-            catch (Exception ex)
-            {
-                TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
-            }
+            //try
+            //{
+            //    foreach (var car in allCars)
+            //    {
+            //        string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
+            //        var currCarImagesUrls = await dropboxService.GetCarImages(folderPath, true);
+            //        car.ImagesPaths = currCarImagesUrls;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
+            //}
 
             return View(allCars);
         }
@@ -189,7 +189,9 @@ namespace VelocityAutos.Web.Controllers
 
             var targetPost = await this.postService.GetPostForEditByIdAsync(id);
 
-            if (targetPost.SellerId != currUserId.ToUpper())
+            bool isOwner = targetPost.SellerId == currUserId.ToUpper();
+
+            if (!isOwner && !this.User.IsAdmin())
             {
                 TempData[ErrorMessage] = "You have to be the owner of the post in order to edit it!";
                 return this.RedirectToAction(nameof(Details), new { id });
@@ -224,7 +226,9 @@ namespace VelocityAutos.Web.Controllers
 
             ModelState.Remove(nameof(postFormModel.Id));
 
-            if (targetPost.SellerId != currUserId!.ToUpper())
+            bool isOwner = targetPost.SellerId == currUserId.ToUpper();
+
+            if (!isOwner && !this.User.IsAdmin())
             {
                 TempData[ErrorMessage] = "You have to be the owner of the post in order to edit it!";
                 return this.RedirectToAction(nameof(Details), new { id });
