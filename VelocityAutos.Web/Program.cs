@@ -70,7 +70,13 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.SeedAdministrator(DevelopmentAdminEmail);
+
+
+if (app.Environment.IsDevelopment())
+{ 
+    app.SeedAdministrator(DevelopmentAdminEmail);
+}
+
 
 app.MapControllerRoute(
     name: "default",
