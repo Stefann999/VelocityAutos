@@ -75,6 +75,7 @@ namespace VelocityAutos.Services.Data
                 CategoryId = carFormModel.CategoryId
             };
 
+
             ICollection<Image> images = new HashSet<Image>();
 
             var imageUrls = await this.dropboxService

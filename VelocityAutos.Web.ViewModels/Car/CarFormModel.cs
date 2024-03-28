@@ -8,6 +8,7 @@ using static VelocityAutos.Common.ErrorConstants;
 
 namespace VelocityAutos.Web.ViewModels.Car
 {
+    using AutoMapper;
     using Data.Models;
 
     public class CarFormModel : IMapFrom<Car>
@@ -88,6 +89,6 @@ namespace VelocityAutos.Web.ViewModels.Car
         public IEnumerable<CarSelectCategoryFormModel> Categories { get; set; }
 
         [Display(Name = "ImagesPaths of the car")]
-        public IEnumerable<IFormFile> Images { get; set;}
+        public IEnumerable<IFormFile> Images { get; set; }
     }
 }

@@ -1,6 +1,12 @@
-﻿namespace VelocityAutos.Web.ViewModels.Car
+﻿using VelocityAutos.Services.Mapping;
+
+namespace VelocityAutos.Web.ViewModels.Car
 {
-    public class CarDeleteViewModel
+    using AutoMapper;
+    using Data.Models;
+    using Microsoft.AspNetCore.Routing;
+
+    public class CarDeleteViewModel : IMapTo<Car>, IHaveCustomMappings
     {
         public string Id { get; set; } = null!;
 
@@ -15,5 +21,12 @@
         public int Year { get; set; }
 
         public string SellerId { get; set; } = null!;
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Car, CarDeleteViewModel>()
+                .ForMember(d => d.SellerId,
+                opt => opt.MapFrom(s => Guid.Parse(s.Post.SellerId.ToString())));
+        }
     }
 }

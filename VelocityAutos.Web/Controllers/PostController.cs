@@ -25,9 +25,9 @@ namespace VelocityAutos.Web.Controllers
 
             string currUserId = this.User.GetId();
 
-            bool isAdmin = post.SellerId == currUserId.ToUpper();
+            bool isOwner = post.SellerId == currUserId;
 
-            if (!isAdmin && !this.User.IsAdmin())
+            if (!isOwner && !this.User.IsAdmin())
             {
                 TempData[ErrorMessage] = "You have to be this post's owner in order to remove it!";
             }
@@ -46,7 +46,7 @@ namespace VelocityAutos.Web.Controllers
 
             string currUserId = this.User.GetId();
 
-            bool isAdmin = post.SellerId == currUserId.ToUpper();
+            bool isAdmin = post.SellerId == currUserId;
 
             if (!isAdmin && !this.User.IsAdmin())
             {

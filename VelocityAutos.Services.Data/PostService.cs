@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AspNetCoreTemplate.Services.Mapping;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VelocityAutos.Data;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
@@ -114,16 +116,7 @@ namespace VelocityAutos.Services.Data
         {
             var car = await repository.All<Car>()
                 .Where(c => c.Id.ToString() == carId)
-                .Select(c => new CarDeleteViewModel()
-                {
-                    Id = c.Id.ToString(),
-                    Make = c.Make,
-                    Model = c.Model,
-                    Month = c.Month,
-                    Year = c.Year,
-                    Price = c.Price,
-                    SellerId = c.Post.SellerId.ToString()
-                })
+                .To<CarDeleteViewModel>()
                 .FirstOrDefaultAsync();
 
             return car;
