@@ -39,6 +39,8 @@ builder.Services.AddScoped<IDropboxService>(provider => new DropboxService("sl.B
 builder.Services.AddApplicationServices(typeof(ICarService));
 builder.Services.AddScoped<IRepository, Repository>();
 
+builder.Services.AddRecaptchaService();
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/User/Login";
