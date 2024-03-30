@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using VelocityAutos.Web.Infrastructure.Extensions;
 using VelocityAutos.Web.ViewModels.Home;
+using static VelocityAutos.Common.GeneralApplicationConstants;
 
 namespace VelocityAutos.Web.Controllers
 {
@@ -15,6 +17,10 @@ namespace VelocityAutos.Web.Controllers
 
         public IActionResult Index()
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return this.RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+            }
             return View();
         }
 
