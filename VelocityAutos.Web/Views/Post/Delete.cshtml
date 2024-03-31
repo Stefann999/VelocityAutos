@@ -33,7 +33,7 @@
                 <form asp-action="ConfirmDelete" method="post">
                     <input type="hidden" asp-for="Id" />
                     <button type="submit" class="btn btn-danger">Confirm Remove</button>
-                    <a asp-controller="Car" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Cancel</a>
+                    <a asp-area="" asp-controller="Car" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>
