@@ -69,6 +69,12 @@
 
             public const int UserLastNameMinLength = 3;
             public const int UserLastNameMaxLength = 20;
+
+            public const int UserPasswordMinLength = 6;
+            public const int UserPasswordMaxLength = 100;
+
+            public const int UserPhoneNumberMinLength = 6;
+            public const int UserPhoneNumberMaxLength = 20;
         }
     }
 }
