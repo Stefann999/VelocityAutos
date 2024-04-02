@@ -37,7 +37,9 @@ namespace VelocityAutos.Data.Seeding
                 SecurityStamp = "f49c695d-b65c-4245-a204-70ac1ef3167c",
                 ConcurrencyStamp = "668e7d82-3497-47eb-9098-6132d4888d53",
                 PhoneNumber = "0888888888",
-                PhoneNumberConfirmed = true
+                PhoneNumberConfirmed = true,
+                FirstName = "Ivan",
+                LastName = "Stoilov"
             };
 
             firstUser.PasswordHash = hasher.HashPassword(firstUser, "123123");
@@ -55,7 +57,9 @@ namespace VelocityAutos.Data.Seeding
                 SecurityStamp = "e5507714-6b85-407b-a9e4-85b8856de4bd",
                 ConcurrencyStamp = "3f509880-8a4c-4e64-ba38-353c1611c646",
                 PhoneNumber = "0999999999",
-                PhoneNumberConfirmed = true
+                PhoneNumberConfirmed = true,
+                FirstName = "Dimitur",
+                LastName = "Vasilev"
             };
 
             secondUser.PasswordHash = hasher.HashPassword(secondUser, "123123");
