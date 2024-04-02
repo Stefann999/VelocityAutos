@@ -42,12 +42,6 @@
             public const int TransmissionTypeMaxLength = 30;
         }
 
-        public static class Category
-        {
-            public const int CategoryNameMinLength = 3;
-            public const int CategoryNameMaxLength = 30;
-        }
-
         public static class Post
         {
             public const int SellerFirstNameMinLength = 2;
