@@ -23,7 +23,7 @@ namespace VelocityAutos.Web.Controllers
                 TempData[ErrorMessage] = "Post does not exist or is no longer available!";
             }
 
-            string currUserId = this.User.GetId();
+            string currUserId = this.User.GetId()!;
 
             bool isOwner = post.SellerId == currUserId;
 
@@ -44,7 +44,7 @@ namespace VelocityAutos.Web.Controllers
                 TempData[ErrorMessage] = "Post does not exist or is no longer available!";
             }
 
-            string currUserId = this.User.GetId();
+            string currUserId = this.User.GetId()!;
 
             bool isAdmin = post.SellerId == currUserId;
 

@@ -14,22 +14,29 @@ namespace VelocityAutos.Services.Data
     {
         private readonly VelocityAutosDbContext dbContext;
         private readonly IRepository repository;
+        private readonly IUserService userService;
 
-        public PostService(VelocityAutosDbContext dbContext, IRepository repository)
+        public PostService(VelocityAutosDbContext dbContext, IRepository repository, IUserService userService)
         {
             this.dbContext = dbContext;
             this.repository = repository;
+            this.userService = userService;
         }
 
-        public async Task CreateAsync(PostFormModel postFormModel, Car car, string currUserId)
+        public async Task CreateAsync(string carId, string currUserId, string emailAddress)
         {
+            string fullName = await userService.GetFullNameByEmailAddress(emailAddress);
+            string phoneNumber = await userService.GetPhoneNumberByEmailAddress(emailAddress);
+
+            string[] names = fullName.Split(" ").ToArray();
+
            var post = new Post
            {
-               CarId = car.Id,
-               SellerFirstName = postFormModel.FirstName,
-               SellerLastName = postFormModel.LastName,
-               SellerPhoneNumber = postFormModel.PhoneNumber,
-               SellerEmailAddress = postFormModel.EmailAddress,
+               CarId = Guid.Parse(carId),
+               SellerFirstName = names[0],
+               SellerLastName = names[1],
+               SellerEmailAddress = emailAddress,
+               SellerPhoneNumber = phoneNumber,
                SellerId = Guid.Parse(currUserId),
                CreatedOn = DateTime.Now,
                UpdatedOn = null,
@@ -59,35 +66,13 @@ namespace VelocityAutos.Services.Data
             return post;
         }
 
-        public async Task<PostFormModel> GetPostForEditByIdAsync(string carId)
-        {
-            var post = await repository.All<Post>()
-               .Where(p => p.Car.Id.ToString() == carId)
-               .Select(p => new PostFormModel()
-               {
-                   Id = p.Id.ToString(),
-                   FirstName = p.SellerFirstName,
-                   LastName = p.SellerLastName,
-                   PhoneNumber = p.SellerPhoneNumber,
-                   EmailAddress = p.SellerEmailAddress,
-                   SellerId = p.SellerId.ToString()
-               })
-               .FirstOrDefaultAsync();
-
-            return post;
-        }
-
-        public async Task UpdateAsync(PostFormModel postFormModel, string postId)
+        public async Task UpdateAsync(string postId)
         {
             var post = await repository.All<Post>()
                 .FirstOrDefaultAsync(p => p.Id.ToString() == postId.ToLower());
 
             if (post != null)
             {
-                post.SellerFirstName = postFormModel.FirstName;
-                post.SellerLastName = postFormModel.LastName;
-                post.SellerPhoneNumber = postFormModel.PhoneNumber;
-                post.SellerEmailAddress = postFormModel.EmailAddress;
                 post.UpdatedOn = DateTime.Now;
             }
             else

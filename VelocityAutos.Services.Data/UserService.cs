@@ -30,5 +30,19 @@ namespace VelocityAutos.Services.Data
 
             return $"{user.FirstName} {user.LastName}";
         }
+
+        public async Task<string> GetPhoneNumberByEmailAddress(string emailAddress)
+        {
+			ApplicationUser? user = await repository.AllAsReadOnly<ApplicationUser>()
+				.Where(u => u.Email == emailAddress)
+				.FirstOrDefaultAsync();
+
+			if (user == null)
+            {
+				return string.Empty;
+			}
+
+			return user.PhoneNumber;
+		}
     }
 }

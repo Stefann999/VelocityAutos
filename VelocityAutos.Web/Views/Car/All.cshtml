@@ -18,6 +18,7 @@
 @foreach (var car in Model)
 {
     bool isUserOwner = await PostService.IsUserPostOwnerById(car.Id, User.GetId()!);
+    bool isadmin = this.User.IsAdmin();
       <div class="car">
           <img src = "~/audiA4-image3.jpg" alt="@car.Make">
           <div class="car-info">

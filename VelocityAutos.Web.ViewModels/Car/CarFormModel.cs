@@ -86,9 +86,14 @@ namespace VelocityAutos.Web.ViewModels.Car
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
+        public string PostId { get; set; }
+
+        public string SellerId { get; set; }
+
         public IEnumerable<CarSelectCategoryFormModel> Categories { get; set; }
 
         [Display(Name = "ImagesPaths of the car")]
         public IEnumerable<IFormFile> Images { get; set; }
+
     }
 }

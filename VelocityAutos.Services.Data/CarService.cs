@@ -79,7 +79,7 @@ namespace VelocityAutos.Services.Data
             ICollection<Image> images = new HashSet<Image>();
 
             var imageUrls = await this.dropboxService
-                .UploadImagesAsync(carFormModel.Images, newCar.Id);
+                .UploadImagesAsync(carFormModel.Images, newCar.Id.ToString());
 
             foreach (var imageUrl in imageUrls)
             {
@@ -163,7 +163,9 @@ namespace VelocityAutos.Services.Data
                     Description = c.Description,
                     LocationCity = c.LocationCity,
                     LocationCountry = c.LocationCountry,
-                    CategoryId = c.CategoryId
+                    CategoryId = c.CategoryId,
+                    PostId = c.Post.Id.ToString(),
+                    SellerId = c.Post.SellerId.ToString()
                 })
                 .FirstOrDefaultAsync();
 

@@ -16,7 +16,7 @@ namespace VelocityAutos.Services.Data
             this.accessToken = accessToken;
         }
 
-        public async Task<List<string>> UploadImagesAsync(IEnumerable<IFormFile> images, Guid carId)
+        public async Task<List<string>> UploadImagesAsync(IEnumerable<IFormFile> images, string carId)
         {
             var uploadedUrls = new List<string>();
 
@@ -25,8 +25,7 @@ namespace VelocityAutos.Services.Data
                 var folderName = $"Car_{carId}";
                 var folderPath = $"/VelocityAutos/CarImages/{folderName}";
 
-                // Create a folder with the carId in Dropbox
-                await dbx.Files.CreateFolderV2Async(folderPath);
+                await dbx.Files.CreateFolderAsync(folderPath);
 
                 foreach (var image in images)
                 {

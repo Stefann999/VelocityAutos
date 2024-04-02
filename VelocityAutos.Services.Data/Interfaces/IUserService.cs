@@ -9,5 +9,7 @@ namespace VelocityAutos.Services.Data.Interfaces
     public interface IUserService
     {
         Task<string> GetFullNameByEmailAddress(string emailAddress);
+
+        Task<string> GetPhoneNumberByEmailAddress(string emailAddress);
     }
 }

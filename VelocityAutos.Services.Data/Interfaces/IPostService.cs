@@ -6,15 +6,13 @@ namespace VelocityAutos.Services.Data.Interfaces
 {
     public interface IPostService
     {
-        public Task CreateAsync(PostFormModel postFormModel, Car car, string currUserId);
+        public Task CreateAsync(string carId, string currUserId, string emailAddress);
 
         public Task<bool> IsUserPostOwnerById(string carId, string userId);
 
         public Task<PostDetailsViewModel> GetPostForDetailsByIdAsync(string carId);
 
-        public Task<PostFormModel> GetPostForEditByIdAsync(string carId);
-
-        public Task UpdateAsync(PostFormModel postFormModel, string carId);
+        public Task UpdateAsync(string postId);
 
         public Task<CarDeleteViewModel> GetPostForDelete(string carId);
 
