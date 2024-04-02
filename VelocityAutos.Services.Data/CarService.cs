@@ -119,8 +119,26 @@ namespace VelocityAutos.Services.Data
         {
             var car = await repository.AllAsReadOnly<Car>()
                 .Where(c => c.Id.ToString() == carId)
-                .To<CarDetailsViewModel>()
-                .FirstOrDefaultAsync();
+				.Select(c => new CarDetailsViewModel
+				{
+					Id = c.Id.ToString(),
+					Make = c.Make,
+					Model = c.Model,
+					Price = c.Price,
+					Month = c.Month,
+					Year = c.Year,
+					Mileage = c.Mileage,
+					HorsePower = c.HorsePower,
+					FuelConsumption = c.FuelConsumption,
+					Color = c.Color,
+					Description = c.Description,
+					LocationCity = c.LocationCity,
+					LocationCountry = c.LocationCountry,
+					Category = c.Category.Name,
+					FuelType = c.FuelType.Name,
+					TransmissionType = c.TransmissionType.Name
+				})
+				.FirstOrDefaultAsync();
 
             return car;
         }
