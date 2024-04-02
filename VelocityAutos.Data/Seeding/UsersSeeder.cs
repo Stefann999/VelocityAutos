@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Security.Claims;
 using VelocityAutos.Data.Models;
 
 namespace VelocityAutos.Data.Seeding
@@ -9,14 +10,6 @@ namespace VelocityAutos.Data.Seeding
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            builder
-                .Property(u => u.FirstName)
-                .HasDefaultValue("Test");
-
-            builder
-                .Property(u => u.LastName)
-                .HasDefaultValue("User");
-
             builder.HasData(this.SeedUsers());
         }
 
@@ -64,7 +57,7 @@ namespace VelocityAutos.Data.Seeding
 
             secondUser.PasswordHash = hasher.HashPassword(secondUser, "123123");
 
-            applicationUsers.Add(secondUser);
+			applicationUsers.Add(secondUser);
 
             return applicationUsers.ToArray();
         }
