@@ -34,11 +34,7 @@ namespace VelocityAutos.Web.Controllers
             ValidationFailedAction = ValidationFailedAction.ContinueRequest)]
         public async Task<IActionResult> Register(RegisterFormModel model)
         {
-
-            string messages = string.Join("; ", ModelState.Values
-                                        .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage));
-            if (!ModelState.IsValid)
+			if (!ModelState.IsValid)
             {
                 return View(model);
             }
@@ -56,6 +52,7 @@ namespace VelocityAutos.Web.Controllers
             IdentityResult result =
                 await userManager.CreateAsync(user, model.Password);
 
+
             if (!result.Succeeded)
             {
                 foreach (IdentityError error in result.Errors)
@@ -63,10 +60,12 @@ namespace VelocityAutos.Web.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
 
-                return View(model);
+				return View(model);
             }
 
             await signInManager.SignInAsync(user, false);
+
+            TempData[SuccessMessage] = "You have successfully registered!";
 
             return RedirectToAction("Index", "Home");
         }
@@ -102,6 +101,8 @@ namespace VelocityAutos.Web.Controllers
 
                 return View(model);
             }
+
+            TempData[SuccessMessage] = "You have successfully logged in!";
 
             return Redirect(model.ReturnUrl ?? "/Home/Index");
         }
