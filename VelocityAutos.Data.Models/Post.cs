@@ -27,6 +27,7 @@ namespace VelocityAutos.Data.Models
         public bool IsActive { get; set; }
 
         [Required]
+        [ForeignKey(nameof(Seller))]
         public Guid SellerId { get; set; }
 
         public ApplicationUser Seller { get; set; } = null!;
@@ -38,22 +39,15 @@ namespace VelocityAutos.Data.Models
         public Car Car { get; set; } = null!;
 
         [Required]
-        [MinLength(SellerFirstNameMinLength)]
-        [MaxLength(SellerFirstNameMaxLength)]
         public string SellerFirstName { get; set; } = null!;
 
         [Required]
-        [MinLength(SellerLastNameMinLength)]
-        [MaxLength(SellerLastNameMaxLength)]
         public string SellerLastName { get; set; } = null!;
 
         [Required]
-        [MinLength(SellerPhoneNumberMinLength)]
-        [MaxLength(SellerPhoneNumberMaxLength)]
         public string SellerPhoneNumber { get; set; } = null!;
 
         [Required]
-        [RegularExpression(SellerEmailAddressRegex)]
         public string SellerEmailAddress { get; set; }
     }
 }
