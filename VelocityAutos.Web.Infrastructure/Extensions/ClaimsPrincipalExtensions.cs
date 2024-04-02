@@ -15,5 +15,10 @@ namespace VelocityAutos.Web.Infrastructure.Extensions
         {
             return user.IsInRole(AdminRoleName);
         }
+
+        public static string GetEmail(this ClaimsPrincipal user)
+        {
+			return user.FindFirstValue(ClaimTypes.Email);
+		}
     }
 }
