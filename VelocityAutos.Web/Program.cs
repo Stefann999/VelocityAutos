@@ -78,7 +78,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
-
 if (app.Environment.IsDevelopment())
 { 
     app.SeedAdministrator(DevelopmentAdminEmail);

@@ -53,7 +53,6 @@ namespace VelocityAutos.Web.Controllers
             IdentityResult result =
                 await userManager.CreateAsync(user, model.Password);
 
-
             if (!result.Succeeded)
             {
                 foreach (IdentityError error in result.Errors)
