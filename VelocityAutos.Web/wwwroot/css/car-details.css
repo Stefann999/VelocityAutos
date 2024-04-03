@@ -1,0 +1,65 @@
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin-top: 50px;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #007bff;
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.card-title {
+    margin-bottom: 0;
+}
+
+.list-group-item {
+    background-color: transparent;
+    border-color: rgba(0, 0, 0, 0.125);
+}
+
+.seller-details {
+    margin-top: 30px;
+}
+
+.seller-details h3 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+body {
+    background-image: none;
+}
+
+.home-text {
+    font-size: 0px;
+}
+
+.carousel-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.carousel-counter .current-number {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.carousel-counter .total-number {
+    opacity: 0.6;
+}
