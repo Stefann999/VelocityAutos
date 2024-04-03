@@ -25,7 +25,7 @@ namespace VelocityAutos.Services.Data
                 var folderName = $"Car_{carId}";
                 var folderPath = $"/VelocityAutos/CarImages/{folderName}";
 
-                await dbx.Files.CreateFolderAsync(folderPath);
+                await dbx.Files.CreateFolderV2Async(folderPath);
 
                 foreach (var image in images)
                 {
