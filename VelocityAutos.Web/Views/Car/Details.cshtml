@@ -61,6 +61,24 @@
         .home-text {
             font-size: 0px;
         }
+
+        .carousel-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .carousel-counter .current-number {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .carousel-counter .total-number {
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body>
@@ -112,6 +130,10 @@
                         <li class="list-group-item"><strong>Deleted on:</strong> @Model.DeletedOn?.ToString(MyDateTimeFormat)</li>
                     }
 
+                    @{
+                        int imageCount = Model.Car.ImagesPaths.Count();
+                    }
+
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @for (var i = 0; i < Model.Car.ImagesPaths.Count(); i++)
@@ -129,6 +151,9 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
+                        <div class="carousel-counter">
+                            <span id="carousel-counter-current" class="current-number">1</span> / <span id="carousel-counter-total" class="total-number">@imageCount</span>
+                        </div>
                     </div>
 
                     @{
@@ -158,5 +183,12 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-
+    <script>
+        $(document).ready(function () {
+            $('#carouselExampleControls').on('slid.bs.carousel', function () {
+                var currentIndex = $('div.carousel-item.active').index() + 1;
+                $('#carousel-counter-current').text(currentIndex);
+            });
+        });
+    </script>
 }
