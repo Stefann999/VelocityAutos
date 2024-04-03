@@ -35,5 +35,7 @@
         public string FuelType { get; set; } = null!;
 
         public string Category { get; set; } = null!;
-    }
+
+		public virtual IList<string> ImagesPaths { get; set; } = null!;
+	}
 }

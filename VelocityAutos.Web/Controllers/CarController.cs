@@ -157,12 +157,14 @@ namespace VelocityAutos.Web.Controllers
 
                 targetPost.Car = targetCar;
 
+                targetCar.ImagesPaths = await this.dropboxService.GetCarImages($"/VelocityAutos/CarImages/Car_{id}", false);
+
                 return View(targetPost);
 
             }
             catch (Exception)
             {
-                TempData[ErrorMessage] = "Unexpected error occured while trying to add new targetCar! Please try again later or contact administrator!";
+                TempData[ErrorMessage] = "Unexpected error occured while trying to display car details! Please try again later or contact administrator!";
                 return RedirectToAction(nameof(All));
             }
         }

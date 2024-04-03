@@ -112,6 +112,25 @@
                         <li class="list-group-item"><strong>Deleted on:</strong> @Model.DeletedOn?.ToString(MyDateTimeFormat)</li>
                     }
 
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @for (var i = 0; i < Model.Car.ImagesPaths.Count(); i++)
+                            {
+                                <div class="carousel-item @(i == 0 ? "active" : "")">
+                                    <img src="@Model.Car.ImagesPaths[i]" class="d-block w-100" alt="Image @(i+1)">
+                                </div>
+                            }
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
                     @{
                         bool isUserOwner = await PostService.IsUserPostOwnerById(Model.Car.Id, User.GetId()!);
                     }
@@ -138,4 +157,6 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
 }

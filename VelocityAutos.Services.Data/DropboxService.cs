@@ -51,28 +51,20 @@ namespace VelocityAutos.Services.Data
 
             try
             {
-                // Use the Dropbox client to list files in the specified folder
                 var list = await dbx.Files.ListFolderAsync(carFolderPath);
 
-                // Iterate through each file in the folder
                 foreach (var entry in list.Entries)
                 {
-                    // Check if the entry is a file and an image
                     if (entry.IsFile && IsImage(entry.Name))
                     {
-                        // Download the image
                         using (var response = await dbx.Files.DownloadAsync(entry.PathLower))
                         {
-                            // Get the image data
                             var imageBytes = await response.GetContentAsByteArrayAsync();
 
-                            // Convert image data to base64 string
                             var base64String = Convert.ToBase64String(imageBytes);
 
-                            // Create image URL for display
                             var imageUrl = string.Format("data:image/png;base64,{0}", base64String);
 
-                            // Add image URL to the list
                             imageUrls.Add(imageUrl);
 
                             if (isForAll)
@@ -94,7 +86,7 @@ namespace VelocityAutos.Services.Data
         // Helper method to check if a file is an image
         private bool IsImage(string fileName)
         {
-            string[] imageExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", "avif" };
+            string[] imageExtensions = { ".jpg", ".jpeg", ".png", ".bmp", ".webp", ".avif" };
             string extension = Path.GetExtension(fileName).ToLower();
             return Array.IndexOf(imageExtensions, extension) != -1;
         }
