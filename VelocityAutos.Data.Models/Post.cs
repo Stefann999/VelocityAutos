@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static VelocityAutos.Common.EntityValidationConstants.Post;
 using static VelocityAutos.Common.GeneralApplicationConstants;
 
 namespace VelocityAutos.Data.Models

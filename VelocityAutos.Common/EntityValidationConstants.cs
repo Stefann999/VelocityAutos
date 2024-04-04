@@ -42,20 +42,6 @@
             public const int TransmissionTypeMaxLength = 30;
         }
 
-        public static class Post
-        {
-            public const int SellerFirstNameMinLength = 2;
-            public const int SellerFirstNameMaxLength = 20;
-
-            public const int SellerLastNameMinLength = 2;
-            public const int SellerLastNameMaxLength = 20;
-
-            public const int SellerPhoneNumberMinLength = 6;
-            public const int SellerPhoneNumberMaxLength = 20;
-
-            public const string SellerEmailAddressRegex = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-        }
-
         public static class User
         {
             public const int UserFirstNameMinLength = 3;
