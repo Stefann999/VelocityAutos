@@ -144,9 +144,16 @@ namespace VelocityAutos.Services.Data
                         return false;
                     }
                 }
-                catch (Exception e)
+                catch (ApiException<GetMetadataError> e)
                 {
-                    throw new Exception();
+                    if (e.ErrorResponse.IsPath && e.ErrorResponse.AsPath.Value.IsNotFound)
+                    {
+                        return false; // Folder does not exist
+                    }
+                    else
+                    {
+                        throw; // Handle other errors accordingly
+                    }
                 }
             }
         }
