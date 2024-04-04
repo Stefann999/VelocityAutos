@@ -34,6 +34,7 @@ namespace VelocityAutos.Data.Seeding
                 LocationCountry = "Bulgaria",
                 CategoryId = 1
             };
+
             cars.Add(firstCar);
 
             Car secondCar = new Car
