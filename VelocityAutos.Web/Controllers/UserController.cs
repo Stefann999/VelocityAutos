@@ -96,9 +96,6 @@ namespace VelocityAutos.Web.Controllers
 
             if (!result.Succeeded)
             {
-                TempData[ErrorMessage] =
-                    "There was an error while logging you in! Please try again later or contact an administrator.";
-
                 return View(model);
             }
 
