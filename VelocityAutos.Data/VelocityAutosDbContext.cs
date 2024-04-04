@@ -82,7 +82,6 @@ namespace VelocityAutos.Data
             if (this.seedDb)
             {
                 builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
             }
 
             base.OnModelCreating(builder);
