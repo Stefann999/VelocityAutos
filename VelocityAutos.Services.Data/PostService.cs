@@ -59,7 +59,8 @@ namespace VelocityAutos.Services.Data
                     UpdatedOn = p.UpdatedOn,
                     SellerName = p.SellerFirstName + " " + p.SellerLastName,
                     SellerPhoneNumber = p.SellerPhoneNumber,
-                    SellerEmailAddress = p.SellerEmailAddress
+                    SellerEmailAddress = p.SellerEmailAddress,
+                    IsActive = p.IsActive,
                 })
                 .FirstOrDefaultAsync();
 

@@ -155,6 +155,15 @@ namespace VelocityAutos.Web.Controllers
 
                 var targetPost = await this.postService.GetPostForDetailsByIdAsync(id);
 
+                if (!targetPost.IsActive)
+                {
+                    if (!this.User.IsAdmin())
+                    {
+                        TempData[ErrorMessage] = "Car does not exist or the post is no longer available!";
+                        return RedirectToAction(nameof(All));
+                    }
+                }
+
                 targetPost.Car = targetCar;
 
                 targetCar.ImagesPaths = await this.dropboxService.GetCarImages($"/VelocityAutos/CarImages/Car_{id}", false);
