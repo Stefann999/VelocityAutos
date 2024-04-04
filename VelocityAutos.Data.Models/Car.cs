@@ -9,7 +9,6 @@ namespace VelocityAutos.Data.Models
         public Car()
         {
             this.Id = Guid.NewGuid();
-            this.Images = new HashSet<Image>();
             this.UsersFavourite = new HashSet<ApplicationUser>();
         }
 
@@ -90,7 +89,7 @@ namespace VelocityAutos.Data.Models
         [Required]
         public Post Post { get; set; } = null!;
 
-        public virtual ICollection<Image> Images { get; set; } = null!;
+        public virtual Image Image { get; set; } = null!;
 
         public virtual ICollection<ApplicationUser> UsersFavourite { get; set; } = null!;
     }

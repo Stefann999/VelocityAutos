@@ -16,16 +16,26 @@ namespace VelocityAutos.Services.Data
             this.accessToken = accessToken;
         }
 
-        public async Task<List<string>> UploadImagesAsync(IEnumerable<IFormFile> images, string carId)
+        public async Task<string> UploadImagesAsync(IEnumerable<IFormFile> images, string carId)
         {
-            var uploadedUrls = new List<string>();
+            string imagePath = string.Empty;
 
             using (var dbx = new DropboxClient(accessToken))
             {
                 var folderName = $"Car_{carId}";
                 var folderPath = $"/VelocityAutos/CarImages/{folderName}";
 
-                await dbx.Files.CreateFolderV2Async(folderPath);
+                bool fileExists = await FolderExistsAsync(folderPath);
+
+                if (fileExists)
+                {
+                    await DeleteImagesAsync(folderPath);
+                }
+                else
+                {
+                    await dbx.Files.CreateFolderV2Async(folderPath);
+                    imagePath = folderPath;
+                }
 
                 foreach (var image in images)
                 {
@@ -35,12 +45,35 @@ namespace VelocityAutos.Services.Data
                     using (var stream = image.OpenReadStream())
                     {
                         var response = await dbx.Files.UploadAsync(dropboxPath, WriteMode.Overwrite.Instance, body: stream);
-                        uploadedUrls.Add(response.PathDisplay);
                     }
                 }
             }
 
-            return uploadedUrls;
+            return imagePath;
+        }
+
+        public async Task DeleteImagesAsync(string folderPath)
+        {
+            using (var dbx = new DropboxClient(accessToken))
+            {
+                try
+                {
+                    var list = await dbx.Files.ListFolderAsync(folderPath);
+
+                    // Delete each file
+                    foreach (var item in list.Entries)
+                    {
+                        if (item.IsFile)
+                        {
+                            await dbx.Files.DeleteV2Async(item.PathDisplay);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception();
+                }
+            }
         }
 
         public async Task<List<string>> GetCarImages(string carFolderPath, bool isForAll)
@@ -89,6 +122,33 @@ namespace VelocityAutos.Services.Data
             string[] imageExtensions = { ".jpg", ".jpeg", ".png", ".bmp", ".webp", ".avif" };
             string extension = Path.GetExtension(fileName).ToLower();
             return Array.IndexOf(imageExtensions, extension) != -1;
+        }
+
+        // Helper method to check if a folder exists
+        private async Task<bool> FolderExistsAsync(string folderPath)
+        {
+            using (var dropboxClient = new DropboxClient(accessToken))
+            {
+                try
+                {
+                    // Check if the folder exists
+                    var folderMetadata = await dropboxClient.Files.GetMetadataAsync(folderPath);
+
+                    // If the metadata is a folder, return true
+                    if (folderMetadata.IsFolder)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception();
+                }
+            }
         }
     }
 }

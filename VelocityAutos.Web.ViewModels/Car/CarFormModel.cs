@@ -92,8 +92,8 @@ namespace VelocityAutos.Web.ViewModels.Car
 
         public IEnumerable<CarSelectCategoryFormModel> Categories { get; set; }
 
-        [Display(Name = "ImagesPaths of the car")]
-        public IEnumerable<IFormFile> Images { get; set; }
+        [Display(Name = "Images of the car")]
+        public IEnumerable<IFormFile>? Images { get; set; }
 
     }
 }

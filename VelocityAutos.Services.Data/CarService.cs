@@ -76,32 +76,17 @@ namespace VelocityAutos.Services.Data
             };
 
 
-            ICollection<Image> images = new HashSet<Image>();
-
-            var imageUrls = await this.dropboxService
+            string imagePath = await this.dropboxService
                 .UploadImagesAsync(carFormModel.Images, newCar.Id.ToString());
 
-            foreach (var imageUrl in imageUrls)
+            Image image = new Image
             {
-                string[] parts = imageUrl.Split('/');
+                Car = newCar,
+                CarId = newCar.Id,
+                ImagePath = imagePath
+            };
 
-                // Get the last part which contains the file name with extension
-                string lastPart = parts[parts.Length - 1];
-
-                // Remove the extension
-                string fileNameWithoutExtension = lastPart.Substring(0, lastPart.LastIndexOf('.'));
-
-                Image currImage = new Image
-                {
-                    Id = Guid.Parse(fileNameWithoutExtension),
-                    ImagePath = imageUrl,
-                    CarId = newCar.Id
-                };
-                await repository.AddAsync(currImage);
-                images.Add(currImage);
-            }
-
-            newCar.Images = images;
+            newCar.Image = image;
 
             await repository.AddAsync(newCar);
             await repository.SaveChangesAsync();
@@ -194,6 +179,11 @@ namespace VelocityAutos.Services.Data
                 carForEdit.LocationCity = carFormModel.LocationCity;
                 carForEdit.LocationCountry = carFormModel.LocationCountry;
                 carForEdit.CategoryId = carFormModel.CategoryId;
+
+                if (carFormModel.Images.Any())
+                {
+                    await this.dropboxService.UploadImagesAsync(carFormModel.Images, carId);
+                }
             }
             else
             {
