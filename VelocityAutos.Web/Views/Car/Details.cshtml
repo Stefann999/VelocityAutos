@@ -99,12 +99,24 @@
                         <br />
                         <a asp-area="" asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Car.Id" class="btn btn-warning fw-bold">Edit</a>
                     }
-                    <br />
-                    @if (isUserOwner || this.User.IsAdmin())
+
+                    @if (Model.IsActive)
                     {
-                        <strong>In case you want to remove this car from the showcase or it is no longer available due to being sold, click the button below:</strong>
-                        <br />
-                        <a asp-area="" asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Car.Id" class="btn btn-danger fw-bold">Remove</a>
+                        @if (isUserOwner || this.User.IsAdmin())
+                        {
+                            <br />
+                            <strong>In case you want to remove this car from the showcase or it is no longer available due to being sold, click the button below:</strong>
+                            <a asp-area="" asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Car.Id" class="btn btn-danger fw-bold">Remove</a>
+                        }
+                    }
+                    else
+                    {
+                        @if (isUserOwner || this.User.IsAdmin())
+                        {
+                            <br />
+                            <strong>In case you want to make this post active again, click the button below:</strong>
+                            <a asp-area="" asp-controller="Post" asp-action="Activate" asp-route-id="@Model.Car.Id" class="btn btn-success fw-bold">Activate</a>
+                        }
                     }
                 </ul>
             </div>
