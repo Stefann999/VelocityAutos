@@ -288,5 +288,28 @@ namespace VelocityAutos.Web.Controllers
 
             return this.RedirectToAction(nameof(Details), new { id });
         }
+
+        public async Task<IActionResult> Owned()
+        {
+            string currUserId = this.User.GetId()!;
+
+            var allCars = await this.carService.GetOwnedCarsAsync(currUserId);
+
+            try
+            {
+                foreach (var car in allCars)
+                {
+                    string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
+                    var currCarImagesUrls = await dropboxService.GetCarImages(folderPath, true);
+                    car.ImagesPaths = currCarImagesUrls;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
+            }
+
+            return View(allCars);
+        }
     }
 }

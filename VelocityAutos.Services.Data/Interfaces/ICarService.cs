@@ -19,5 +19,7 @@ namespace VelocityAutos.Services.Data.Interfaces
         Task<CarFormModel> GetCarEditAsync(string carId);
 
         Task UpdateAsync(CarFormModel carFormModel, string carId);
+
+        Task<IEnumerable<CarAllViewModel>> GetOwnedCarsAsync(string userId);
     }
 }

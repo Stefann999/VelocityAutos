@@ -4,7 +4,6 @@ using VelocityAutos.Data;
 using VelocityAutos.Web.ViewModels.Car;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Web.Infrastructure.Common;
-using AspNetCoreTemplate.Services.Mapping;
 
 namespace VelocityAutos.Services.Data
 {
@@ -191,6 +190,31 @@ namespace VelocityAutos.Services.Data
             }
 
             await repository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<CarAllViewModel>> GetOwnedCarsAsync(string userId)
+        {
+            var cars = await repository.AllAsReadOnly<Post>()
+                .Where(p => p.SellerId.ToString() == userId)
+                .Select(p => new CarAllViewModel
+                {
+                    Id = p.Car.Id.ToString(),
+                    Make = p.Car.Make,
+                    Model = p.Car.Model,
+                    Price = p.Car.Price,
+                    Month = p.Car.Month,
+                    Year = p.Car.Year,
+                    Mileage = p.Car.Mileage,
+                    HorsePower = p.Car.HorsePower,
+                    FuelConsumption = p.Car.FuelConsumption,
+                    Color = p.Car.Color,
+                    Description = p.Car.Description,
+                    LocationCity = p.Car.LocationCity,
+                    LocationCountry = p.Car.LocationCountry
+                })
+                .ToListAsync();
+
+            return cars;
         }
     }
 }
