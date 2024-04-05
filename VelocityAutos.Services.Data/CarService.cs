@@ -9,13 +9,12 @@ namespace VelocityAutos.Services.Data
 {
     public class CarService : ICarService
     {
-        private readonly VelocityAutosDbContext dbContext;
         private readonly IDropboxService dropboxService;
         private readonly IRepository repository;
 
-        public CarService(VelocityAutosDbContext dbContext, IDropboxService dropboxService, IRepository repository)
+        public CarService(IDropboxService dropboxService,
+            IRepository repository)
         {
-            this.dbContext = dbContext;
             this.dropboxService = dropboxService;
             this.repository = repository;
         }
