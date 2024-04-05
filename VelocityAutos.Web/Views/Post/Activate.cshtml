@@ -1,0 +1,45 @@
+﻿@model CarDeleteViewModel
+@{
+    ViewBag.Title = "Activate Post";
+}
+
+<head>
+    <style>
+        body {
+            background-image: none;
+        }
+
+        .home-text {
+            font-size: 0px;
+        }
+    </style>
+</head>
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">@Model.Make</h3>
+                <p class="mb-0"><strong>Model:</strong> @Model.Model</p>
+                <p class="mb-0"><strong>Price:</strong> @Model.Price</p>
+                <p class="mb-0"><strong>Month:</strong> @Model.Month</p>
+                <p class="mb-0"><strong>Year:</strong> @Model.Year</p>
+                <p class="text-danger mt-3"><strong>Are you sure you want to activate this post?</strong></p>
+            </div>
+            <div class="card-footer">
+                <form asp-action="ConfirmActivate" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-success">Confirm Activate</button>
+                    <a asp-area="" asp-controller="Car" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

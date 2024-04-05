@@ -16,11 +16,12 @@ namespace VelocityAutos.Web.Controllers
 
         public async Task<IActionResult> Delete(string id)
         {
-            var post = await this.postService.GetPostForDelete(id);
+            var post = await this.postService.GetPostForDeleteAsync(id);
 
             if (post == null)
             {
                 TempData[ErrorMessage] = "Post does not exist or is no longer available!";
+                return this.RedirectToAction("All", "Car");
             }
 
             string currUserId = this.User.GetId()!;
@@ -30,6 +31,7 @@ namespace VelocityAutos.Web.Controllers
             if (!isOwner && !this.User.IsAdmin())
             {
                 TempData[ErrorMessage] = "You have to be this post's owner in order to remove it!";
+                return this.RedirectToAction("Details", "Car", new { id });
             }
 
             return this.View(post);
@@ -37,11 +39,12 @@ namespace VelocityAutos.Web.Controllers
 
         public async Task<IActionResult> ConfirmDelete(string id)
         {
-            var post = await this.postService.GetPostForDelete(id);
+            var post = await this.postService.GetPostForDeleteAsync(id);
 
             if (post == null)
             {
                 TempData[ErrorMessage] = "Post does not exist or is no longer available!";
+                return this.RedirectToAction("All", "Car");
             }
 
             string currUserId = this.User.GetId()!;
@@ -59,6 +62,56 @@ namespace VelocityAutos.Web.Controllers
             TempData[SuccessMessage] = "The post was successfully removed!";
 
             return this.RedirectToAction("All", "Car");
+        }
+
+        public async Task<IActionResult> Activate(string id)
+        {
+            var post = await this.postService.GetPostForDeleteAsync(id);
+
+            if (post == null)
+            {
+                TempData[ErrorMessage] = "Post does not exist or is no longer available!";
+                return this.RedirectToAction("All", "Car");
+            }
+
+            string currUserId = this.User.GetId()!;
+
+            bool isAdmin = post.SellerId == currUserId;
+
+            if (!isAdmin && !this.User.IsAdmin())
+            {
+                TempData[ErrorMessage] = "You have to be this post's owner in order to activate it!";
+                return this.RedirectToAction("Details", "Car", new { id });
+            }
+
+            return this.View(post);
+        }
+
+        public async Task<IActionResult> ConfirmActivate(string id)
+        {
+            var post = await this.postService.GetPostForDeleteAsync(id);
+
+            if (post == null)
+            {
+                TempData[ErrorMessage] = "Post does not exist or is no longer available!";
+                return this.RedirectToAction("All", "Car");
+            }
+
+            string currUserId = this.User.GetId()!;
+
+            bool isAdmin = post.SellerId == currUserId;
+
+            if (!isAdmin && !this.User.IsAdmin())
+            {
+                TempData[ErrorMessage] = "You have to be this post's owner in order to activate it!";
+                return this.RedirectToAction("Details", "Car", new { id });
+            }
+
+            await this.postService.ActivateAsync(id);
+
+            TempData[SuccessMessage] = "The post was successfully activated!";
+
+            return this.RedirectToAction("Details", "Car", new { id });
         }
     }
 }
