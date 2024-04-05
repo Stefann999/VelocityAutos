@@ -11,7 +11,6 @@ namespace VelocityAutos.Data.Models
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid();
-            this.OwnedPosts = new HashSet<Post>();
             this.FavouriteCars = new HashSet<Car>();
         }
 
@@ -22,8 +21,6 @@ namespace VelocityAutos.Data.Models
         [Required(ErrorMessage = RequiredErrorMessage)]
         [MaxLength(UserLastNameMaxLength)]
         public string LastName { get; set; } = null!;
-
-        public virtual ICollection<Post> OwnedPosts { get; set; } = null!;
 
         public virtual ICollection<Car> FavouriteCars { get; set; } = null!;
     }

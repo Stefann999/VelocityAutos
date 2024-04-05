@@ -64,20 +64,6 @@ namespace VelocityAutos.Data
                 .HasForeignKey(c => c.TransmissionTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-                .Entity<Post>()
-                .HasOne(p => p.Seller)
-                .WithMany(u => u.OwnedPosts)
-                .HasForeignKey(p => p.SellerId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder
-               .Entity<ApplicationUser>()
-               .HasMany(u => u.OwnedPosts)
-               .WithOne(p => p.Seller)
-               .HasForeignKey(p => p.SellerId)
-               .OnDelete(DeleteBehavior.Restrict);
-
 
             if (this.seedDb)
             {
