@@ -4,7 +4,6 @@ namespace VelocityAutos.Web.ViewModels.Car
 {
     using AutoMapper;
     using Data.Models;
-    using Microsoft.AspNetCore.Routing;
 
     public class CarDeleteViewModel : IMapTo<Car>, IHaveCustomMappings
     {
