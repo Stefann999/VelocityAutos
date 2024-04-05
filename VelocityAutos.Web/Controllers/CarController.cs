@@ -155,9 +155,13 @@ namespace VelocityAutos.Web.Controllers
 
                 var targetPost = await this.postService.GetPostForDetailsByIdAsync(id);
 
+                string currUserId = this.User.GetId()!;
+
+                bool isOwner = targetPost.SellerId == currUserId!.ToUpper();
+
                 if (!targetPost.IsActive)
                 {
-                    if (!this.User.IsAdmin())
+                    if (!isOwner && !this.User.IsAdmin())
                     {
                         TempData[ErrorMessage] = "Car does not exist or the post is no longer available!";
                         return RedirectToAction(nameof(All));
