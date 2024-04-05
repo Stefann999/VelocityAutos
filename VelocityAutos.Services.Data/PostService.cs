@@ -61,6 +61,7 @@ namespace VelocityAutos.Services.Data
                     SellerPhoneNumber = p.SellerPhoneNumber,
                     SellerEmailAddress = p.SellerEmailAddress,
                     IsActive = p.IsActive,
+                    SellerId = p.SellerId.ToString(),
                 })
                 .FirstOrDefaultAsync();
 
@@ -84,7 +85,7 @@ namespace VelocityAutos.Services.Data
             await repository.SaveChangesAsync();
         }
 
-        public async Task<bool> IsUserPostOwnerById(string carId, string userId)
+        public async Task<bool> IsUserPostOwnerByIdAsync(string carId, string userId)
         {
             Car? car = await repository.AllAsReadOnly<Car>()
                 .Include(c => c.Post)
@@ -98,7 +99,7 @@ namespace VelocityAutos.Services.Data
             return car.Post.SellerId.ToString() == userId;
         }
 
-        public async Task<CarDeleteViewModel> GetPostForDelete(string carId)
+        public async Task<CarDeleteViewModel> GetPostForDeleteAsync(string carId)
         {
             var car = await repository.All<Car>()
                 .Where(c => c.Id.ToString() == carId)
@@ -115,6 +116,18 @@ namespace VelocityAutos.Services.Data
 
             post!.DeletedOn = DateTime.Now;
             post.IsActive = false;
+
+            await repository.SaveChangesAsync();
+        }
+
+        public async Task ActivateAsync(string carId)
+        {
+            var post = await repository.All<Post>()
+                .FirstOrDefaultAsync(p => p.Car.Id.ToString() == carId);
+
+            post!.DeletedOn = null;
+            post.UpdatedOn = DateTime.Now;
+            post.IsActive = true;
 
             await repository.SaveChangesAsync();
         }

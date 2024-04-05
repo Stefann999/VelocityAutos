@@ -91,7 +91,7 @@
                     </div>
 
                     @{
-                        bool isUserOwner = await PostService.IsUserPostOwnerById(Model.Car.Id, User.GetId()!);
+                        bool isUserOwner = await PostService.IsUserPostOwnerByIdAsync(Model.Car.Id, User.GetId()!);
                     }
 
                     @if (isUserOwner || this.User.IsAdmin())
