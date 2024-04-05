@@ -19,5 +19,7 @@ namespace VelocityAutos.Web.ViewModels.Post
         public string SellerEmailAddress { get; set; } = null!;
 
         public bool IsActive { get; set; }
+
+        public string SellerId { get; set; } = null!;
     }
 }
