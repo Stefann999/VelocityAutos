@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Extensions;
 using VelocityAutos.Web.ViewModels.Car;
@@ -19,7 +21,12 @@ namespace VelocityAutos.Web.Controllers
         private readonly IDropboxService dropboxService;
         private readonly IPostService postService;
 
-        public CarController(ICategoryService categoryService, IFuelTypeService fuelTypeService, ITransmissionTypeService transmissionTypeService, ICarService carService, IDropboxService dropboxService, IPostService postService)
+        public CarController(ICategoryService categoryService,
+            IFuelTypeService fuelTypeService,
+            ITransmissionTypeService transmissionTypeService,
+            ICarService carService,
+            IDropboxService dropboxService,
+            IPostService postService)
         {
             this.categoryService = categoryService;
             this.fuelTypeService = fuelTypeService;
