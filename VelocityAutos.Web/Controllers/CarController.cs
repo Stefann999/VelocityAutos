@@ -164,11 +164,18 @@ namespace VelocityAutos.Web.Controllers
 
                 string currUserId = this.User.GetId()!;
 
-                bool isOwner = targetPost.SellerId == currUserId!.ToUpper();
+                bool isOwner = false;
+                bool isAdmin = false;
+
+                if (currUserId != null)
+                {
+                    isOwner = targetPost.SellerId == currUserId!.ToUpper();
+                    isAdmin = this.User.IsAdmin();
+                }
 
                 if (!targetPost.IsActive)
                 {
-                    if (!isOwner && !this.User.IsAdmin())
+                    if (!isOwner && !isAdmin)
                     {
                         TempData[ErrorMessage] = "Car does not exist or the post is no longer available!";
                         return RedirectToAction(nameof(All));
