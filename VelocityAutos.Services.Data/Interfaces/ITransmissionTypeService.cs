@@ -7,5 +7,7 @@ namespace VelocityAutos.Services.Data.Interfaces
         Task<IEnumerable<CarSelectTransmissionFormModel>> AllTransmissionTypesAsync();
 
         Task<bool> ExistsByIdAsync(int id);
+
+        Task<IEnumerable<string>> AllTransmissionTypeNamesAsync();
     }
 }

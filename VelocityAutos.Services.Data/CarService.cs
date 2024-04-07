@@ -1,15 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VelocityAutos.Services.Data.Interfaces;
-using VelocityAutos.Data;
 using VelocityAutos.Web.ViewModels.Car;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Web.Infrastructure.Common;
-using static Dropbox.Api.Files.SearchMatchType;
-using VelocityAutos.Common;
+using VelocityAutos.Services.Data.Models.Car;
+using VelocityAutos.Web.ViewModels.Car.Enums;
 
 namespace VelocityAutos.Services.Data
 {
-    public class CarService : ICarService
+	public class CarService : ICarService
     {
         private readonly IDropboxService dropboxService;
         private readonly IRepository repository;
@@ -29,29 +28,80 @@ namespace VelocityAutos.Services.Data
             return result;
         }
 
-        public async Task<IEnumerable<CarAllViewModel>> GetAllCarsAsync()
+        public async Task<AllCarsFilteredAndPaged> GetAllCarsAsync(AllCarsQueryModel queryModel)
         {
-            var cars = await repository.AllAsReadOnly<Post>()
-                .Where(p => p.IsActive == true)
-                .Select(p => new CarAllViewModel
-                {
-                    Id = p.Car.Id.ToString(),
-                    Make = p.Car.Make,
-                    Model = p.Car.Model,
-                    Price = p.Car.Price,
-                    Month = p.Car.Month,
-                    Year = p.Car.Year,
-                    Mileage = p.Car.Mileage,
-                    HorsePower = p.Car.HorsePower,
-                    FuelConsumption = p.Car.FuelConsumption,
-                    Color = p.Car.Color,
-                    Description = p.Car.Description,
-                    LocationCity = p.Car.LocationCity,
-                    LocationCountry = p.Car.LocationCountry
-                })
-                .ToListAsync();
+            IQueryable<Car> carsQuery = repository.AllAsReadOnly<Car>()
+                .AsQueryable();
 
-            return cars;
+            if (!string.IsNullOrWhiteSpace(queryModel.Category))
+            {
+                carsQuery = carsQuery
+                    .Where(c => c.Category.Name == queryModel.Category);
+            }
+
+            if (!string.IsNullOrWhiteSpace(queryModel.FuelType))
+            {
+                carsQuery = carsQuery
+                    .Where(c => c.FuelType.Name == queryModel.FuelType);
+            }
+
+            if (!string.IsNullOrWhiteSpace(queryModel.TransmissionType))
+            {
+                carsQuery = carsQuery
+                    .Where(c => c.TransmissionType.Name == queryModel.TransmissionType);
+            }
+
+            // Check if null causes problems
+            if (!string.IsNullOrWhiteSpace(queryModel.SearchTerm))
+            {
+                string wildCard = $"%{queryModel.SearchTerm.ToLower()}%";
+
+                carsQuery = carsQuery
+                    .Where(c => EF.Functions.Like(c.Make, wildCard) ||
+                                EF.Functions.Like(c.Model, wildCard) ||
+                                EF.Functions.Like(c.Description, wildCard));
+            }
+
+            carsQuery = queryModel.CarSorting switch
+            {
+                CarSorting.Newest => carsQuery.OrderByDescending(c => c.Post.CreatedOn),
+                CarSorting.Oldest => carsQuery.OrderBy(c => c.Post.CreatedOn),
+                CarSorting.PriceAscending => carsQuery.OrderBy(c => c.Price),
+                CarSorting.PriceDescending => carsQuery.OrderByDescending(c => c.Price),
+                CarSorting.YearAscending => carsQuery.OrderBy(c => c.Year),
+                CarSorting.YearDescending => carsQuery.OrderByDescending(c => c.Year),
+                _ => carsQuery.OrderBy(c => c.Id)
+                .OrderBy(c => c.Post.CreatedOn)
+            };
+
+            IEnumerable<CarAllViewModel> allCars = await carsQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.CarsPerPage)
+                .Take(queryModel.CarsPerPage)
+                .Select(c => new CarAllViewModel
+                {
+                    Id = c.Id.ToString(),
+                    Make = c.Make,
+                    Model = c.Model,
+                    Price = c.Price,
+                    Month = c.Month,
+                    Year = c.Year,
+                    Mileage = c.Mileage,
+                    HorsePower = c.HorsePower,
+                    FuelConsumption = c.FuelConsumption,
+                    Color = c.Color,
+                    Description = c.Description,
+                    LocationCity = c.LocationCity,
+                    LocationCountry = c.LocationCountry
+                })
+                .ToArrayAsync();
+
+            int totalCars = await carsQuery.CountAsync();
+
+            return new AllCarsFilteredAndPaged
+            {
+                TotalCarsCount = totalCars,
+                Cars = allCars
+            };
         }
 
         public async Task<string> CreateAsync(CarFormModel carFormModel)
@@ -290,5 +340,6 @@ namespace VelocityAutos.Services.Data
 
             return false;
         }
-    }
+		
+	}
 }

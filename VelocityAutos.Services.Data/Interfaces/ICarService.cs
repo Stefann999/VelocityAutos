@@ -1,6 +1,7 @@
 ﻿using VelocityAutos.Web.ViewModels.Car;
 using VelocityAutos.Data.Models;
 using System.Globalization;
+using VelocityAutos.Services.Data.Models.Car;
 
 namespace VelocityAutos.Services.Data.Interfaces
 {
@@ -10,7 +11,7 @@ namespace VelocityAutos.Services.Data.Interfaces
 
         Task<string> CreateAsync(CarFormModel carFormModel);
 
-        Task<IEnumerable<CarAllViewModel>> GetAllCarsAsync();
+        Task<AllCarsFilteredAndPaged> GetAllCarsAsync(AllCarsQueryModel queryModel);
 
         Task<Car> GetCarEntityAsync(string carId);
 

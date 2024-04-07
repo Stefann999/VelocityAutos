@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
+using VelocityAutos.Services.Data.Models.Car;
 using VelocityAutos.Web.Infrastructure.Extensions;
 using VelocityAutos.Web.ViewModels.Car;
 using static VelocityAutos.Common.NotificationMessagesConstants;
@@ -37,15 +38,19 @@ namespace VelocityAutos.Web.Controllers
          }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllCarsQueryModel queryModel)
         {
-            var allCars = await this.carService.GetAllCarsAsync();
+            AllCarsFilteredAndPaged serviceModel = await this.carService.GetAllCarsAsync(queryModel);
 
-            var user = this.User;
+            queryModel.Cars = serviceModel.Cars;
+            queryModel.TotalCars = serviceModel.TotalCarsCount;
+            queryModel.Categories = await this.categoryService.AllCategoryNamesAsync();
+            queryModel.FuelTypes = await this.fuelTypeService.AllFuelTypeNamesAsync();
+            queryModel.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypeNamesAsync();
 
             //try
             //{
-            //    foreach (var car in allCars)
+            //    foreach (var car in queryModel.Cars)
             //    {
             //        string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
             //        var currCarImagesUrls = await dropboxService.GetCarImages(folderPath, true);
@@ -57,7 +62,7 @@ namespace VelocityAutos.Web.Controllers
             //    TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
             //}
 
-            return View(allCars);
+            return View(queryModel);
         }
 
         [HttpGet]

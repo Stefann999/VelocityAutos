@@ -7,5 +7,7 @@ namespace VelocityAutos.Services.Data.Interfaces
         Task<IEnumerable<CarSelectCategoryFormModel>> AllCategoriesAsync();
 
         Task<bool> ExistsByIdAsync(int id);
+
+        Task<IEnumerable<string>> AllCategoryNamesAsync();
     }
 }

@@ -1,23 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VelocityAutos.Data;
+using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
+using VelocityAutos.Web.Infrastructure.Common;
 using VelocityAutos.Web.ViewModels.SelectViewModels;
 
 namespace VelocityAutos.Services.Data
 {
     public class TransmissionTypeService : ITransmissionTypeService
     {
-        private readonly VelocityAutosDbContext dbContext;
-        public TransmissionTypeService(VelocityAutosDbContext dbContext)
+        private readonly IRepository repository;
+        public TransmissionTypeService(IRepository repository)
         {
-            this.dbContext = dbContext;
+            this.repository = repository;
         }
 
         public async Task<IEnumerable<CarSelectTransmissionFormModel>> AllTransmissionTypesAsync()
         {
-            IEnumerable<CarSelectTransmissionFormModel> transmissionTypes = await this.dbContext
-                .TransmissionTypes
-                .AsNoTracking()
+            IEnumerable<CarSelectTransmissionFormModel> transmissionTypes = await repository.AllAsReadOnly<TransmissionType>()
                 .Select(c => new CarSelectTransmissionFormModel
                 {
                     Id = c.Id,
@@ -30,11 +31,19 @@ namespace VelocityAutos.Services.Data
 
         public async Task<bool> ExistsByIdAsync(int id)
         {
-            bool result = await this.dbContext
-                .TransmissionTypes
+            bool result = await repository.AllAsReadOnly<TransmissionType>()
                 .AnyAsync(c => c.Id == id);
 
             return result;
         }
+
+        public async Task<IEnumerable<string>> AllTransmissionTypeNamesAsync()
+        {
+			IEnumerable<string> transmissionTypesNames = await repository.AllAsReadOnly<Category>()
+	            .Select(c => c.Name)
+	            .ToArrayAsync();
+
+			return transmissionTypesNames;
+		}
     }
 }

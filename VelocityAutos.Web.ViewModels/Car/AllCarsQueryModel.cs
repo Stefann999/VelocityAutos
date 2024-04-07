@@ -11,27 +11,38 @@ namespace VelocityAutos.Web.ViewModels.Car
             this.CurrentPage = DefaultPageNumber;
             this.CarsPerPage = DefaultCarsPerPage;
 
-            this.Categories = new HashSet<string>();
             this.Cars = new HashSet<CarAllViewModel>();
+            this.Categories = new HashSet<string>();
+            this.FuelTypes = new HashSet<string>();
+            this.TransmissionTypes = new HashSet<string>();
         }
 
         //TODO Add more search options (e.g. by year, by brand, by model,from - to horsepower, etc.)
 
         public string? Category { get; set; }
 
+        public string? FuelType { get; set; }
+
+        public string? TransmissionType { get; set; }
+
         [Display(Name = "Search by word")]
         public string? SearchTerm { get; set; }
 
-        [Display(Name = "Sort by")]
+        [Display(Name = "Sort cars by")]
         public CarSorting CarSorting { get; set; }
 
         public int CurrentPage { get; set; }
 
         public int TotalCars { get; set; }
 
+        [Display(Name = "Cars per page")]
         public int CarsPerPage { get; set; }
 
         public IEnumerable<string> Categories { get; set; } = null!;
+
+        public IEnumerable<string> FuelTypes { get; set; } = null!;
+
+        public IEnumerable<string> TransmissionTypes { get; set; } = null!;
 
         public IEnumerable<CarAllViewModel> Cars { get; set; } = null!;
     }

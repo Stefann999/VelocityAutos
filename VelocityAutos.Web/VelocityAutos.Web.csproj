@@ -23,6 +23,7 @@
     <ProjectReference Include="..\VelocityAutos.Common\VelocityAutos.Common.csproj" />
     <ProjectReference Include="..\VelocityAutos.Data.Models\VelocityAutos.Data.Models.csproj" />
     <ProjectReference Include="..\VelocityAutos.Data\VelocityAutos.Data.csproj" />
+    <ProjectReference Include="..\VelocityAutos.Services.Data.Models\VelocityAutos.Services.Data.Models.csproj" />
     <ProjectReference Include="..\VelocityAutos.Services.Data\VelocityAutos.Services.Data.csproj" />
     <ProjectReference Include="..\VelocityAutos.Services.Mapping\VelocityAutos.Services.Mapping.csproj" />
     <ProjectReference Include="..\VelocityAutos.Web.Infrastructure\VelocityAutos.Web.Infrastructure.csproj" />
