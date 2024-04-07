@@ -253,7 +253,7 @@ namespace VelocityAutos.Services.Data
         public async Task<IEnumerable<CarAllViewModel>> GetSavedCarsAsync(string userId)
         {
             var savedCars = await repository.AllAsReadOnly<UserCar>()
-               .Where(uc => uc.UserId.ToString() == userId)
+               .Where(uc => uc.UserId.ToString() == userId && uc.Car.Post.IsActive == true)
                .Select(uc => new CarAllViewModel
                {
                    Id = uc.Car.Id.ToString(),
