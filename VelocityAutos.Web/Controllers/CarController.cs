@@ -325,5 +325,52 @@ namespace VelocityAutos.Web.Controllers
 
             return View(allCars);
         }
+
+        public async Task<IActionResult> Save(string id)
+        {
+            string currUserId = this.User.GetId()!;
+
+            try
+            {
+                var isSaved =  await this.carService.SaveCarAsync(id, currUserId);
+
+                if (!isSaved)
+                {
+                    TempData[ErrorMessage] = "Car is already saved or is no longer available!";
+                    return RedirectToAction(nameof(All));
+                }
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = "Unexpected error occured while trying to save car! Please try again later or contact administrator!";
+            }
+
+            TempData[SuccessMessage] = "Car was saved successfully!";
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
+        public async Task<IActionResult> Saved()
+        {
+            string currUserId = this.User.GetId()!;
+
+            var allCars = await this.carService.GetSavedCars(currUserId);
+
+            try
+            {
+                foreach (var car in allCars)
+                {
+                    string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
+                    var currCarImagesUrls = await dropboxService.GetCarImages(folderPath, true);
+                    car.ImagesPaths = currCarImagesUrls;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
+            }
+
+            return View(allCars);
+        }
     }
 }

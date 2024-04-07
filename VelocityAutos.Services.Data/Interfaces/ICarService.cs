@@ -21,5 +21,9 @@ namespace VelocityAutos.Services.Data.Interfaces
         Task UpdateAsync(CarFormModel carFormModel, string carId);
 
         Task<IEnumerable<CarAllViewModel>> GetOwnedCarsAsync(string userId);
+
+        Task<bool> SaveCarAsync(string carId, string userId);
+
+        Task<IEnumerable<CarAllViewModel>> GetSavedCars(string userId);
     }
 }

@@ -4,6 +4,8 @@ using VelocityAutos.Data;
 using VelocityAutos.Web.ViewModels.Car;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Web.Infrastructure.Common;
+using static Dropbox.Api.Files.SearchMatchType;
+using VelocityAutos.Common;
 
 namespace VelocityAutos.Services.Data
 {
@@ -193,7 +195,7 @@ namespace VelocityAutos.Services.Data
 
         public async Task<IEnumerable<CarAllViewModel>> GetOwnedCarsAsync(string userId)
         {
-            var cars = await repository.AllAsReadOnly<Post>()
+            var ownedCars = await repository.AllAsReadOnly<Post>()
                 .Where(p => p.SellerId.ToString() == userId)
                 .Select(p => new CarAllViewModel
                 {
@@ -213,7 +215,64 @@ namespace VelocityAutos.Services.Data
                 })
                 .ToListAsync();
 
-            return cars;
+            return ownedCars;
+        }
+
+        public async Task<bool> SaveCarAsync(string carId, string userId)
+        {
+            var savedCar = await repository.All<UserCar>()
+                .FirstOrDefaultAsync(uc => uc.UserId.ToString() == userId && uc.CarId.ToString() == carId);
+
+            var user = await repository.All<ApplicationUser>()
+                .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+
+            var car = await repository.All<Car>()
+                .Where(c => c.Id.ToString() == carId)
+                .FirstOrDefaultAsync();
+
+            if (savedCar == null)
+            {
+                if (user != null && car != null)
+                {
+                    var newSavedCar = new UserCar
+                    {
+                        UserId = Guid.Parse(userId),
+                        CarId = Guid.Parse(carId)
+                    };
+
+                    await repository.AddAsync(newSavedCar);
+                    await repository.SaveChangesAsync();
+                    
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<IEnumerable<CarAllViewModel>> GetSavedCars(string userId)
+        {
+            var savedCars = await repository.AllAsReadOnly<UserCar>()
+               .Where(uc => uc.UserId.ToString() == userId)
+               .Select(uc => new CarAllViewModel
+               {
+                   Id = uc.Car.Id.ToString(),
+                   Make = uc.Car.Make,
+                   Model = uc.Car.Model,
+                   Price = uc.Car.Price,
+                   Month = uc.Car.Month,
+                   Year = uc.Car.Year,
+                   Mileage = uc.Car.Mileage,
+                   HorsePower = uc.Car.HorsePower,
+                   FuelConsumption = uc.Car.FuelConsumption,
+                   Color = uc.Car.Color,
+                   Description = uc.Car.Description,
+                   LocationCity = uc.Car.LocationCity,
+                   LocationCountry = uc.Car.LocationCountry
+               })
+               .ToListAsync();
+
+            return savedCars;
         }
     }
 }
