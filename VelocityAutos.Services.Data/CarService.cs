@@ -91,7 +91,10 @@ namespace VelocityAutos.Services.Data
                     Color = c.Color,
                     Description = c.Description,
                     LocationCity = c.LocationCity,
-                    LocationCountry = c.LocationCountry
+                    LocationCountry = c.LocationCountry,
+                    CategoryName = c.Category.Name,
+                    FuelTypeName = c.FuelType.Name,
+                    TransmissionTypeName = c.TransmissionType.Name
                 })
                 .ToArrayAsync();
 

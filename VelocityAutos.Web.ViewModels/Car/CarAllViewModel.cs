@@ -44,7 +44,11 @@ namespace VelocityAutos.Web.ViewModels.Car
         [Display(Name = "Location country")]
         public string LocationCountry { get; set; } = null!;
 
-        public int CategoryId { get; set; }
+        public string CategoryName { get; set; } = null!;
+
+        public string FuelTypeName { get; set; } = null!;
+
+        public string TransmissionTypeName { get; set; } = null!;
 
         public string OwnerId { get; set; } = null!;
 

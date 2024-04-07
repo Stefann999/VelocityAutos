@@ -46,9 +46,35 @@ body {
     text-align: center;
 }
 
-.car-description {
+.car-overview {
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.car-description{
     font-size: 12px;
     text-align: center;
+    font-style: italic;
+}
+
+.car-location {
+    font-size: 14px;
+    text-align: left;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.car-price {
+    font-size: 16px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.mytext {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 body {
