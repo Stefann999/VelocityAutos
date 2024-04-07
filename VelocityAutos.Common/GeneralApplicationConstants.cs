@@ -4,7 +4,7 @@
     {
         public const int ReleaseYear = 2024;
         public const int DefaultPageNumber = 1;
-        public const int DefaultCarsPerPage = 12;
+        public const int DefaultCarsPerPage = 4;
 
         public const string MyDateTimeFormat = "dd/MM/yyyy HH:mm";
 
