@@ -260,7 +260,7 @@ namespace VelocityAutos.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "IVANCARS1@CARS.COM",
                             NormalizedUserName = "IVANCARS1@CARS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENBO0xrWrVGr86ZvL14nFoOoKEsI/lTOiCqawAM8Ul7S+09nKmP4BifapFonnkGNZw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENJAPswQiPAfmDASilbDO/aVF+Xx773ZXSW24OxaHlg+8uMQnSYcka1bjKge5xTz3Q==",
                             PhoneNumber = "0888888888",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "f49c695d-b65c-4245-a204-70ac1ef3167c",
@@ -279,7 +279,7 @@ namespace VelocityAutos.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DIMITUR122@CARS.COM",
                             NormalizedUserName = "DIMITUR122@CARS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJhrvN5LR30w2N/Fco1lnLsFIof3pPgM9Rx2apzi3OUkHjB9qXcMPzGkkkxzuGLHPA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGtq30tAx0BGffkdifb9rH4ffY6Q6mn9ggPYjrixF4Uq2zyAa29Kiep8jjDjY0Y4pw==",
                             PhoneNumber = "0999999999",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "e5507714-6b85-407b-a9e4-85b8856de4bd",
@@ -298,7 +298,7 @@ namespace VelocityAutos.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIVOq1clnYpK9PpVXpearb2lPjZowCRKM7ym0Et9wPxhtrat8xoUVmcuh6bPj2ZkEQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJnM9NaJ1jZTzNo7+l6MYSp3Ou4BxrVyvGBhxzGWeWqJEyQF18Ftt7leLonyfeEHww==",
                             PhoneNumber = "0999999999",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "7533496a-0b1c-43e0-97a1-ece7f8a8f526",
@@ -671,7 +671,7 @@ namespace VelocityAutos.Data.Migrations
                         {
                             Id = new Guid("b5a2fe5f-8161-48d4-bd61-0d6f1b38609c"),
                             CarId = new Guid("9219e817-e86a-4ea0-807f-976d8195d93a"),
-                            CreatedOn = new DateTime(2024, 3, 18, 11, 33, 56, 641, DateTimeKind.Utc).AddTicks(2316),
+                            CreatedOn = new DateTime(2024, 3, 18, 13, 32, 53, 45, DateTimeKind.Utc).AddTicks(4712),
                             IsActive = true,
                             SellerEmailAddress = "ivancars1@cars.com",
                             SellerFirstName = "Dimitur",
@@ -683,7 +683,7 @@ namespace VelocityAutos.Data.Migrations
                         {
                             Id = new Guid("3e5e72c8-ae7d-4c68-ad81-1bdc9c9eaad9"),
                             CarId = new Guid("74576f3e-a409-46e4-a8ff-9c93eb409cba"),
-                            CreatedOn = new DateTime(2024, 3, 23, 11, 33, 56, 641, DateTimeKind.Utc).AddTicks(2328),
+                            CreatedOn = new DateTime(2024, 3, 23, 13, 32, 53, 45, DateTimeKind.Utc).AddTicks(4724),
                             IsActive = true,
                             SellerEmailAddress = "dimitur122@cars.com",
                             SellerFirstName = "Ivan",
@@ -746,6 +746,21 @@ namespace VelocityAutos.Data.Migrations
                             Id = 7,
                             Name = "Other"
                         });
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.UserCar", b =>
+                {
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CarId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserCar");
                 });
 
             modelBuilder.Entity("ApplicationUserCar", b =>
@@ -869,6 +884,25 @@ namespace VelocityAutos.Data.Migrations
                     b.Navigation("Car");
 
                     b.Navigation("Seller");
+                });
+
+            modelBuilder.Entity("VelocityAutos.Data.Models.UserCar", b =>
+                {
+                    b.HasOne("VelocityAutos.Data.Models.Car", "Car")
+                        .WithMany()
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VelocityAutos.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("VelocityAutos.Data.Models.Car", b =>

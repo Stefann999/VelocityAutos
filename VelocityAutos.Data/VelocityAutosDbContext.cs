@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.Reflection.Emit;
 using VelocityAutos.Data.Models;
 
 namespace VelocityAutos.Data
@@ -37,11 +38,8 @@ namespace VelocityAutos.Data
                 .HasForeignKey<Post>(p => p.CarId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
-            builder
-                .Entity<Car>()
-                .HasMany(c => c.UsersFavourite)
-                .WithMany(u => u.FavouriteCars);
+            builder.Entity<UserCar>()
+                .HasKey(uc => new { uc.CarId, uc.UserId });
 
             builder
                 .Entity<Car>()
