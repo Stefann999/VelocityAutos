@@ -36,5 +36,10 @@ namespace VelocityAutos.Web.Infrastructure.Common
         {
             return await dbContext.SaveChangesAsync();
         }
+
+        public async Task RemoveAsync<T>(T entity) where T : class
+        {
+            DbSet<T>().Remove(entity);
+        }
     }
 }
