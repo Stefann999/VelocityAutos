@@ -21,8 +21,10 @@ namespace VelocityAutos.Web.ViewModels.Car
 
         public string? Category { get; set; }
 
+        [Display(Name = "Fuel type")]
         public string? FuelType { get; set; }
 
+        [Display(Name = "Transmission type")]
         public string? TransmissionType { get; set; }
 
         [Display(Name = "Search by word")]
