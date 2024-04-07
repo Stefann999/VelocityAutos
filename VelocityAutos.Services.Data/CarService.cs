@@ -250,7 +250,7 @@ namespace VelocityAutos.Services.Data
             return false;
         }
 
-        public async Task<IEnumerable<CarAllViewModel>> GetSavedCars(string userId)
+        public async Task<IEnumerable<CarAllViewModel>> GetSavedCarsAsync(string userId)
         {
             var savedCars = await repository.AllAsReadOnly<UserCar>()
                .Where(uc => uc.UserId.ToString() == userId)
@@ -273,6 +273,22 @@ namespace VelocityAutos.Services.Data
                .ToListAsync();
 
             return savedCars;
+        }
+
+        public async Task<bool> RemoveFromSavedAsync(string carId, string userId)
+        {
+            var savedCar = await repository.All<UserCar>()
+                .FirstOrDefaultAsync(uc => uc.UserId.ToString() == userId && uc.CarId.ToString() == carId);
+
+            if (savedCar != null)
+            {
+                await repository.RemoveAsync(savedCar);
+                await repository.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
         }
     }
 }
