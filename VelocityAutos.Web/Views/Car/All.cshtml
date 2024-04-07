@@ -30,9 +30,9 @@
                     }
                 </select>
 
-                 <label asp-for="TransmissionType"></label>
+                <label asp-for="TransmissionType"></label>
                 <select asp-for="TransmissionType" class="form-control">
-                    <option value="">Automatic</option>
+                    <option value="">All</option>
                     @foreach (var transmissionType in Model.TransmissionTypes)
                     {
                         <option value="@transmissionType">@transmissionType</option>
@@ -41,7 +41,7 @@
 
                 <label asp-for="FuelType"></label>
                 <select asp-for="FuelType" class="form-control">
-                    <option value="">Petrol</option>
+                    <option value="">All</option>
                     @foreach (var fuelType in Model.FuelTypes)
                     {
                         <option value="@fuelType">@fuelType</option>
