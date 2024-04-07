@@ -39,7 +39,7 @@ namespace VelocityAutos.Services.Data
 
 		public async Task<IEnumerable<string>> AllFuelTypeNamesAsync()
 		{
-			IEnumerable<string> fuelTypesNames = await repository.AllAsReadOnly<Category>()
+			IEnumerable<string> fuelTypesNames = await repository.AllAsReadOnly<FuelType>()
 				.Select(c => c.Name)
 				.ToArrayAsync();
 

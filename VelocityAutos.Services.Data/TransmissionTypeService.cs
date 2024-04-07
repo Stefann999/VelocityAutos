@@ -39,7 +39,7 @@ namespace VelocityAutos.Services.Data
 
         public async Task<IEnumerable<string>> AllTransmissionTypeNamesAsync()
         {
-			IEnumerable<string> transmissionTypesNames = await repository.AllAsReadOnly<Category>()
+			IEnumerable<string> transmissionTypesNames = await repository.AllAsReadOnly<TransmissionType>()
 	            .Select(c => c.Name)
 	            .ToArrayAsync();
 
