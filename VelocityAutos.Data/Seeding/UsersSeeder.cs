@@ -59,6 +59,26 @@ namespace VelocityAutos.Data.Seeding
 
 			applicationUsers.Add(secondUser);
 
+            ApplicationUser adminUser = new ApplicationUser()
+            {
+                Id = Guid.Parse("80821bfc-806b-4ae5-b279-b931e1afc048"),
+                UserName = "admin@admin.com",
+                NormalizedUserName = "ADMIN@ADMIN.COM",
+                Email = "admin@admin.com",
+                NormalizedEmail = "ADMIN@ADMIN.COM",
+                EmailConfirmed = true,
+                SecurityStamp = "7533496a-0b1c-43e0-97a1-ece7f8a8f526",
+                ConcurrencyStamp = "f2c5b8ae-1b99-4213-9f32-e4b37fa08277",
+                PhoneNumber = "0999999999",
+                PhoneNumberConfirmed = true,
+                FirstName = "Admin",
+                LastName = "Admin"
+            };
+
+            adminUser.PasswordHash = hasher.HashPassword(adminUser, "admin123");
+
+            applicationUsers.Add(adminUser);
+
             return applicationUsers.ToArray();
         }
     }
