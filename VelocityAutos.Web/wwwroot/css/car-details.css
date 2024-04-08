@@ -1,6 +1,7 @@
 body {
     background-color: #f8f9fa;
     font-family: Arial, sans-serif;
+    background-image: none;
 }
 
 .container {
@@ -36,10 +37,6 @@ body {
 .seller-details h3 {
     color: #007bff;
     margin-bottom: 20px;
-}
-
-body {
-    background-image: none;
 }
 
 .home-text {
