@@ -8,7 +8,7 @@
 @inject IUserService UserService
 
 @{
-    string userFullName = await UserService.GetFullNameByEmailAddress(User.Identity?.Name);
+    string userFullName = await UserService.GetFullNameByEmailAddressAsync(User.Identity?.Name);
 }
 
 

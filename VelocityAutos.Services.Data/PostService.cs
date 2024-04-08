@@ -25,8 +25,8 @@ namespace VelocityAutos.Services.Data
 
         public async Task CreateAsync(string carId, string currUserId, string emailAddress)
         {
-            string fullName = await userService.GetFullNameByEmailAddress(emailAddress);
-            string phoneNumber = await userService.GetPhoneNumberByEmailAddress(emailAddress);
+            string fullName = await userService.GetFullNameByEmailAddressAsync(emailAddress);
+            string phoneNumber = await userService.GetPhoneNumberByEmailAddressAsync(emailAddress);
 
             string[] names = fullName.Split(" ").ToArray();
 
