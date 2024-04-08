@@ -1,0 +1,31 @@
+﻿@using VelocityAutos.Web.Infrastructure.Extensions
+@using VelocityAutos.Services.Data.Interfaces
+@model CarAllViewModel
+
+@inject IPostService PostService
+
+@{
+bool isUserOwner = await PostService.IsUserPostOwnerByIdAsync(Model.Id, User.GetId()!);
+}
+
+<div class="car">
+    <img src="~/audiA4-image3.jpg" alt="@Model.Make">
+    <div class="car-info">
+        @if (isUserOwner || this.User.IsAdmin())
+        {
+            <a asp-area="" asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning fw-bold">Edit</a>
+        }
+        <div class="car-title">@Model.Make @Model.Model</div>
+        <div class="car-overview">@Model.CategoryName, @Model.FuelTypeName, @Model.HorsePower hp, @Model.Mileage km, @Model.TransmissionTypeName, @Model.Year</div>
+        <br />
+        <div class="car-description">@Model.Description</div>
+        <br>
+        <br>
+        <div style="display: flex; justify-content: space-between;">
+            <div class="car-location">"@Model.LocationCity, @Model.LocationCountry"</div>
+            <div class="car-price">@Model.Price $</div>
+        </div>
+        <br>
+        <a asp-area="" asp-controller="Car" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary">Details</a>
+    </div>
+</div>

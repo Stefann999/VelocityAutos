@@ -264,7 +264,10 @@ namespace VelocityAutos.Services.Data
                     Color = p.Car.Color,
                     Description = p.Car.Description,
                     LocationCity = p.Car.LocationCity,
-                    LocationCountry = p.Car.LocationCountry
+                    LocationCountry = p.Car.LocationCountry,
+                    CategoryName = p.Car.Category.Name,
+                    FuelTypeName = p.Car.FuelType.Name,
+                    TransmissionTypeName = p.Car.TransmissionType.Name
                 })
                 .ToListAsync();
 
@@ -321,7 +324,10 @@ namespace VelocityAutos.Services.Data
                    Color = uc.Car.Color,
                    Description = uc.Car.Description,
                    LocationCity = uc.Car.LocationCity,
-                   LocationCountry = uc.Car.LocationCountry
+                   LocationCountry = uc.Car.LocationCountry,
+                   CategoryName = uc.Car.Category.Name,
+                   FuelTypeName = uc.Car.FuelType.Name,
+                   TransmissionTypeName = uc.Car.TransmissionType.Name
                })
                .ToListAsync();
 
