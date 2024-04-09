@@ -12,6 +12,9 @@
         public const string AdminRoleName = "Administrator";
         public const string DevelopmentAdminEmail = "admin@admin.com";
 
+        public const string UserCacheKey = "UserCache";
+        public const int UserCacheExpirationInMinutes = 5;
+
         public const string OnlineUsersCookieName = "IsOnline";
         public const int LastActivityThresholdInMinutes = 15;
     }

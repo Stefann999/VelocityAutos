@@ -1,5 +1,4 @@
 ﻿using AspNetCoreTemplate.Services.Mapping;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using VelocityAutos.Data;
 using VelocityAutos.Data.Models;
@@ -12,13 +11,11 @@ namespace VelocityAutos.Services.Data
 {
     public class PostService : IPostService
     {
-        private readonly VelocityAutosDbContext dbContext;
         private readonly IRepository repository;
         private readonly IUserService userService;
 
-        public PostService(VelocityAutosDbContext dbContext, IRepository repository, IUserService userService)
+        public PostService(IRepository repository, IUserService userService)
         {
-            this.dbContext = dbContext;
             this.repository = repository;
             this.userService = userService;
         }

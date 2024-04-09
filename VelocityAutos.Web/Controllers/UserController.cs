@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Web.ViewModels.User;
 using static VelocityAutos.Common.NotificationMessagesConstants;
+using static VelocityAutos.Common.GeneralApplicationConstants;
+using VelocityAutos.Common;
 
 namespace VelocityAutos.Web.Controllers
 {
@@ -14,12 +17,17 @@ namespace VelocityAutos.Web.Controllers
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IMemoryCache memoryCache;
+
+        public object UserCacheKey { get; private set; }
 
         public UserController(SignInManager<ApplicationUser> signInManager,
-                             UserManager<ApplicationUser> userManager)
+                             UserManager<ApplicationUser> userManager,
+                             IMemoryCache memoryCache)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
+            this.memoryCache = memoryCache;
         }
 
         [HttpGet]
@@ -64,6 +72,8 @@ namespace VelocityAutos.Web.Controllers
             await signInManager.SignInAsync(user, false);
 
 			TempData[SuccessMessage] = "You have successfully registered!";
+
+            this.memoryCache.Remove(GeneralApplicationConstants.UserCacheKey);
 
             return RedirectToAction("Index", "Home");
         }
