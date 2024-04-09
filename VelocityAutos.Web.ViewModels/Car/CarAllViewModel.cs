@@ -31,11 +31,6 @@ namespace VelocityAutos.Web.ViewModels.Car
 
         public int HorsePower { get; set; }
 
-        [Display(Name = "Fuel consumption in liters per 100 km")]
-        public double FuelConsumption { get; set; }
-
-        public string Color { get; set; } = null!;
-
         public string? Description { get; set; }
 
         [Display(Name = "Location city")]
