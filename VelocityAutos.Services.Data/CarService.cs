@@ -51,7 +51,6 @@ namespace VelocityAutos.Services.Data
                     .Where(c => c.TransmissionType.Name == queryModel.TransmissionType);
             }
 
-            // Check if null causes problems
             if (!string.IsNullOrWhiteSpace(queryModel.SearchTerm))
             {
                 string wildCard = $"%{queryModel.SearchTerm.ToLower()}%";
@@ -274,8 +273,10 @@ namespace VelocityAutos.Services.Data
             return ownedCars;
         }
 
-        public async Task<bool> SaveCarAsync(string carId, string userId)
+        public async Task<string> SaveCarAsync(string carId, string userId)
         {
+            string returnMessage = string.Empty;
+
             var savedCar = await repository.All<UserCar>()
                 .FirstOrDefaultAsync(uc => uc.UserId.ToString() == userId && uc.CarId.ToString() == carId);
 
@@ -283,6 +284,7 @@ namespace VelocityAutos.Services.Data
                 .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
 
             var car = await repository.All<Car>()
+                .Include(c => c.Post)
                 .Where(c => c.Id.ToString() == carId)
                 .FirstOrDefaultAsync();
 
@@ -290,6 +292,12 @@ namespace VelocityAutos.Services.Data
             {
                 if (user != null && car != null)
                 {
+                    if (car.Post.SellerId == user.Id)
+                    {
+                        returnMessage = "Owned";
+                        return returnMessage;
+                    }
+
                     var newSavedCar = new UserCar
                     {
                         UserId = Guid.Parse(userId),
@@ -299,11 +307,19 @@ namespace VelocityAutos.Services.Data
                     await repository.AddAsync(newSavedCar);
                     await repository.SaveChangesAsync();
                     
-                    return true;
+                    returnMessage = "Saved";
+                    return returnMessage;
+                }
+                else
+                {
+                    throw new NullReferenceException("User or car not found");
                 }
             }
-
-            return false;
+            else
+            {
+                returnMessage = "Already saved";
+                return returnMessage;
+            }
         }
 
         public async Task<IEnumerable<CarAllViewModel>> GetSavedCarsAsync(string userId)

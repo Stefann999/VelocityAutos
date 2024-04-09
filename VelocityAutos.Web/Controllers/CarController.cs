@@ -337,11 +337,16 @@ namespace VelocityAutos.Web.Controllers
 
             try
             {
-                bool isSaved =  await this.carService.SaveCarAsync(id, currUserId);
+                string returnMessage =  await this.carService.SaveCarAsync(id, currUserId);
 
-                if (!isSaved)
+                if (returnMessage == "Owned")
                 {
-                    TempData[ErrorMessage] = "Car is already saved or is no longer available!";
+                    TempData[ErrorMessage] = "You can not save posts that you own!";
+                    return RedirectToAction(nameof(All));
+                }
+                else if (returnMessage == "Already saved")
+                {
+                    TempData[ErrorMessage] = "This post is already saved!";
                     return RedirectToAction(nameof(All));
                 }
             }
