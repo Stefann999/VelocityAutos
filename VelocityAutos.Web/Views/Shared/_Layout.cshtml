@@ -1,4 +1,7 @@
-﻿@using static VelocityAutos.Common.GeneralApplicationConstants;
+﻿@using Microsoft.AspNetCore.Identity
+@using VelocityAutos.Data.Models
+@using static VelocityAutos.Common.GeneralApplicationConstants;
+@inject SignInManager<ApplicationUser> SignInManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,9 +33,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="All">Cars</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Add">Add car</a>
-                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Add">Add car</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
