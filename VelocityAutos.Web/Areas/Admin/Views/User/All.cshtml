@@ -1,4 +1,5 @@
-﻿@model IEnumerable<UserViewModel>
+﻿@using VelocityAutos.Web.Infrastructure.Middlewares
+@model IEnumerable<UserViewModel>
 
 @{
     ViewBag.Title = "All Users";
@@ -36,7 +37,7 @@
                 <td><label>@user.Email</label></td>
                 <td><label>@user.FullName</label></td>
                 <td><label>@user.PhoneNumber</label></td>
-              @*   <td>
+                <td>
                     @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
                     {
                         <label>✔</label>
@@ -45,7 +46,7 @@
                     {
                         <label class="text-center">❌</label>
                     }
-                </td> *@
+                </td>
             </tr>
         }
     </tbody>
