@@ -23,7 +23,7 @@ bool isUserOwner = await PostService.IsUserPostOwnerByIdAsync(Model.Id, User.Get
         <br>
         <div style="display: flex; justify-content: space-between;">
             <div class="car-location">"@Model.LocationCity, @Model.LocationCountry"</div>
-            <div class="car-price">@Model.Price $</div>
+            <div class="car-price">@Math.Round(Model.Price) $</div>
         </div>
         <br>
         <a asp-area="" asp-controller="Car" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary">Details</a>
