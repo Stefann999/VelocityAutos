@@ -349,6 +349,10 @@ namespace VelocityAutos.Web.Controllers
                     TempData[ErrorMessage] = "This post is already saved!";
                     return RedirectToAction(nameof(All));
                 }
+                else if (returnMessage == "Not found")
+                {
+                    return this.NotFound();
+                }
             }
             catch (Exception)
             {

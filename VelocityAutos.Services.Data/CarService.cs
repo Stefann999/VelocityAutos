@@ -308,7 +308,8 @@ namespace VelocityAutos.Services.Data
                 }
                 else
                 {
-                    throw new NullReferenceException("User or car not found");
+                    returnMessage = "Not found";
+                    return returnMessage;
                 }
             }
             else
