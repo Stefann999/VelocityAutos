@@ -8,6 +8,16 @@
 bool isUserOwner = await PostService.IsUserPostOwnerByIdAsync(Model.Id, User.GetId()!);
 }
 
+<head>
+    <style>
+        .text-single-line {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
 <div class="car">
     <img src="~/audiA4-image3.jpg" alt="@Model.Make">
     <div class="car-info">
@@ -18,7 +28,14 @@ bool isUserOwner = await PostService.IsUserPostOwnerByIdAsync(Model.Id, User.Get
         <div class="car-title">@Model.Make @Model.Model</div>
         <div class="car-overview">@Model.CategoryName, @Model.FuelTypeName, @Model.HorsePower hp, @Model.Mileage km, @Model.TransmissionTypeName, @Model.Year</div>
         <br />
-        <div class="car-description">@Model.Description</div>
+        @if (string.IsNullOrEmpty(Model.Description))
+        {
+            <div class="car-description text-single-line"><b>No description provided</b></div>
+        }
+        else
+        {
+            <div class="car-description text-single-line">@Model.Description</div>
+        }
         <br>
         <br>
         <div style="display: flex; justify-content: space-between;">
