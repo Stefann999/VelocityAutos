@@ -1,0 +1,1 @@
+﻿In order to test the functionalities where Dropbox is used, you will have to be provided an access token - just contact me on stefchog25@gmail.com to get it. Once you have it, replace it with the one in Program.cs file in line 37 and run the app. That is it! Enjoy!

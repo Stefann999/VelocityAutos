@@ -41,6 +41,8 @@ builder.Services.AddScoped<IRepository, Repository>();
 
 builder.Services.AddRecaptchaService();
 
+builder.Services.AddMemoryCache();
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/User/Login";
@@ -65,7 +67,9 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Home/Error/500");
+    app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
+
     app.UseHsts();
 }
 

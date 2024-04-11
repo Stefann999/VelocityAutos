@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelocityAutos.Services.Data
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelocityAutos.Services.Data.Models", "VelocityAutos.Services.Data.Models\VelocityAutos.Services.Data.Models.csproj", "{E0BE4D60-5E6C-433C-9708-8CA44315457E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelocityAutos.Services.Mapping", "VelocityAutos.Services.Mapping\VelocityAutos.Services.Mapping.csproj", "{73D19FC5-090A-409C-BD7C-237F4ECEEDBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelocityAutos.Services.Mapping", "VelocityAutos.Services.Mapping\VelocityAutos.Services.Mapping.csproj", "{73D19FC5-090A-409C-BD7C-237F4ECEEDBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
