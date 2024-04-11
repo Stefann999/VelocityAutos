@@ -32,9 +32,13 @@ namespace VelocityAutos.Web.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int statusCode)
         {
-            if (statusCode == 400 || statusCode == 404)
+            if (statusCode == 404)
             {
                 return this.View("Error404");
+            }
+            else if (statusCode == 400)
+            {
+                return this.View("Error400");
             }
 
             return View();
