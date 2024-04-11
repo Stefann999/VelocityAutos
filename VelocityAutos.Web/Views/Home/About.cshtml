@@ -1,94 +1,30 @@
 ﻿@{
     ViewBag.Title = "About Us";
-    Layout = null;
 }
 
-<!DOCTYPE html>
-<html>
 <head>
-    <title>@ViewBag.Title</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f2f2f2;
-        }
-
-        .container {
-            width: 80%;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        p {
-            line-height: 1.6;
-            color: #666;
-        }
-
-        .team-member {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 30px;
-        }
-
-            .team-member img {
-                width: 150px;
-                border-radius: 50%;
-                margin-right: 20px;
-            }
-
-        .team-member-details {
-            text-align: left;
-        }
-
-        .team-member-name {
-            font-size: 1.2em;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .team-member-role {
-            font-style: italic;
-            color: #666;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/about.css">
 </head>
 <body>
-
-    <div class="container">
-        <h1>About Us</h1>
-        <p>Welcome to our car sale website! We are dedicated to providing the best car buying experience for our customers.</p>
-        <p>Our team consists of passionate car enthusiasts who are committed to helping you find the perfect vehicle.</p>
-
-        <div class="team-member">
-            <img src="placeholder.jpg" alt="Team Member">
-            <div class="team-member-details">
-                <div class="team-member-name">John Doe</div>
-                <div class="team-member-role">Founder & CEO</div>
+        <section class="about">
+            <h2>Our Story</h2>
+            <p>Welcome to <b>Velocity Autos</b>, where we strive to make your car buying experience easy and enjoyable. With our vast selection of vehicles and dedicated team, we are committed to helping you find the perfect car that fits your needs and budget.</p>
+            <p>Our journey began in 2005 when our founder, John Doe, envisioned a car dealership that puts customers first. Since then, we have grown into one of the leading car sales platforms, serving customers nationwide.</p>
+        </section>
+        <section class="team">
+            <h2>Meet Our Team</h2>
+            <div class="team-member">
+                <img src="~/ceo.jpg" alt="John Doe">
+                <h3>John Doe</h3>
+                <p>Founder & CEO</p>
             </div>
-        </div>
-
-        <div class="team-member">
-            <img src="placeholder.jpg" alt="Team Member">
-            <div class="team-member-details">
-                <div class="team-member-name">Jane Smith</div>
-                <div class="team-member-role">Sales Manager</div>
+            <div class="team-member">
+                <img src="~/sales-manager.jpg" alt="Jane Smith">
+                <h3>Jane Smith</h3>
+                <p>Sales Manager</p>
             </div>
-        </div>
-
-        <!-- Add more team members as needed -->
-
-    </div>
-
+        </section>
 </body>
-</html>
+</>
