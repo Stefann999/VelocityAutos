@@ -7,13 +7,9 @@ namespace VelocityAutos.Services.Data.Interfaces
 {
     public interface ICarService
     {
-        Task<bool> ExistsByIdAsync(string carId);
-
         Task<string> CreateAsync(CarFormModel carFormModel);
 
         Task<AllCarsFilteredAndPaged> GetAllCarsAsync(AllCarsQueryModel queryModel);
-
-        Task<Car> GetCarEntityAsync(string carId);
 
         Task<CarDetailsViewModel> GetCarDetailsAsync(string carId);
 

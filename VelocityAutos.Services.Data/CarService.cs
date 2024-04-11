@@ -20,14 +20,6 @@ namespace VelocityAutos.Services.Data
             this.repository = repository;
         }
 
-        public async Task<bool> ExistsByIdAsync(string carId)
-        {
-            bool result = await repository.AllAsReadOnly<Car>()
-                .AnyAsync(c => c.Id.ToString() == carId);
-
-            return result;
-        }
-
         public async Task<AllCarsFilteredAndPaged> GetAllCarsAsync(AllCarsQueryModel queryModel)
         {
             IQueryable<Car> carsQuery = repository.AllAsReadOnly<Car>()
@@ -142,12 +134,6 @@ namespace VelocityAutos.Services.Data
             await repository.SaveChangesAsync();
 
             return newCar.Id.ToString();
-        }
-
-        public async Task<Car> GetCarEntityAsync(string carId)
-        {
-            return await repository.AllAsReadOnly<Car>()
-                .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
         }
 
         public async Task<CarDetailsViewModel> GetCarDetailsAsync(string carId)
