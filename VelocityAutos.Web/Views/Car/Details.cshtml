@@ -4,6 +4,7 @@
 
 @model PostDetailsViewModel
 
+@inject ICarService CarService
 @inject IPostService PostService
 
 @{
@@ -26,14 +27,43 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
+
+                    @{
+                        int imageCount = Model.Car.ImagesPaths.Count();
+                    }
+                    <li class="list-group-item">
+                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                @for (var i = 0; i < Model.Car.ImagesPaths.Count(); i++)
+                                {
+                                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                                        <img src="@Model.Car.ImagesPaths[i]" class="d-block w-100" alt="Image @(i+1)">
+                                    </div>
+                                }
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                            <div class="carousel-counter">
+                                <span id="carousel-counter-current" class="current-number">1</span> / <span id="carousel-counter-total" class="total-number">@imageCount</span>
+                            </div>
+                        </div>
+                    </li>
+                    
+
                     <li class="list-group-item"><strong>Make:</strong> @Model.Car.Make</li>
                     <li class="list-group-item"><strong>Model:</strong> @Model.Car.Model</li>
-                    <li class="list-group-item"><strong>Price:</strong> @Model.Car.Price</li>
+                    <li class="list-group-item"><strong>Price:</strong> @Math.Round(Model.Car.Price) $</li>
                     <li class="list-group-item"><strong>Month:</strong> @Model.Car.Month</li>
                     <li class="list-group-item"><strong>Year:</strong> @Model.Car.Year</li>
                     <li class="list-group-item"><strong>Mileage:</strong> @Model.Car.Mileage</li>
                     <li class="list-group-item"><strong>Horsepower:</strong> @Model.Car.HorsePower</li>
-                    <li class="list-group-item"><strong>Fuel Consumption:</strong> @Model.Car.FuelConsumption</li>
+                    <li class="list-group-item"><strong>Fuel Consumption:</strong> @Model.Car.FuelConsumption <i>(liters per 100 km)</i></li>
                     <li class="list-group-item"><strong>Color:</strong> @Model.Car.Color</li>
                     @if (!string.IsNullOrEmpty(Model.Car.Description))
                     {
@@ -42,59 +72,10 @@
                     <li class="list-group-item"><strong>Transmission Type:</strong> @Model.Car.TransmissionType</li>
                     <li class="list-group-item"><strong>Fuel Type:</strong> @Model.Car.FuelType</li>
                     <li class="list-group-item"><strong>Category:</strong> @Model.Car.Category</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="card seller-details">
-            <div class="card-header">
-                <h2 class="card-title">Seller's Information</h2>
-            </div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><strong>Name:</strong> @Model.SellerName</li>
-                    <li class="list-group-item"><strong>Phone Number:</strong> @Model.SellerPhoneNumber</li>
-                    <li class="list-group-item"><strong>Email address:</strong> @Model.SellerEmailAddress</li>
-                    <li class="list-group-item"><strong>Added on:</strong> @Model.CreatedOn.ToString(MyDateTimeFormat)</li>
-
-                    @if (Model.UpdatedOn != null)
-                    {
-                        <li class="list-group-item"><strong>Updated on:</strong> @Model.UpdatedOn?.ToString(MyDateTimeFormat)</li>
-                    }
-
-                    @if (Model.DeletedOn != null)
-                    {
-                        <li class="list-group-item"><strong>Deleted on:</strong> @Model.DeletedOn?.ToString(MyDateTimeFormat)</li>
-                    }
-
-                    @{
-                        int imageCount = Model.Car.ImagesPaths.Count();
-                    }
-
-                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            @for (var i = 0; i < Model.Car.ImagesPaths.Count(); i++)
-                            {
-                                <div class="carousel-item @(i == 0 ? "active" : "")">
-                                    <img src="@Model.Car.ImagesPaths[i]" class="d-block w-100" alt="Image @(i+1)">
-                                </div>
-                            }
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                        <div class="carousel-counter">
-                            <span id="carousel-counter-current" class="current-number">1</span> / <span id="carousel-counter-total" class="total-number">@imageCount</span>
-                        </div>
-                    </div>
 
                     @{
                         bool isUserOwner = await PostService.IsUserPostOwnerByIdAsync(Model.Car.Id, User.GetId()!);
+                        bool isSaved = await CarService.IsSaved(Model.Car.Id, User.GetId()!);
                     }
 
                     @if (isUserOwner || this.User.IsAdmin())
@@ -122,7 +103,45 @@
                         }
                     }
 
-                    <a asp-area="" asp-controller="Car" asp-action="Save" asp-route-id="@Model.Car.Id" class="btn btn-danger fw-bold">Save</a>
+                    @if (!isUserOwner && !isSaved)
+                    {
+                        <br />
+                        <a asp-area="" asp-controller="Car" asp-action="Save" asp-route-id="@Model.Car.Id" class="btn btn-info fw-bold">Save</a>
+                    }
+
+                    @if (!isUserOwner && isSaved)
+                    {
+                        <br />
+                        <a asp-area="" asp-controller="Car" asp-action="RemoveSave" asp-route-id="@Model.Car.Id" class="btn btn-danger fw-bold">Remove from saved</a>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="card seller-details">
+            <div class="card-header">
+                <h2 class="card-title">Seller's Information</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Name:</strong> @Model.SellerName</li>
+                    <li class="list-group-item"><strong>Phone Number:</strong> @Model.SellerPhoneNumber</li>
+                    <li class="list-group-item"><strong>Email address:</strong> @Model.SellerEmailAddress</li>
+                    <li class="list-group-item"><strong>Added on:</strong> @Model.CreatedOn.ToString(MyDateTimeFormat)</li>
+
+                    @if (Model.UpdatedOn != null)
+                    {
+                        <li class="list-group-item"><strong>Updated on:</strong> @Model.UpdatedOn?.ToString(MyDateTimeFormat)</li>
+                    }
+
+                    @if (Model.DeletedOn != null)
+                    {
+                        <li class="list-group-item"><strong>Deleted on:</strong> @Model.DeletedOn?.ToString(MyDateTimeFormat)</li>
+                    }
+
+                    
+
+                    
                 </ul>
             </div>
         </div>
