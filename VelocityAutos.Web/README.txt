@@ -1,1 +1,1 @@
-﻿In order to test the functionalities where Dropbox is used, you will have to be provided an access token - just contact me on stefchog25@gmail.com to get it. Once you have it, replace it with the one in Program.cs file in line 37 and run the app. That is it! Enjoy!
+﻿To maximize the ease of testing the project, contact me for an access token (which should be replaced with the one in the Program.cs file on line 37) or let me demonstrate Dropbox functionalities on the project defense.
