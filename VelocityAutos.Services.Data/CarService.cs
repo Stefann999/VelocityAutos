@@ -346,6 +346,18 @@ namespace VelocityAutos.Services.Data
 
             return false;
         }
-		
+
+		public async Task<bool> IsSaved(string carId, string userId)
+        {
+            var savedCar = await repository.All<UserCar>()
+                .FirstOrDefaultAsync(uc => uc.UserId.ToString() == userId && uc.CarId.ToString() == carId);
+
+            if (savedCar != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
 	}
 }
