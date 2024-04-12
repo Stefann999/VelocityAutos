@@ -10,5 +10,8 @@ namespace VelocityAutos.Services.Data.Interfaces
 
         Task DeleteImagesAsync(string carFolderPath);
 
+        Uri Authorize();
+
+        Task<string> Callback(string code);
     }
 }

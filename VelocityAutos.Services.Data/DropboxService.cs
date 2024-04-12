@@ -9,7 +9,7 @@ namespace VelocityAutos.Services.Data
 {
     public class DropboxService : IDropboxService
     {
-        private readonly string accessToken;
+        private string accessToken;
 
         public DropboxService(string accessToken)
         {
@@ -110,10 +110,33 @@ namespace VelocityAutos.Services.Data
             }
             catch (Exception ex)
             {
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
 
             return imageUrls;
+        }
+
+        public Uri Authorize()
+        {
+            var appId = "AppId";
+            var redirectUri = "RedirectUri";
+
+            var authorizeUri = DropboxOAuth2Helper.GetAuthorizeUri(OAuthResponseType.Code, appId, new Uri(redirectUri));
+            return authorizeUri;
+        }
+
+        public async Task<string> Callback(string code)
+        {
+            var appId = "AppId";
+            var appSecret = "AppSecret";
+            var redirectUriString = "RedirectUri";
+
+            var response = await DropboxOAuth2Helper.ProcessCodeFlowAsync(code, appId, appSecret, redirectUriString);
+            var accessToken = response.AccessToken;
+
+            this.accessToken = accessToken;
+
+            return redirectUriString;
         }
 
         // Helper method to check if a file is an image

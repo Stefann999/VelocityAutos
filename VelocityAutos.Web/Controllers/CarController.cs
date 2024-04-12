@@ -194,8 +194,13 @@ namespace VelocityAutos.Web.Controllers
                 return View(targetPost);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                if (ex.Message == "expired_access_token/" || ex.Message == "invalid_access_token/")
+                {
+                    return RedirectToAction("Authorize", "Dropbox");
+                }
+
                 TempData[ErrorMessage] = "Unexpected error occured while trying to display car details! Please try again later or contact administrator!";
                 return RedirectToAction(nameof(All));
             }

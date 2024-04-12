@@ -1,42 +1,30 @@
-﻿using Dropbox.Api;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using VelocityAutos.Services.Data.Interfaces;
+using static VelocityAutos.Common.NotificationMessagesConstants;
 
 public class DropboxController : Controller
 {
-    private readonly IConfiguration _config;
+    private readonly IConfiguration config;
+    private readonly IDropboxService dropboxService;
 
-    public DropboxController(IConfiguration config)
+    public DropboxController(IConfiguration config, IDropboxService dropboxService)
     {
-        this._config = config;
+        this.config = config;
+        this.dropboxService = dropboxService;
     }
 
     public IActionResult Authorize()
     {
-        var appId = _config["Dropbox:AppId"];
-        var redirectUri = _config["Dropbox:RedirectUri"];
-
-        var authorizeUri = DropboxOAuth2Helper.GetAuthorizeUri(OAuthResponseType.Code, appId, new Uri(redirectUri));
+        var authorizeUri = dropboxService.Authorize();
         return Redirect(authorizeUri.ToString());
     }
 
 
     public async Task<IActionResult> Callback(string code)
     {
-        var appId = _config["Dropbox:AppId"];
-        var appSecret = _config["Dropbox:AppSecret"];
-        var redirectUriString = _config["Dropbox:RedirectUri"];
+        var redirectUri = await dropboxService.Callback(code);
 
-        var response = await DropboxOAuth2Helper.ProcessCodeFlowAsync(code, appId, appSecret, redirectUriString);
-        //var accessToken = response.AccessToken;
-
-        // For demonstration purposes, let's assume storing access token in the session.
-        //HttpContext.Session.SetString("DropboxAccessToken", accessToken);
-
-        return RedirectToAction("Index", "Home");
-    }
-
-    public IActionResult Authorized()
-    {
-        return View();
+        TempData[SuccessMessage] = "You have successfully authorized Dropbox. If you were trying to perform an action, please do it again. If the issue continues, contact an administrator!";
+        return Redirect(redirectUri);
     }
 }
