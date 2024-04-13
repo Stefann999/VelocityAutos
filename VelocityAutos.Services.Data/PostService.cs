@@ -98,9 +98,18 @@ namespace VelocityAutos.Services.Data
 
         public async Task<CarDeleteViewModel> GetPostForDeleteAsync(string carId)
         {
-            var car = await repository.All<Car>()
+            var car = await repository.AllAsReadOnly<Car>()
                 .Where(c => c.Id.ToString() == carId)
-                .To<CarDeleteViewModel>()
+                .Select(c => new CarDeleteViewModel()
+                {
+                    Id = c.Id.ToString(),
+                    Make = c.Make,
+                    Model = c.Model,
+                    Price = c.Price,
+                    Month = c.Month,
+                    Year = c.Year,
+                    SellerId = c.Post.SellerId.ToString(),
+                })
                 .FirstOrDefaultAsync();
 
             return car;
@@ -128,6 +137,5 @@ namespace VelocityAutos.Services.Data
 
             await repository.SaveChangesAsync();
         }
-
     }
 }
