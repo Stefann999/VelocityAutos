@@ -273,6 +273,11 @@ namespace VelocityAutos.Tests
             Assert.IsNotNull(updatedPost.UpdatedOn);
         }
 
+        [Test]
+        public async Task PostEditThrowsError()
+        {
+            Assert.ThrowsAsync<NullReferenceException>(() => postService.UpdateAsync("asd"));
+        }
 
         [Test]
         public async Task IsUserPostOwnerByIdAsyncReturnsTrue()
