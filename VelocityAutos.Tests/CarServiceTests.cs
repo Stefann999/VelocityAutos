@@ -370,7 +370,6 @@ namespace VelocityAutos.Tests
                 carsPriceAscending.Cars.Last().Make
             };
 
-            // Assert
             Assert.IsNotNull(carsPriceAscending.Cars);
             Assert.AreEqual(4, carsPriceAscending.Cars.Count());
             Assert.AreEqual(new List<string>() { "Toyota", "Audi", "BMW", "Mercedes"}, carMakes);
@@ -393,7 +392,6 @@ namespace VelocityAutos.Tests
                 carsPriceDescending.Cars.Last().Make
             };
 
-            // Assert
             Assert.IsNotNull(carsPriceDescending.Cars);
             Assert.AreEqual(4, carsPriceDescending.Cars.Count());
             Assert.AreEqual(new List<string>() {"Mercedes", "BMW", "Audi", "Toyota"}, carMakes);
@@ -417,7 +415,6 @@ namespace VelocityAutos.Tests
                 carsYearAscending.Cars.Last().Make
             };
 
-            // Assert
             Assert.IsNotNull(carsYearAscending.Cars);
             Assert.AreEqual(4, carsYearAscending.Cars.Count());
             Assert.AreEqual(new List<string>() { "Audi", "Toyota", "BMW", "Mercedes" }, carMakes);
@@ -441,7 +438,6 @@ namespace VelocityAutos.Tests
                 carsYearDescending.Cars.Last().Make
             };
 
-            // Assert
             Assert.IsNotNull(carsYearDescending.Cars);
             Assert.AreEqual(4, carsYearDescending.Cars.Count());
             Assert.AreEqual(new List<string>() { "Mercedes", "BMW", "Toyota", "Audi" }, carMakes);
@@ -463,7 +459,6 @@ namespace VelocityAutos.Tests
                 carsSearchTerm.Cars.Last().Make
             };
 
-            // Assert
             Assert.IsNotNull(carsSearchTerm.Cars);
             Assert.AreEqual(2, carsSearchTerm.Cars.Count());
             Assert.AreEqual(new List<string>() { "Audi", "Toyota" }, carMakes);
@@ -485,7 +480,6 @@ namespace VelocityAutos.Tests
                 carsCategory.Cars.Last().Make
             };
 
-            // Assert
             Assert.IsNotNull(carsCategory.Cars);
             Assert.AreEqual(2, carsCategory.Cars.Count());
             Assert.AreEqual(new List<string>() { "BMW", "Toyota" }, carMakes);
@@ -507,7 +501,6 @@ namespace VelocityAutos.Tests
                 carsCategory.Cars.Last().Make
             };
 
-            // Assert
             Assert.IsNotNull(carsCategory.Cars);
             Assert.AreEqual(2, carsCategory.Cars.Count());
             Assert.AreEqual(new List<string>() { "BMW", "Toyota" }, carMakes);
@@ -529,7 +522,6 @@ namespace VelocityAutos.Tests
                 carsCategory.Cars.Last().Make
             };
 
-            // Assert
             Assert.IsNotNull(carsCategory.Cars);
             Assert.AreEqual(2, carsCategory.Cars.Count());
             Assert.AreEqual(new List<string>() { "Audi", "Toyota" }, carMakes);
