@@ -166,29 +166,29 @@ namespace VelocityAutos.Services.Data
 
         public async Task<CarFormModel> GetCarEditAsync(string carId)
         {
-                var car = await repository.All<Car>()
-                .Where(c => c.Id.ToString() == carId)
-                .Select(c => new CarFormModel
-                {
-                    Make = c.Make,
-                    Model = c.Model,
-                    Price = c.Price,
-                    Month = c.Month,
-                    Year = c.Year,
-                    Mileage = c.Mileage,
-                    HorsePower = c.HorsePower,
-                    FuelTypeId = c.FuelTypeId,
-                    FuelConsumption = c.FuelConsumption,
-                    TransmissionTypeId = c.TransmissionTypeId,
-                    Color = c.Color,
-                    Description = c.Description,
-                    LocationCity = c.LocationCity,
-                    LocationCountry = c.LocationCountry,
-                    CategoryId = c.CategoryId,
-                    PostId = c.Post.Id.ToString(),
-                    SellerId = c.Post.SellerId.ToString()
-                })
-                .FirstOrDefaultAsync();
+            var car = await repository.All<Car>()
+            .Where(c => c.Id.ToString() == carId)
+            .Select(c => new CarFormModel
+            {
+                Make = c.Make,
+                Model = c.Model,
+                Price = c.Price,
+                Month = c.Month,
+                Year = c.Year,
+                Mileage = c.Mileage,
+                HorsePower = c.HorsePower,
+                FuelTypeId = c.FuelTypeId,
+                FuelConsumption = c.FuelConsumption,
+                TransmissionTypeId = c.TransmissionTypeId,
+                Color = c.Color,
+                Description = c.Description,
+                LocationCity = c.LocationCity,
+                LocationCountry = c.LocationCountry,
+                CategoryId = c.CategoryId,
+                PostId = c.Post.Id.ToString(),
+                SellerId = c.Post.SellerId.ToString()
+            })
+            .FirstOrDefaultAsync();
 
             return car;
         }
@@ -349,7 +349,7 @@ namespace VelocityAutos.Services.Data
 
 		public async Task<bool> IsSaved(string carId, string userId)
         {
-            var savedCar = await repository.All<UserCar>()
+            var savedCar = await repository.AllAsReadOnly<UserCar>()
                 .FirstOrDefaultAsync(uc => uc.UserId.ToString() == userId && uc.CarId.ToString() == carId);
 
             if (savedCar != null)
