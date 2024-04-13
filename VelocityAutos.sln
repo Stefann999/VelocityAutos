@@ -27,6 +27,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelocityAutos.Services.Data
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelocityAutos.Services.Mapping", "VelocityAutos.Services.Mapping\VelocityAutos.Services.Mapping.csproj", "{73D19FC5-090A-409C-BD7C-237F4ECEEDBD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9FABE6C1-0209-4B1A-9474-C7F497990317}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelocityAutos.Tests", "VelocityAutos.Tests\VelocityAutos.Tests.csproj", "{8042E14E-5C90-4BA8-83C4-9DDF3BF796BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,10 @@ Global
 		{73D19FC5-090A-409C-BD7C-237F4ECEEDBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73D19FC5-090A-409C-BD7C-237F4ECEEDBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73D19FC5-090A-409C-BD7C-237F4ECEEDBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8042E14E-5C90-4BA8-83C4-9DDF3BF796BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8042E14E-5C90-4BA8-83C4-9DDF3BF796BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8042E14E-5C90-4BA8-83C4-9DDF3BF796BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8042E14E-5C90-4BA8-83C4-9DDF3BF796BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +90,7 @@ Global
 		{5C51824A-69F7-46A2-93DA-B30F574A5179} = {13436FC3-AB23-40F6-AE04-101BB37C40AE}
 		{E0BE4D60-5E6C-433C-9708-8CA44315457E} = {13436FC3-AB23-40F6-AE04-101BB37C40AE}
 		{73D19FC5-090A-409C-BD7C-237F4ECEEDBD} = {13436FC3-AB23-40F6-AE04-101BB37C40AE}
+		{8042E14E-5C90-4BA8-83C4-9DDF3BF796BC} = {9FABE6C1-0209-4B1A-9474-C7F497990317}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BD66371-770D-4E5D-9ACD-7934401EFCF4}
