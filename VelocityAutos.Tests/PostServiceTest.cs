@@ -274,7 +274,7 @@ namespace VelocityAutos.Tests
         }
 
         [Test]
-        public async Task PostEditThrowsError()
+        public void PostEditThrowsError()
         {
             Assert.ThrowsAsync<NullReferenceException>(() => postService.UpdateAsync("asd"));
         }
