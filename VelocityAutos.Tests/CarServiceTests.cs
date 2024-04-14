@@ -656,6 +656,12 @@ namespace VelocityAutos.Tests
         }
 
         [Test]
+        public void CarEditThrowsError()
+        {
+            Assert.ThrowsAsync<NullReferenceException>(() => carService.UpdateAsync(null,"asd"));
+        }
+
+        [Test]
         public async Task GetOwnedCarsSuccessfully()
         {
             var ownedCars = await carService.GetOwnedCarsAsync("66543F29-BAFC-4680-8028-5C4B7E444CCB".ToLower());
