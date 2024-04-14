@@ -6,7 +6,7 @@ using static VelocityAutos.Common.GeneralApplicationConstants;
 
 namespace VelocityAutos.Web.Areas.Admin.Controllers
 {
-    public class UserController :BaseAdminController
+    public class UserController : BaseAdminController
     {
         private readonly IUserService userService;
         private readonly IMemoryCache memoryCache;
