@@ -359,5 +359,22 @@ namespace VelocityAutos.Services.Data
 
             return false;
         }
-	}
+
+        public async Task<IEnumerable<AdminCarAllViewModel>> AdminGetAllCarsAsync()
+        {
+            var cars = await repository.AllAsReadOnly<Post>()
+            .Select(p => new AdminCarAllViewModel
+            {
+                PostId = p.Id.ToString(),
+                CarId = p.Car.Id.ToString(),
+                Make = p.Car.Make,
+                Model = p.Car.Model,
+                Price = p.Car.Price,
+                IsActive = p.IsActive
+            })
+            .ToListAsync();
+
+            return cars;
+        }
+    }
 }

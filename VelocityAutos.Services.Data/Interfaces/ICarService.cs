@@ -26,5 +26,7 @@ namespace VelocityAutos.Services.Data.Interfaces
         Task<bool> RemoveFromSavedAsync(string carId, string userId);
 
         Task<bool> IsSaved(string carId, string userId);
+
+        Task<IEnumerable<AdminCarAllViewModel>> AdminGetAllCarsAsync();
     }
 }
