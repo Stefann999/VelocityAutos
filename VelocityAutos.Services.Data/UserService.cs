@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Common;
@@ -68,6 +70,17 @@ namespace VelocityAutos.Services.Data
                     PhoneNumber = u.PhoneNumber,
                 })
                 .ToListAsync();
+
+            var postsCnt = 0;
+
+            foreach (var user in allUsers)
+            {
+                postsCnt = await repository.AllAsReadOnly<Post>()
+                    .Where(p => p.SellerId.ToString() == user.Id)
+                    .CountAsync();
+
+                user.PostsCount = postsCnt;
+            }
 
             return allUsers;
         }
