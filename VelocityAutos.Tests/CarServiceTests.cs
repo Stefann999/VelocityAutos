@@ -353,6 +353,52 @@ namespace VelocityAutos.Tests
         }
 
         [Test]
+        public async Task AllAsync_SortByNewest()
+        {
+            var queryModel = new AllCarsQueryModel()
+            {
+                CarSorting = CarSorting.Newest
+            };
+
+            var carsNewest = await carService.GetAllCarsAsync(queryModel);
+
+            var carMakes = new List<string>()
+            {
+                carsNewest.Cars.First().Make,
+                carsNewest.Cars.Skip(1).First().Make,
+                carsNewest.Cars.Skip(2).First().Make,
+                carsNewest.Cars.Last().Make
+            };
+
+            Assert.IsNotNull(carsNewest.Cars);
+            Assert.AreEqual(4, carsNewest.Cars.Count());
+            Assert.AreEqual(new List<string>() { "BMW", "Audi", "Mercedes", "Toyota" }, carMakes);
+        }
+
+        [Test]
+        public async Task AllAsync_SortByOldest()
+        {
+            var queryModel = new AllCarsQueryModel()
+            {
+                CarSorting = CarSorting.Oldest
+            };
+
+            var carsOldest = await carService.GetAllCarsAsync(queryModel);
+
+            var carMakes = new List<string>()
+            {
+                carsOldest.Cars.First().Make,
+                carsOldest.Cars.Skip(1).First().Make,
+                carsOldest.Cars.Skip(2).First().Make,
+                carsOldest.Cars.Last().Make
+            };
+
+            Assert.IsNotNull(carsOldest.Cars);
+            Assert.AreEqual(4, carsOldest.Cars.Count());
+            Assert.AreEqual(new List<string>() { "Toyota", "Mercedes", "Audi", "BMW" }, carMakes);
+        }
+
+        [Test]
         public async Task AllAsync_SortByPriceAscending()
         {
             var queryModel = new AllCarsQueryModel()
@@ -374,6 +420,7 @@ namespace VelocityAutos.Tests
             Assert.AreEqual(4, carsPriceAscending.Cars.Count());
             Assert.AreEqual(new List<string>() { "Toyota", "Audi", "BMW", "Mercedes"}, carMakes);
         }
+
         [Test]
         public async Task AllAsync_SortByPriceDescending()
         {
