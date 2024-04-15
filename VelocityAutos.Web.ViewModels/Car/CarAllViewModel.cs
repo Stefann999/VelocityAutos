@@ -5,7 +5,7 @@ namespace VelocityAutos.Web.ViewModels.Car
 {
     using VelocityAutos.Data.Models;
 
-    public class CarAllViewModel :IMapFrom<Post>
+    public class CarAllViewModel : IMapFrom<Post>
     {
         public CarAllViewModel()
         {

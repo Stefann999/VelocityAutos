@@ -6,6 +6,7 @@
     public class CarDetailsViewModel : IMapFrom<Car>
     {
         public string Id { get; set; } = null!;
+
         public string Make { get; set; } = null!;
 
         public string Model { get; set; } = null!;
@@ -36,6 +37,6 @@
 
         public string Category { get; set; } = null!;
 
-		public virtual IList<string> ImagesPaths { get; set; } = null!;
-	}
+        public virtual IList<string> ImagesPaths { get; set; } = null!;
+    }
 }

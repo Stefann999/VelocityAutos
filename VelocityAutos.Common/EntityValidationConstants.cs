@@ -2,7 +2,6 @@
 {
     public static class EntityValidationConstants
     {
-
         public static class Car
         {
             public const int CarMakeMinLength = 2;

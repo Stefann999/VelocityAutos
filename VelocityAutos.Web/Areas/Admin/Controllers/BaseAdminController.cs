@@ -8,6 +8,6 @@ namespace VelocityAutos.Web.Areas.Admin.Controllers
     [Authorize(Roles = AdminRoleName)]
     public class BaseAdminController : Controller
     {
-      
+
     }
 }

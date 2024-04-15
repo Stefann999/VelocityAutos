@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
+﻿using Microsoft.EntityFrameworkCore;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Common;
@@ -34,17 +32,17 @@ namespace VelocityAutos.Services.Data
 
         public async Task<string> GetPhoneNumberByEmailAddressAsync(string emailAddress)
         {
-			ApplicationUser? user = await repository.AllAsReadOnly<ApplicationUser>()
-				.Where(u => u.Email == emailAddress)
-				.FirstOrDefaultAsync();
+            ApplicationUser? user = await repository.AllAsReadOnly<ApplicationUser>()
+                .Where(u => u.Email == emailAddress)
+                .FirstOrDefaultAsync();
 
-			if (user == null)
+            if (user == null)
             {
-				return string.Empty;
-			}
+                return string.Empty;
+            }
 
-			return user.PhoneNumber;
-		}
+            return user.PhoneNumber;
+        }
 
         public async Task<string> GetFullNameByIdAsync(string userId)
         {

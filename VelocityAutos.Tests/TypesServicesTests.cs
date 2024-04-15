@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using VelocityAutos.Data;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Common;
-using static Dropbox.Api.Sharing.ListFileMembersIndividualResult;
 
 namespace VelocityAutos.Tests
 {
@@ -146,105 +144,105 @@ namespace VelocityAutos.Tests
         [Test]
         public async Task GetAllCategoriesSuccessfuly()
         {
-			var result = await categoryService.AllCategoriesAsync();
+            var result = await categoryService.AllCategoriesAsync();
 
-			var carCategories = new List<string>()
-			{
+            var carCategories = new List<string>()
+            {
                 result.First().Name,
-				result.Skip(1).First().Name,
-				result.Last().Name
-			};
+                result.Skip(1).First().Name,
+                result.Last().Name
+            };
 
-			Assert.IsNotNull(result);
-			Assert.AreEqual(3, result.Count());
-			Assert.AreEqual(new List<string>() { "Sedan", "Coupe", "Hatchback" }, carCategories);
-		}
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Count());
+            Assert.AreEqual(new List<string>() { "Sedan", "Coupe", "Hatchback" }, carCategories);
+        }
 
-		[Test]
-		public async Task CategoryExistsByIdReturnsTrue()
-		{
-			bool exists = await categoryService.ExistsByIdAsync(1);
+        [Test]
+        public async Task CategoryExistsByIdReturnsTrue()
+        {
+            bool exists = await categoryService.ExistsByIdAsync(1);
 
             Assert.IsTrue(exists);
-		}
+        }
 
-		[Test]
-		public async Task CategoryExistsByIdReturnsFalse()
-		{
-			bool exists = await categoryService.ExistsByIdAsync(11);
+        [Test]
+        public async Task CategoryExistsByIdReturnsFalse()
+        {
+            bool exists = await categoryService.ExistsByIdAsync(11);
 
-			Assert.IsFalse(exists);
+            Assert.IsFalse(exists);
         }
 
         [Test]
         public async Task GetAllCategoriesNamesSuccessfully()
         {
-			var result = await categoryService.AllCategoryNamesAsync();
+            var result = await categoryService.AllCategoryNamesAsync();
 
-			var carCategories = new List<string>()
+            var carCategories = new List<string>()
             {
-				result.First(),
-				result.Skip(1).First(),
-				result.Last()
-			};
+                result.First(),
+                result.Skip(1).First(),
+                result.Last()
+            };
 
-		    Assert.IsNotNull(result);
-			Assert.AreEqual(3, result.Count());
-			Assert.AreEqual(new List<string>() { "Sedan", "Coupe", "Hatchback" }, carCategories);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Count());
+            Assert.AreEqual(new List<string>() { "Sedan", "Coupe", "Hatchback" }, carCategories);
         }
 
 
         [Test]
-		public async Task GetAllFuelTypesSuccessfully()
-		{
-			var result = await fuelTypeService.AllFuelTypesAsync();
+        public async Task GetAllFuelTypesSuccessfully()
+        {
+            var result = await fuelTypeService.AllFuelTypesAsync();
 
-			var carFuelTypes = new List<string>()
-			{
-				result.First().Name,
-				result.Skip(1).First().Name,
-				result.Last().Name
-			};
+            var carFuelTypes = new List<string>()
+            {
+                result.First().Name,
+                result.Skip(1).First().Name,
+                result.Last().Name
+            };
 
-			Assert.IsNotNull(result);
-			Assert.AreEqual(3, result.Count());
-			Assert.AreEqual(new List<string>() { "Petrol", "Diesel", "Electric" }, carFuelTypes);
-		}
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Count());
+            Assert.AreEqual(new List<string>() { "Petrol", "Diesel", "Electric" }, carFuelTypes);
+        }
 
-		[Test]
-		public async Task FuelTypeExistsByIdReturnsTrue()
-		{
-			bool exists = await fuelTypeService.ExistsByIdAsync(1);
+        [Test]
+        public async Task FuelTypeExistsByIdReturnsTrue()
+        {
+            bool exists = await fuelTypeService.ExistsByIdAsync(1);
 
-			Assert.IsTrue(exists);
-		}
+            Assert.IsTrue(exists);
+        }
 
-		[Test]
-		public async Task FuelTypeExistsByIdReturnsFalse()
-		{
-			bool exists = await fuelTypeService.ExistsByIdAsync(11);
+        [Test]
+        public async Task FuelTypeExistsByIdReturnsFalse()
+        {
+            bool exists = await fuelTypeService.ExistsByIdAsync(11);
 
-			Assert.IsFalse(exists);
-		}
+            Assert.IsFalse(exists);
+        }
 
-		[Test]
-		public async Task GetAllFuelTypesNamesSuccessfully()
-		{
-			var result = await fuelTypeService.AllFuelTypeNamesAsync();
+        [Test]
+        public async Task GetAllFuelTypesNamesSuccessfully()
+        {
+            var result = await fuelTypeService.AllFuelTypeNamesAsync();
 
-			var carCategories = new List<string>()
-			{
-				result.First(),
-				result.Skip(1).First(),
-				result.Last()
-			};
+            var carCategories = new List<string>()
+            {
+                result.First(),
+                result.Skip(1).First(),
+                result.Last()
+            };
 
-			Assert.IsNotNull(result);
-			Assert.AreEqual(3, result.Count());
-			Assert.AreEqual(new List<string>() { "Petrol", "Diesel", "Electric" }, carCategories);
-		}
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Count());
+            Assert.AreEqual(new List<string>() { "Petrol", "Diesel", "Electric" }, carCategories);
+        }
 
-		[Test]
+        [Test]
         public async Task GetAllTransmissionTypesSuccessfully()
         {
             var result = await transmissionTypeService.AllTransmissionTypesAsync();
@@ -261,37 +259,37 @@ namespace VelocityAutos.Tests
             Assert.AreEqual(new List<string>() { "Manual", "Automatic", "Semi-Automatic" }, carFuelTypes);
         }
 
-		[Test]
-		public async Task TransmissionTypeExistsByIdReturnsTrue()
-		{
-			bool exists = await transmissionTypeService.ExistsByIdAsync(1);
+        [Test]
+        public async Task TransmissionTypeExistsByIdReturnsTrue()
+        {
+            bool exists = await transmissionTypeService.ExistsByIdAsync(1);
 
-			Assert.IsTrue(exists);
-		}
+            Assert.IsTrue(exists);
+        }
 
-		[Test]
-		public async Task TransmissionTypeExistsByIdReturnsFalse()
-		{
-			bool exists = await transmissionTypeService.ExistsByIdAsync(11);
+        [Test]
+        public async Task TransmissionTypeExistsByIdReturnsFalse()
+        {
+            bool exists = await transmissionTypeService.ExistsByIdAsync(11);
 
-			Assert.IsFalse(exists);
-		}
+            Assert.IsFalse(exists);
+        }
 
-		[Test]
-		public async Task GetAllTransmissiontypesNamesSuccessfully()
-		{
-			var result = await transmissionTypeService.AllTransmissionTypeNamesAsync();
+        [Test]
+        public async Task GetAllTransmissiontypesNamesSuccessfully()
+        {
+            var result = await transmissionTypeService.AllTransmissionTypeNamesAsync();
 
-			var carTransmissionTypes = new List<string>()
-			{
-				result.First(),
-				result.Skip(1).First(),
-				result.Last()
-			};
+            var carTransmissionTypes = new List<string>()
+            {
+                result.First(),
+                result.Skip(1).First(),
+                result.Last()
+            };
 
-			Assert.IsNotNull(result);
-			Assert.AreEqual(3, result.Count());
-			Assert.AreEqual(new List<string>() { "Manual", "Automatic", "Semi-Automatic" }, carTransmissionTypes);
-		}
-	}
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Count());
+            Assert.AreEqual(new List<string>() { "Manual", "Automatic", "Semi-Automatic" }, carTransmissionTypes);
+        }
+    }
 }

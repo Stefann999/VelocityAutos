@@ -21,7 +21,7 @@ namespace VelocityAutos.Data.Models
         public DateTime? DeletedOn { get; set; }
 
         [DisplayFormat(DataFormatString = MyDateTimeFormat)]
-        public DateTime? UpdatedOn { get; set;}
+        public DateTime? UpdatedOn { get; set; }
 
         public bool IsActive { get; set; }
 

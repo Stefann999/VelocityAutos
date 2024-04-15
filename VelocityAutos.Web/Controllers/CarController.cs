@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Services.Data.Models.Car;
 using VelocityAutos.Web.Infrastructure.Extensions;
@@ -10,7 +8,7 @@ using static VelocityAutos.Common.NotificationMessagesConstants;
 
 namespace VelocityAutos.Web.Controllers
 {
-	[Authorize]
+    [Authorize]
     public class CarController : BaseController
     {
         // NEW ACCESS TOKEN
@@ -35,10 +33,10 @@ namespace VelocityAutos.Web.Controllers
             this.carService = carService;
             this.dropboxService = dropboxService;
             this.postService = postService;
-         }
+        }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All([FromQuery]AllCarsQueryModel queryModel)
+        public async Task<IActionResult> All([FromQuery] AllCarsQueryModel queryModel)
         {
             AllCarsFilteredAndPaged serviceModel = await this.carService.GetAllCarsAsync(queryModel);
 
@@ -98,7 +96,7 @@ namespace VelocityAutos.Web.Controllers
 
             if (!fuelTypeExists)
             {
-                   ModelState.AddModelError(nameof(carFormModel.FuelTypeId), "Fuel type does not exist.");
+                ModelState.AddModelError(nameof(carFormModel.FuelTypeId), "Fuel type does not exist.");
             }
 
             if (!transmissionTypeExists)
@@ -111,11 +109,11 @@ namespace VelocityAutos.Web.Controllers
                 ModelState.AddModelError(nameof(carFormModel.Images), "Please attach atleast one image!");
             }
 
-			ModelState.Remove(nameof(carFormModel.SellerId));
-			ModelState.Remove(nameof(carFormModel.PostId));
+            ModelState.Remove(nameof(carFormModel.SellerId));
+            ModelState.Remove(nameof(carFormModel.PostId));
 
 
-			string messages = string.Join("; ", ModelState.Values
+            string messages = string.Join("; ", ModelState.Values
                                         .SelectMany(x => x.Errors)
                                         .Select(x => x.ErrorMessage));
 
@@ -148,8 +146,8 @@ namespace VelocityAutos.Web.Controllers
             }
 
             TempData[SuccessMessage] = "Car was added for sale successfully!";
-            
-            return this.RedirectToAction(nameof(Details), new { id = targetCarId});
+
+            return this.RedirectToAction(nameof(Details), new { id = targetCarId });
         }
 
         [AllowAnonymous]
@@ -230,7 +228,7 @@ namespace VelocityAutos.Web.Controllers
             targetCar.Categories = await this.categoryService.AllCategoriesAsync();
             targetCar.FuelTypes = await this.fuelTypeService.AllFuelTypesAsync();
             targetCar.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync();
-            
+
 
             return View(targetCar);
         }
@@ -342,7 +340,7 @@ namespace VelocityAutos.Web.Controllers
 
             try
             {
-                string returnMessage =  await this.carService.SaveCarAsync(id, currUserId);
+                string returnMessage = await this.carService.SaveCarAsync(id, currUserId);
 
                 if (returnMessage == "Owned")
                 {

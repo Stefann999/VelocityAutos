@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using static VelocityAutos.Common.GeneralApplicationConstants;
-using static VelocityAutos.Common.ErrorConstants;
 using static VelocityAutos.Common.EntityValidationConstants.User;
+using static VelocityAutos.Common.ErrorConstants;
 
 namespace VelocityAutos.Data.Models
 {

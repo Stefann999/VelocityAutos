@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using AutoMapper;
-using AutoMapper.Configuration;
 using VelocityAutos.Services.Mapping;
 
 namespace AspNetCoreTemplate.Services.Mapping

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VelocityAutos.Data;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Common;
@@ -16,7 +15,7 @@ namespace VelocityAutos.Services.Data
             this.repository = repository;
         }
 
-		public async Task<IEnumerable<CarSelectFuelTypeFormModel>> AllFuelTypesAsync()
+        public async Task<IEnumerable<CarSelectFuelTypeFormModel>> AllFuelTypesAsync()
         {
             IEnumerable<CarSelectFuelTypeFormModel> fuelTypes = await repository.AllAsReadOnly<FuelType>()
                 .Select(c => new CarSelectFuelTypeFormModel
@@ -37,13 +36,13 @@ namespace VelocityAutos.Services.Data
             return result;
         }
 
-		public async Task<IEnumerable<string>> AllFuelTypeNamesAsync()
-		{
-			IEnumerable<string> fuelTypesNames = await repository.AllAsReadOnly<FuelType>()
-				.Select(c => c.Name)
-				.ToArrayAsync();
+        public async Task<IEnumerable<string>> AllFuelTypeNamesAsync()
+        {
+            IEnumerable<string> fuelTypesNames = await repository.AllAsReadOnly<FuelType>()
+                .Select(c => c.Name)
+                .ToArrayAsync();
 
-			return fuelTypesNames;
-		}
+            return fuelTypesNames;
+        }
     }
 }

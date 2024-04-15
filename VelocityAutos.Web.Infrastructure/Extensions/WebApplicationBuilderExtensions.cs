@@ -1,7 +1,7 @@
-﻿using System.Reflection;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Web.Infrastructure.Middlewares;
 using static VelocityAutos.Common.GeneralApplicationConstants;
@@ -73,7 +73,7 @@ namespace VelocityAutos.Web.Infrastructure.Extensions
             return app;
         }
 
-        public static IApplicationBuilder EnableOnlineUsersCheck( this IApplicationBuilder app)
+        public static IApplicationBuilder EnableOnlineUsersCheck(this IApplicationBuilder app)
         {
             return app.UseMiddleware<OnlineUsersMiddleware>();
         }

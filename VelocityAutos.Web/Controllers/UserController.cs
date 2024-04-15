@@ -4,11 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using VelocityAutos.Common;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Web.ViewModels.User;
 using static VelocityAutos.Common.NotificationMessagesConstants;
-using static VelocityAutos.Common.GeneralApplicationConstants;
-using VelocityAutos.Common;
 
 namespace VelocityAutos.Web.Controllers
 {
@@ -41,7 +40,7 @@ namespace VelocityAutos.Web.Controllers
             ValidationFailedAction = ValidationFailedAction.ContinueRequest)]
         public async Task<IActionResult> Register(RegisterFormModel model)
         {
-			if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
@@ -66,12 +65,12 @@ namespace VelocityAutos.Web.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
 
-				return View(model);
+                return View(model);
             }
 
             await signInManager.SignInAsync(user, false);
 
-			TempData[SuccessMessage] = "You have successfully registered!";
+            TempData[SuccessMessage] = "You have successfully registered!";
 
             this.memoryCache.Remove(GeneralApplicationConstants.UserCacheKey);
 

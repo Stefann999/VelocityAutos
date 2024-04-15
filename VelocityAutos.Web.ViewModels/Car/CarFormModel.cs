@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 using VelocityAutos.Services.Mapping;
 using VelocityAutos.Web.ViewModels.FuelType;
 using VelocityAutos.Web.ViewModels.SelectViewModels;
@@ -8,7 +8,6 @@ using static VelocityAutos.Common.ErrorConstants;
 
 namespace VelocityAutos.Web.ViewModels.Car
 {
-    using AutoMapper;
     using Data.Models;
 
     public class CarFormModel : IMapFrom<Car>

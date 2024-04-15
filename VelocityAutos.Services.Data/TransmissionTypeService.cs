@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using VelocityAutos.Data;
+﻿using Microsoft.EntityFrameworkCore;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Common;
@@ -39,11 +37,11 @@ namespace VelocityAutos.Services.Data
 
         public async Task<IEnumerable<string>> AllTransmissionTypeNamesAsync()
         {
-			IEnumerable<string> transmissionTypesNames = await repository.AllAsReadOnly<TransmissionType>()
-	            .Select(c => c.Name)
-	            .ToArrayAsync();
+            IEnumerable<string> transmissionTypesNames = await repository.AllAsReadOnly<TransmissionType>()
+                .Select(c => c.Name)
+                .ToArrayAsync();
 
-			return transmissionTypesNames;
-		}
+            return transmissionTypesNames;
+        }
     }
 }

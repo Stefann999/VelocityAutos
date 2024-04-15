@@ -4,7 +4,7 @@ namespace VelocityAutos.Web.ViewModels.Post
 {
     public class PostDetailsViewModel
     {
-       public CarDetailsViewModel Car { get; set; } = null!;
+        public CarDetailsViewModel Car { get; set; } = null!;
 
         public DateTime CreatedOn { get; set; }
 

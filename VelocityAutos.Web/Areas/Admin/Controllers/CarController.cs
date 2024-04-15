@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Areas.Admin.ViewModels;
 using VelocityAutos.Web.Infrastructure.Extensions;
@@ -27,10 +26,10 @@ namespace VelocityAutos.Web.Areas.Admin.Controllers
             return View(viewModel);
         }
 
-       [Route("/Car/Dashboard")]
-       public async Task<IActionResult> CarsDashboard()
-       {
-           var cars = await this.carService.AdminGetAllCarsAsync();
+        [Route("/Car/Dashboard")]
+        public async Task<IActionResult> CarsDashboard()
+        {
+            var cars = await this.carService.AdminGetAllCarsAsync();
 
             try
             {
@@ -47,6 +46,6 @@ namespace VelocityAutos.Web.Areas.Admin.Controllers
             }
 
             return this.View(cars);
-       }
+        }
     }
 }

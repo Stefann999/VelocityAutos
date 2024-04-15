@@ -1,5 +1,4 @@
-﻿using Dropbox.Api.TeamLog;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using VelocityAutos.Data.Models;
@@ -38,7 +37,7 @@ namespace VelocityAutos.Web.Areas.Admin.Controllers
             if (users == null)
             {
                 users = await this.userService.AllAsync();
-                
+
                 MemoryCacheEntryOptions cacheOptions = new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan
                         .FromMinutes(UserCacheExpirationInMinutes));

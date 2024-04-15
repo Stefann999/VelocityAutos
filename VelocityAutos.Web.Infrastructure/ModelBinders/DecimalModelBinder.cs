@@ -1,6 +1,5 @@
-﻿using System.Globalization;
-
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Globalization;
 
 public class DecimalModelBinder : IModelBinder
 {

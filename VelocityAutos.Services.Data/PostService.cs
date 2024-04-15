@@ -1,6 +1,4 @@
-﻿using AspNetCoreTemplate.Services.Mapping;
-using Microsoft.EntityFrameworkCore;
-using VelocityAutos.Data;
+﻿using Microsoft.EntityFrameworkCore;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Common;
@@ -27,19 +25,19 @@ namespace VelocityAutos.Services.Data
 
             string[] names = fullName.Split(" ").ToArray();
 
-           var post = new Post
-           {
-               CarId = Guid.Parse(carId),
-               SellerFirstName = names[0],
-               SellerLastName = names[1],
-               SellerEmailAddress = emailAddress,
-               SellerPhoneNumber = phoneNumber,
-               SellerId = Guid.Parse(currUserId),
-               CreatedOn = DateTime.Now,
-               UpdatedOn = null,
-               DeletedOn = null,
-               IsActive = true,
-           };
+            var post = new Post
+            {
+                CarId = Guid.Parse(carId),
+                SellerFirstName = names[0],
+                SellerLastName = names[1],
+                SellerEmailAddress = emailAddress,
+                SellerPhoneNumber = phoneNumber,
+                SellerId = Guid.Parse(currUserId),
+                CreatedOn = DateTime.Now,
+                UpdatedOn = null,
+                DeletedOn = null,
+                IsActive = true,
+            };
 
             await repository.AddAsync(post);
             await repository.SaveChangesAsync();

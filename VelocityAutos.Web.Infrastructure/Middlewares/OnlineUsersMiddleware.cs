@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
+using System.Collections.Concurrent;
 using VelocityAutos.Web.Infrastructure.Extensions;
 using static VelocityAutos.Common.GeneralApplicationConstants;
-using System.Collections.Concurrent;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace VelocityAutos.Web.Infrastructure.Middlewares
 {
@@ -13,7 +12,7 @@ namespace VelocityAutos.Web.Infrastructure.Middlewares
         private readonly string cookieName;
         private readonly int lastActivityThresholdInMinutes;
 
-        private static readonly ConcurrentDictionary<string, bool> AllKeys = 
+        private static readonly ConcurrentDictionary<string, bool> AllKeys =
             new ConcurrentDictionary<string, bool>();
 
         public OnlineUsersMiddleware(RequestDelegate next,
@@ -63,7 +62,7 @@ namespace VelocityAutos.Web.Infrastructure.Middlewares
                     {
                         AllKeys.TryUpdate(userId, false, true);
                     }
-                    
+
                     context.Response.Cookies.Delete(this.cookieName);
                 }
             }
