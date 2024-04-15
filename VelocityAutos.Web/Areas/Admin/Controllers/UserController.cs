@@ -141,7 +141,7 @@ namespace VelocityAutos.Web.Areas.Admin.Controllers
 
             if (!await userManager.IsInRoleAsync(user, AdminRoleName))
             {
-                TempData[ErrorMessage] = "User is not Admin";
+                TempData[ErrorMessage] = "User is not an Admin";
                 return RedirectToAction(nameof(All));
             }
 
