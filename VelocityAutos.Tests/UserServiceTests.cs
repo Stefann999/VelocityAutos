@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using VelocityAutos.Data;
 using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data;
@@ -132,6 +133,30 @@ namespace VelocityAutos.Tests
             Assert.AreEqual(result.Count(), 2);
             Assert.AreEqual(users[0].FullName, "Ivan Stoilov");
             Assert.AreEqual(users[1].FullName, "Dimitur Vasilev");
+        }
+
+        [Test]
+        public async Task ExistsByIdReturnsTrue()
+        {
+            var result = await userService.ExistsByIdAsync("66543F29-BAFC-4680-8028-5C4B7E444CCC".ToLower());
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public async Task ExistsByIdReturnsFalse()
+        {
+            var result = await userService.ExistsByIdAsync("asd".ToLower());
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public async Task GetUserByIdSeccessfully()
+        {
+            var result = await userService.GetUserByIdAsync("66543F29-BAFC-4680-8028-5C4B7E444CCC".ToLower());
+
+            Assert.AreEqual(result.Id, Guid.Parse("66543F29-BAFC-4680-8028-5C4B7E444CCC"));
         }
     }
 }
