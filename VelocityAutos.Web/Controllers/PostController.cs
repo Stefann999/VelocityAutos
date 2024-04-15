@@ -54,10 +54,18 @@ namespace VelocityAutos.Web.Controllers
             if (!isAdmin && !this.User.IsAdmin())
             {
                 TempData[ErrorMessage] = "You have to be this post's owner in order to remove it!";
-                return this.RedirectToAction("Details", "Car", new { id });
+                return this.RedirectToAction("All", "Car");
             }
 
-            await this.postService.DeleteAsync(id);
+            try
+            {
+                await this.postService.DeleteAsync(id);
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = "Unexpected error occured while trying to add new car! Please try again later or contact administrator!";
+                return this.RedirectToAction("Details", "Car", new { id });
+            }
 
             TempData[SuccessMessage] = "The post was successfully removed!";
 
@@ -107,7 +115,15 @@ namespace VelocityAutos.Web.Controllers
                 return this.RedirectToAction("Details", "Car", new { id });
             }
 
-            await this.postService.ActivateAsync(id);
+            try
+            {
+                await this.postService.ActivateAsync(id);
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = "Unexpected error occured while trying to activate the post! Please try again later or contact administrator!";
+                return this.RedirectToAction("All", "Car");
+            }
 
             TempData[SuccessMessage] = "The post was successfully activated!";
 

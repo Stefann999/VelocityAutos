@@ -54,7 +54,7 @@ namespace VelocityAutos.Web.Areas.Admin.Controllers
             if (!this.User.IsAdmin())
             {
                 TempData[ErrorMessage] = "Insufficient Permissions";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(All));
             }
 
             if (!await userService.ExistsByIdAsync(id))
@@ -94,7 +94,7 @@ namespace VelocityAutos.Web.Areas.Admin.Controllers
             if (!this.User.IsAdmin())
             {
                 TempData[ErrorMessage] = "Insufficient Permissions";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(All));
             }
 
             if (!await userService.ExistsByIdAsync(id))
@@ -129,7 +129,7 @@ namespace VelocityAutos.Web.Areas.Admin.Controllers
             if (!this.User.IsAdmin())
             {
                 TempData[ErrorMessage] = "Insufficient Permissions";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(All));
             }
 
             if (!await userService.ExistsByIdAsync(id))
@@ -169,7 +169,7 @@ namespace VelocityAutos.Web.Areas.Admin.Controllers
             if (!this.User.IsAdmin())
             {
                 TempData[ErrorMessage] = "Insufficient Permissions";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(All));
             }
 
             if (!await userService.ExistsByIdAsync(id))

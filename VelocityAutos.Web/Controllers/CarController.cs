@@ -21,11 +21,11 @@ namespace VelocityAutos.Web.Controllers
         private readonly IPostService postService;
 
         public CarController(ICategoryService categoryService,
-            IFuelTypeService fuelTypeService,
-            ITransmissionTypeService transmissionTypeService,
-            ICarService carService,
-            IDropboxService dropboxService,
-            IPostService postService)
+                            IFuelTypeService fuelTypeService,
+                            ITransmissionTypeService transmissionTypeService,
+                            ICarService carService,
+                            IDropboxService dropboxService,
+                            IPostService postService)
         {
             this.categoryService = categoryService;
             this.fuelTypeService = fuelTypeService;
@@ -58,6 +58,7 @@ namespace VelocityAutos.Web.Controllers
             //catch (Exception ex)
             //{
             //    TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
+            //    return this.RedirectToAction("Index", "Home");
             //}
 
             return View(queryModel);
@@ -297,7 +298,7 @@ namespace VelocityAutos.Web.Controllers
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to add new car! Please try again later or contact administrator!");
+                TempData[ErrorMessage] = "Unexpected error occured while trying to edit car! Please try again later or contact administrator!";
 
                 carFormModel.Categories = await this.categoryService.AllCategoriesAsync();
                 carFormModel.FuelTypes = await this.fuelTypeService.AllFuelTypesAsync();
@@ -326,7 +327,7 @@ namespace VelocityAutos.Web.Controllers
             //        car.ImagesPaths = currCarImagesUrls;
             //    }
             //}
-            //catch (Exception ex)
+            //catch (Exception)
             //{
             //    TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
             //}
@@ -383,7 +384,7 @@ namespace VelocityAutos.Web.Controllers
                     car.ImagesPaths = currCarImagesUrls;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
             }

@@ -2,6 +2,7 @@
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Areas.Admin.ViewModels;
 using VelocityAutos.Web.Infrastructure.Extensions;
+using static VelocityAutos.Common.GeneralApplicationConstants;
 using static VelocityAutos.Common.NotificationMessagesConstants;
 
 namespace VelocityAutos.Web.Areas.Admin.Controllers
@@ -40,9 +41,10 @@ namespace VelocityAutos.Web.Areas.Admin.Controllers
                     car.ImagesPaths = currCarImagesUrls;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
+                return this.RedirectToAction("Index", "Home", new { Area = AdminAreaName });
             }
 
             return this.View(cars);
