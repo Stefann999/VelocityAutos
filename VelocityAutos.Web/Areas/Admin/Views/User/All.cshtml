@@ -1,5 +1,12 @@
-﻿@using VelocityAutos.Web.Infrastructure.Middlewares
+﻿@using Microsoft.AspNetCore.Identity
+@using VelocityAutos.Data.Models
+@using VelocityAutos.Services.Data.Interfaces
+@using VelocityAutos.Web.Infrastructure.Middlewares
+@using static VelocityAutos.Common.GeneralApplicationConstants
 @model IEnumerable<UserViewModel>
+
+@inject UserManager<ApplicationUser> userManager
+@inject IUserService userService
 
 @{
     ViewBag.Title = "All Users";
@@ -66,10 +73,37 @@
         <div class="user-card">
             <div class="user-info">
                 <div>
+                    @{
+                        var userAsEntity = await userService.GetUserByIdAsync(user.Id);
+                        var isAdmin = userManager.IsInRoleAsync(userAsEntity, AdminRoleName).Result;
+                     }
+
                     <h5>@user.FullName</h5>
+                    <hr />
+                    @if (isAdmin)
+                    {
+                        <p>Role: <b>Admin</b></p>
+                    }
+                    else
+                    {
+                        <p>Role: <b>User</b></p>
+                    }
+                    <hr />
                     <p>Email: @user.Email</p>
                     <p>Phone: @user.PhoneNumber</p>
                     <p>Posts count: @user.PostsCount</p>
+                    <hr />
+
+                    @if (isAdmin)
+                    {
+                    <a asp-area="Admin" asp-controller="User" asp-action="RemoveAdmin" asp-route-id="@user.Id" class="btn btn-primary">Remove Admin</a>
+                    }
+                    else
+                    {
+                    <a asp-area="Admin" asp-controller="User" asp-action="MakeAdmin" asp-route-id="@user.Id" class="btn btn-primary">Make Admin</a>
+                    }
+
+                   
                 </div>
                 <div>
                     @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))

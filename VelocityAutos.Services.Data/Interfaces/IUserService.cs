@@ -1,4 +1,5 @@
-﻿using VelocityAutos.Web.ViewModels.User;
+﻿using VelocityAutos.Data.Models;
+using VelocityAutos.Web.ViewModels.User;
 
 namespace VelocityAutos.Services.Data.Interfaces
 {
@@ -11,5 +12,9 @@ namespace VelocityAutos.Services.Data.Interfaces
         Task<string> GetFullNameByIdAsync(string userId);
 
         Task<IEnumerable<UserViewModel>> AllAsync();
+
+        Task<bool> ExistsByIdAsync(string userId);
+
+        Task<ApplicationUser> GetUserByIdAsync(string userId);
     }
 }

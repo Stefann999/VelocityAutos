@@ -5,6 +5,7 @@ using VelocityAutos.Data.Models;
 using VelocityAutos.Services.Data.Interfaces;
 using VelocityAutos.Web.Infrastructure.Common;
 using VelocityAutos.Web.ViewModels.User;
+using static VelocityAutos.Common.GeneralApplicationConstants;
 
 namespace VelocityAutos.Services.Data
 {
@@ -62,6 +63,7 @@ namespace VelocityAutos.Services.Data
         public async Task<IEnumerable<UserViewModel>> AllAsync()
         {
             ICollection<UserViewModel> allUsers = await repository.AllAsReadOnly<ApplicationUser>()
+                .Where(u => u.Email != DevelopmentAdminEmail)
                 .Select(u => new UserViewModel
                 {
                     Id = u.Id.ToString(),
@@ -83,6 +85,18 @@ namespace VelocityAutos.Services.Data
             }
 
             return allUsers;
+        }
+
+        public async Task<bool> ExistsByIdAsync(string userId)
+        {
+            return await repository.AllAsReadOnly<ApplicationUser>().AnyAsync(u => u.Id.ToString() == userId);
+        }
+
+        public async Task<ApplicationUser> GetUserByIdAsync(string userId)
+        {
+            return await repository.All<ApplicationUser>()
+                .Where(u => u.Id.ToString() == userId)
+                .FirstOrDefaultAsync();
         }
     }
 }

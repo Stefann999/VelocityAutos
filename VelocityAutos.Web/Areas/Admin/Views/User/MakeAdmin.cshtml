@@ -1,0 +1,45 @@
+﻿@model UserMakeAdminViewModel
+@{
+    ViewBag.Title = "Make Admin";
+}
+
+<head>
+    <style>
+        body {
+            background-image: none;
+        }
+
+        .home-text {
+            font-size: 0px;
+        }
+    </style>
+</head>
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">@Model.FullName</h3>
+                <p class="mb-0"><strong>Full name:</strong> @Model.FullName</p>
+                <p class="mb-0"><strong>Email address:</strong> @Model.Email</p>
+                <p class="mb-0"><strong>Phone number:</strong> @Model.PhoneNumber</p>
+                <p class="mb-0"><strong>Is Admin:</strong> @Model.IsAdmin</p>
+                <p class="text-danger mt-3"><strong>Are you sure you want make this user an Admin?</strong></p>
+            </div>
+            <div class="card-footer">
+                <form asp-action="ConfirmMakeAdmin" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger">Confirm</button>
+                    <a asp-area="Admin" asp-controller="User" asp-action="All" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
