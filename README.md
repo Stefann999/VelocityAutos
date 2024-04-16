@@ -35,3 +35,8 @@ Welcome to **Velocity Autos**, an **ASP.NET Core MVC** web application build to 
 * ASP.NET Identity System
 * MVC Areas
 * Razor views and partial views
+
+
+
+## :copyright: License ##
+This project is licensed under the [MIT License](https://github.com/nikolaymihov/MyCarDealershipProject/blob/main/LICENSE "MIT License").
