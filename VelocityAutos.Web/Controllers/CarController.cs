@@ -46,20 +46,20 @@ namespace VelocityAutos.Web.Controllers
             queryModel.FuelTypes = await this.fuelTypeService.AllFuelTypeNamesAsync();
             queryModel.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypeNamesAsync();
 
-            //try
-            //{
-            //    foreach (var car in queryModel.Cars)
-            //    {
-            //        string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
-            //        var currCarImagesUrls = await dropboxService.GetCarImages(folderPath, true);
-            //        car.ImagesPaths = currCarImagesUrls;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
-            //    return this.RedirectToAction("Index", "Home");
-            //}
+            try
+            {
+                foreach (var car in queryModel.Cars)
+                {
+                    string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
+                    var currCarImagesUrls = await dropboxService.GetCarImages(folderPath, true);
+                    car.ImagesPaths = currCarImagesUrls;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
+                return this.RedirectToAction("Index", "Home");
+            }
 
             return View(queryModel);
         }
