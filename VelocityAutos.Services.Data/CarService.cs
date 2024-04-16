@@ -370,7 +370,14 @@ namespace VelocityAutos.Services.Data
                 Make = p.Car.Make,
                 Model = p.Car.Model,
                 Price = p.Car.Price,
-                IsActive = p.IsActive
+                HorsePower = p.Car.HorsePower,
+                Mileage = p.Car.Mileage,
+                Month = p.Car.Month,
+                Year = p.Car.Year,
+                IsActive = p.IsActive,
+                SellerFullName = p.Seller.FirstName + " " + p.Seller.LastName,
+                SellerPhoneNumber = p.Seller.PhoneNumber,
+                SellerEmail = p.Seller.Email
             })
             .ToListAsync();
 

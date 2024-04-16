@@ -71,11 +71,19 @@
             <div class="car-info">
                 <div>
                     <h5>@car.Make @car.Model</h5>
+                    <p>Price: @Math.Round(car.Price) $</p>
+                    <p>Horse power: @car.HorsePower</p>
+                    <p>Mileage: @car.Mileage km</p>
+                    <p>Month: @car.Month</p>
+                    <p>Year: @car.Year</p>
+                    <p>Seller's full name: @car.SellerFullName</p>
+                    <p>Seller's phone number: @car.SellerPhoneNumber</p>
+                    <p>Seller's email address: @car.SellerEmail</p>
+                    <hr />
                     <p>Post id: @car.PostId</p>
                     <p>Car id: @car.CarId</p>
-                    <p>Price: @Math.Round(car.Price) $</p>
 
-                    <img src=@car.ImagesPaths.FirstOrDefault() alt="@car.Make" />
+                    <img src="~/audiA4-image3.jpg" alt="@car.Make" />
 
                     <hr />
                     <a asp-area="" asp-controller="Car" asp-action="Details" asp-route-id="@car.CarId" class="btn btn-primary">Details</a>
