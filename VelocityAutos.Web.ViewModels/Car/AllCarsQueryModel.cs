@@ -17,8 +17,6 @@ namespace VelocityAutos.Web.ViewModels.Car
             this.TransmissionTypes = new HashSet<string>();
         }
 
-        //TODO Add more search options (e.g. by year, by brand, by model,from - to horsepower, etc.)
-
         public string? Category { get; set; }
 
         [Display(Name = "Fuel type")]
