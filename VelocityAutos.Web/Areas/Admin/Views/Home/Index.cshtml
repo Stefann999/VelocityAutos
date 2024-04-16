@@ -1,5 +1,13 @@
-﻿﻿@{
+﻿@using VelocityAutos.Services.Data.Interfaces
+@inject IUserService UserService
+
+﻿@{
     ViewData["Title"] = "Home Page";
+}
+
+@{
+    string fullName = UserService.GetFullNameByIdAsync(this.User.GetId()).Result;
+    string firstName = fullName.Split(' ')[0];
 }
 
 <head>
@@ -15,9 +23,9 @@
 </head>
 
 <div class="mt-4 p-5 bg-light text-center">
-    <h2 class="display-4">Hello, Admin!</h2>
+    <h2 class="display-4">Hello, @firstName!</h2>
     <p class="lead mb-1 mt-3">
-        Here is you dashboard. You can <b>check</b>, <b>create</b>,
+        Here is your admin panel. You can <b>check</b>, <b>create</b>,
         <b>delete</b> and <b>edit</b> cars.
     </p>
     <p class="lead mt-1">
