@@ -98,7 +98,7 @@ namespace VelocityAutos.Data.Seeding
                 Description = "Beautiful compact hatchback. The car combines fuel efficiency with practicality, boasting a sleek design and responsive handling. Its hybrid powertrain offers a smooth driving experience while minimizing environmental impact, making it an ideal choice for eco-conscious drivers.",
                 LocationCity = "Plovdiv",
                 LocationCountry = "Bulgaria",
-                CategoryId = 3
+                CategoryId = 1
             };
 
             cars.Add(fourthCar);
@@ -120,7 +120,7 @@ namespace VelocityAutos.Data.Seeding
                 Description = "The Hyundai i40 offers a blend of comfort, performance, and technology in the midsize sedan segment. With its spacious interior, efficient engines, and modern features, the i40 delivers a refined driving experience suitable for both urban commutes and long highway journeys.",
                 LocationCity = "Blagoevgrad",
                 LocationCountry = "Bulgaria",
-                CategoryId = 2
+                CategoryId = 1
             };
 
             cars.Add(fifthCar);
