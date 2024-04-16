@@ -55,7 +55,7 @@ namespace VelocityAutos.Web.Controllers
                     car.ImagesPaths = currCarImagesUrls;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
                 return this.RedirectToAction("Index", "Home");
@@ -318,19 +318,19 @@ namespace VelocityAutos.Web.Controllers
 
             var allCars = await this.carService.GetOwnedCarsAsync(currUserId);
 
-            //try
-            //{
-            //    foreach (var car in allCars)
-            //    {
-            //        string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
-            //        var currCarImagesUrls = await dropboxService.GetCarImages(folderPath, true);
-            //        car.ImagesPaths = currCarImagesUrls;
-            //    }
-            //}
-            //catch (Exception)
-            //{
-            //    TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
-            //}
+            try
+            {
+                foreach (var car in allCars)
+                {
+                    string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
+                    var currCarImagesUrls = await dropboxService.GetCarImages(folderPath, true);
+                    car.ImagesPaths = currCarImagesUrls;
+                }
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = "An unexpected error occured while trying to display cars' images! Please try again! If the issue continues, contact an administrator!";
+            }
 
             return View(allCars);
         }
