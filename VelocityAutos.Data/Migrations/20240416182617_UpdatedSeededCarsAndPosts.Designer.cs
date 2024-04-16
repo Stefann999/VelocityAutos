@@ -12,8 +12,8 @@ using VelocityAutos.Data;
 namespace VelocityAutos.Data.Migrations
 {
     [DbContext(typeof(VelocityAutosDbContext))]
-    [Migration("20240416175246_SeedMoreCarsAndPosts")]
-    partial class SeedMoreCarsAndPosts
+    [Migration("20240416182617_UpdatedSeededCarsAndPosts")]
+    partial class UpdatedSeededCarsAndPosts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -262,7 +262,7 @@ namespace VelocityAutos.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "IVANCARS1@CARS.COM",
                             NormalizedUserName = "IVANCARS1@CARS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECubMiU9A3OjpeFxmeC4PKqJ/G0pQgiXr6jFsQ9/kZB/sRI6SZ/pyIGdfF0lZLCJog==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG7Rt2hHRNvywTGxF0oXMhf4vfXhEjC1+fBygdo6ViAPwiYA4tx/4aurqeu3OtfcIg==",
                             PhoneNumber = "0888888888",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "f49c695d-b65c-4245-a204-70ac1ef3167c",
@@ -281,7 +281,7 @@ namespace VelocityAutos.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DIMITUR122@CARS.COM",
                             NormalizedUserName = "DIMITUR122@CARS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO9nt+lakqye8sZmmAZQaDR0TXC/fvfNDgIDxtFMG5Y6EdFfigV7t7ANiayREvvxTQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGTc0CSoYocFoefOMY+49E1y7Zc8exnHFtuGCjBsk7Q0Ml4W42iLORit3RYrI/C0YA==",
                             PhoneNumber = "0999999999",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "e5507714-6b85-407b-a9e4-85b8856de4bd",
@@ -300,7 +300,7 @@ namespace VelocityAutos.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENZf9tAO1hkqQCcDQRRspvGHLXH5u3rP9HFf+CHx27cBCT3vFkzyMInUAdw0m1OU4w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN/8aefgN2U5wgJs9Axpx/uK4aWWPG7m5nJKcz8zHvEMp6uhFe4HkeILBPpdc54VtA==",
                             PhoneNumber = "0999999999",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "7533496a-0b1c-43e0-97a1-ece7f8a8f526",
@@ -440,9 +440,9 @@ namespace VelocityAutos.Data.Migrations
                         new
                         {
                             Id = new Guid("f6707b62-64e1-415f-af35-eb635f988c47"),
-                            CategoryId = 3,
+                            CategoryId = 1,
                             Color = "Black",
-                            Description = "Beautiful compact hatchback. The car combines fuel efficiency with practicality, boasting a sleek design and responsive handling. Its hybrid powertrain offers a smooth driving experience while minimizing environmental impact, making it an ideal choice for eco-conscious drivers.",
+                            Description = "Beautiful compact sedan. The car combines fuel efficiency with practicality, boasting a sleek design and responsive handling. Its hybrid powertrain offers a smooth driving experience while minimizing environmental impact, making it an ideal choice for eco-conscious drivers.",
                             FuelConsumption = 6.0,
                             FuelTypeId = 4,
                             HorsePower = 100,
@@ -459,7 +459,7 @@ namespace VelocityAutos.Data.Migrations
                         new
                         {
                             Id = new Guid("82f03f75-cfb3-4434-bb73-f8c5dcf4109d"),
-                            CategoryId = 2,
+                            CategoryId = 1,
                             Color = "Graphite",
                             Description = "The Hyundai i40 offers a blend of comfort, performance, and technology in the midsize sedan segment. With its spacious interior, efficient engines, and modern features, the i40 delivers a refined driving experience suitable for both urban commutes and long highway journeys.",
                             FuelConsumption = 8.0,
@@ -749,7 +749,7 @@ namespace VelocityAutos.Data.Migrations
                         {
                             Id = new Guid("b5a2fe5f-8161-48d4-bd61-0d6f1b38609c"),
                             CarId = new Guid("9219e817-e86a-4ea0-807f-976d8195d93a"),
-                            CreatedOn = new DateTime(2024, 3, 27, 17, 52, 45, 588, DateTimeKind.Utc).AddTicks(3144),
+                            CreatedOn = new DateTime(2024, 3, 27, 18, 26, 16, 808, DateTimeKind.Utc).AddTicks(4100),
                             IsActive = true,
                             SellerEmailAddress = "ivancars1@cars.com",
                             SellerFirstName = "Ivan",
@@ -761,7 +761,7 @@ namespace VelocityAutos.Data.Migrations
                         {
                             Id = new Guid("3e5e72c8-ae7d-4c68-ad81-1bdc9c9eaad9"),
                             CarId = new Guid("74576f3e-a409-46e4-a8ff-9c93eb409cba"),
-                            CreatedOn = new DateTime(2024, 4, 1, 17, 52, 45, 588, DateTimeKind.Utc).AddTicks(3154),
+                            CreatedOn = new DateTime(2024, 4, 1, 18, 26, 16, 808, DateTimeKind.Utc).AddTicks(4113),
                             IsActive = true,
                             SellerEmailAddress = "dimitur122@cars.com",
                             SellerFirstName = "Dimitur",
@@ -773,7 +773,7 @@ namespace VelocityAutos.Data.Migrations
                         {
                             Id = new Guid("042963e9-c983-4253-ad5b-c5a75c894dd8"),
                             CarId = new Guid("c48b7dcd-0d04-4a56-bfe0-df00eb6812b5"),
-                            CreatedOn = new DateTime(2024, 3, 29, 17, 52, 45, 588, DateTimeKind.Utc).AddTicks(3159),
+                            CreatedOn = new DateTime(2024, 3, 29, 18, 26, 16, 808, DateTimeKind.Utc).AddTicks(4116),
                             IsActive = true,
                             SellerEmailAddress = "dimitur122@cars.com",
                             SellerFirstName = "Dimitur",
@@ -785,7 +785,7 @@ namespace VelocityAutos.Data.Migrations
                         {
                             Id = new Guid("7af043e6-1324-4a7a-89ac-45a02945d6a1"),
                             CarId = new Guid("f6707b62-64e1-415f-af35-eb635f988c47"),
-                            CreatedOn = new DateTime(2024, 4, 15, 17, 52, 45, 588, DateTimeKind.Utc).AddTicks(3162),
+                            CreatedOn = new DateTime(2024, 4, 15, 18, 26, 16, 808, DateTimeKind.Utc).AddTicks(4118),
                             IsActive = true,
                             SellerEmailAddress = "ivancars1@cars.com",
                             SellerFirstName = "Ivan",
@@ -797,7 +797,7 @@ namespace VelocityAutos.Data.Migrations
                         {
                             Id = new Guid("e050004c-40e3-4edc-95ef-72beff4b2377"),
                             CarId = new Guid("82f03f75-cfb3-4434-bb73-f8c5dcf4109d"),
-                            CreatedOn = new DateTime(2024, 3, 23, 17, 52, 45, 588, DateTimeKind.Utc).AddTicks(3167),
+                            CreatedOn = new DateTime(2024, 3, 23, 18, 26, 16, 808, DateTimeKind.Utc).AddTicks(4123),
                             IsActive = true,
                             SellerEmailAddress = "ivancars1@cars.com",
                             SellerFirstName = "Ivan",
@@ -809,7 +809,7 @@ namespace VelocityAutos.Data.Migrations
                         {
                             Id = new Guid("f37270cc-5251-4255-add7-f837b01e6453"),
                             CarId = new Guid("fd1f3b19-7e3b-4fec-a1b0-e47188884a42"),
-                            CreatedOn = new DateTime(2024, 3, 29, 17, 52, 45, 588, DateTimeKind.Utc).AddTicks(3170),
+                            CreatedOn = new DateTime(2024, 3, 29, 18, 26, 16, 808, DateTimeKind.Utc).AddTicks(4125),
                             IsActive = true,
                             SellerEmailAddress = "dimitur122@cars.com",
                             SellerFirstName = "Dimitur",
