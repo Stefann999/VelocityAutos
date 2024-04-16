@@ -95,7 +95,7 @@ namespace VelocityAutos.Data.Seeding
                 FuelConsumption = 6,
                 TransmissionTypeId = 2,
                 Color = "Black",
-                Description = "Beautiful compact hatchback. The car combines fuel efficiency with practicality, boasting a sleek design and responsive handling. Its hybrid powertrain offers a smooth driving experience while minimizing environmental impact, making it an ideal choice for eco-conscious drivers.",
+                Description = "Beautiful compact sedan. The car combines fuel efficiency with practicality, boasting a sleek design and responsive handling. Its hybrid powertrain offers a smooth driving experience while minimizing environmental impact, making it an ideal choice for eco-conscious drivers.",
                 LocationCity = "Plovdiv",
                 LocationCountry = "Bulgaria",
                 CategoryId = 1

@@ -83,7 +83,7 @@
                     <p>Post id: @car.PostId</p>
                     <p>Car id: @car.CarId</p>
 
-                    <img src="~/audiA4-image3.jpg" alt="@car.Make" />
+                    <img src=@car.ImagesPaths.FirstOrDefault() alt="@car.Make" />
 
                     <hr />
                     <a asp-area="" asp-controller="Car" asp-action="Details" asp-route-id="@car.CarId" class="btn btn-primary">Details</a>

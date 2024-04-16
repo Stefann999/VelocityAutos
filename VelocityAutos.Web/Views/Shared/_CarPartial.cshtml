@@ -19,7 +19,7 @@ bool isUserOwner = await PostService.IsUserPostOwnerByIdAsync(Model.Id, User.Get
 </head>
 
 <div class="car">
-    <img src="~/audiA4-image3.jpg" alt="@Model.Make">
+    <img src=@Model.ImagesPaths.FirstOrDefault() alt="@Model.Make">
     <div class="car-info">
         @if (isUserOwner || this.User.IsAdmin())
         {
