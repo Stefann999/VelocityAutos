@@ -36,6 +36,14 @@ Welcome to **Velocity Autos**, an **ASP.NET Core MVC** web application build to 
 * MVC Areas
 * Razor views and partial views
 
+<hr>
+
+# Seeded admin credentials
+ * Email: admin@admin.com
+ * Password: admin123
+
+<hr>
+
 
 
 ## :copyright: License ##
