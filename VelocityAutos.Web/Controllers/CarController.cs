@@ -11,8 +11,6 @@ namespace VelocityAutos.Web.Controllers
     [Authorize]
     public class CarController : BaseController
     {
-        // NEW ACCESS TOKEN
-
         private readonly ICategoryService categoryService;
         private readonly IFuelTypeService fuelTypeService;
         private readonly ITransmissionTypeService transmissionTypeService;
