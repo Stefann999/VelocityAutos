@@ -24,7 +24,7 @@
             <div class="card-body">
                 <h3 class="card-title text-center">@Model.Make</h3>
                 <p class="mb-0"><strong>Model:</strong> @Model.Model</p>
-                <p class="mb-0"><strong>Price:</strong> @Model.Price</p>
+                <p class="mb-0"><strong>Price:</strong> @Math.Round(Model.Price) $</p>
                 <p class="mb-0"><strong>Month:</strong> @Model.Month</p>
                 <p class="mb-0"><strong>Year:</strong> @Model.Year</p>
                 <p class="text-danger mt-3"><strong>Are you sure you want to activate this post?</strong></p>
