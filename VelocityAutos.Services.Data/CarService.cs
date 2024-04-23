@@ -23,6 +23,7 @@ namespace VelocityAutos.Services.Data
         public async Task<AllCarsFilteredAndPaged> GetAllCarsAsync(AllCarsQueryModel queryModel)
         {
             IQueryable<Car> carsQuery = repository.AllAsReadOnly<Car>()
+                .Where(c => c.Post.IsActive == true)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryModel.Category))
