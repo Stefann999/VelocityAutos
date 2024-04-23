@@ -48,7 +48,7 @@ namespace VelocityAutos.Web.Controllers
             {
                 foreach (var car in queryModel.Cars)
                 {
-                    string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id}";
+                    string folderPath = $"/VelocityAutos/CarImages/Car_{car.Id.ToLower()}";
                     var currCarImagesUrls = await dropboxService.GetCarImages(folderPath, true);
                     car.ImagesPaths = currCarImagesUrls;
                 }
