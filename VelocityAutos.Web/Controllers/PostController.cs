@@ -26,7 +26,7 @@ namespace VelocityAutos.Web.Controllers
 
             string currUserId = this.User.GetId()!;
 
-            bool isOwner = post.SellerId == currUserId;
+            bool isOwner = post.SellerId.ToLower() == currUserId;
 
             if (!isOwner && !this.User.IsAdmin())
             {
@@ -49,7 +49,7 @@ namespace VelocityAutos.Web.Controllers
 
             string currUserId = this.User.GetId()!;
 
-            bool isAdmin = post.SellerId == currUserId;
+            bool isAdmin = post.SellerId.ToLower() == currUserId;
 
             if (!isAdmin && !this.User.IsAdmin())
             {
@@ -84,7 +84,7 @@ namespace VelocityAutos.Web.Controllers
 
             string currUserId = this.User.GetId()!;
 
-            bool isAdmin = post.SellerId == currUserId;
+            bool isAdmin = post.SellerId.ToLower() == currUserId;
 
             if (!isAdmin && !this.User.IsAdmin())
             {
@@ -107,7 +107,7 @@ namespace VelocityAutos.Web.Controllers
 
             string currUserId = this.User.GetId()!;
 
-            bool isAdmin = post.SellerId == currUserId;
+            bool isAdmin = post.SellerId.ToLower() == currUserId;
 
             if (!isAdmin && !this.User.IsAdmin())
             {
