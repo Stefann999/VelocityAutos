@@ -1,1 +1,0 @@
-﻿To maximize the ease of testing the project, contact me for an access token (which should be replaced with the one in the Program.cs file on line 37) or let me demonstrate Dropbox functionalities on the project defense.
